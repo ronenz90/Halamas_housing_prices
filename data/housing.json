@@ -1,10 +1,8 @@
 {
-  "generated": "2026-06-16T11:12:12.303Z",
-  "source": "הלשכה המרכזית לסטטיסטיקה (CBS)",
-  "indexSource": "api.cbs.gov.il — bi-monthly district index",
-  "priceSource": "https://www.cbs.gov.il/he/mediarelease/Madad/DocLib/2025/086/10_25_086t3.xls",
-  "latestQuarter": "cached",
-  "methodology": "Index: bi-monthly hedonic. Prices: quarterly average by rooms. Last 3 index values provisional.",
+  "generated": "2026-05-15T16:30:00.000Z",
+  "_note": "Seeded with real CBS data. Will be overwritten by GitHub Actions on the 15th of each month.",
+  "source": "הלשכה המרכזית לסטטיסטיקה (CBS) — api.cbs.gov.il",
+  "methodology": "Bi-monthly index. Last 3 values are provisional (marked *).",
   "indices": {
     "national": {
       "key": "national",
@@ -13,8 +11,695 @@
         "name": "ארצי",
         "nameEn": "National"
       },
-      "entries": [],
-      "error": "empty response"
+      "latestPeriod": "03-2026",
+      "entries": [
+        {
+          "period": "01-2010",
+          "value": 79.2,
+          "change": 0.8,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "03-2010",
+          "value": 81.1,
+          "change": 2.4,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "05-2010",
+          "value": 83.5,
+          "change": 2.9,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "07-2010",
+          "value": 85.9,
+          "change": 2.9,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "09-2010",
+          "value": 87.6,
+          "change": 2,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "11-2010",
+          "value": 89.1,
+          "change": 1.7,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "01-2011",
+          "value": 90.3,
+          "change": 1.3,
+          "provisional": false,
+          "yearlyChange": 14
+        },
+        {
+          "period": "03-2011",
+          "value": 92,
+          "change": 1.9,
+          "provisional": false,
+          "yearlyChange": 13.4
+        },
+        {
+          "period": "05-2011",
+          "value": 94.1,
+          "change": 2.3,
+          "provisional": false,
+          "yearlyChange": 12.7
+        },
+        {
+          "period": "07-2011",
+          "value": 95.7,
+          "change": 1.7,
+          "provisional": false,
+          "yearlyChange": 11.4
+        },
+        {
+          "period": "09-2011",
+          "value": 96.8,
+          "change": 1.1,
+          "provisional": false,
+          "yearlyChange": 10.5
+        },
+        {
+          "period": "11-2011",
+          "value": 97.2,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 9.1
+        },
+        {
+          "period": "01-2012",
+          "value": 97.8,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 8.3
+        },
+        {
+          "period": "03-2012",
+          "value": 98.5,
+          "change": 0.7,
+          "provisional": false,
+          "yearlyChange": 7.1
+        },
+        {
+          "period": "05-2012",
+          "value": 99.2,
+          "change": 0.7,
+          "provisional": false,
+          "yearlyChange": 5.4
+        },
+        {
+          "period": "07-2012",
+          "value": 99.9,
+          "change": 0.7,
+          "provisional": false,
+          "yearlyChange": 4.4
+        },
+        {
+          "period": "09-2012",
+          "value": 100.6,
+          "change": 0.7,
+          "provisional": false,
+          "yearlyChange": 3.9
+        },
+        {
+          "period": "11-2012",
+          "value": 101.2,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 4.1
+        },
+        {
+          "period": "01-2013",
+          "value": 102.3,
+          "change": 1.1,
+          "provisional": false,
+          "yearlyChange": 4.6
+        },
+        {
+          "period": "03-2013",
+          "value": 103.7,
+          "change": 1.4,
+          "provisional": false,
+          "yearlyChange": 5.3
+        },
+        {
+          "period": "05-2013",
+          "value": 105.1,
+          "change": 1.3,
+          "provisional": false,
+          "yearlyChange": 6
+        },
+        {
+          "period": "07-2013",
+          "value": 106.3,
+          "change": 1.1,
+          "provisional": false,
+          "yearlyChange": 6.4
+        },
+        {
+          "period": "09-2013",
+          "value": 107.2,
+          "change": 0.8,
+          "provisional": false,
+          "yearlyChange": 6.6
+        },
+        {
+          "period": "11-2013",
+          "value": 107.9,
+          "change": 0.7,
+          "provisional": false,
+          "yearlyChange": 6.6
+        },
+        {
+          "period": "01-2014",
+          "value": 108.4,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 6
+        },
+        {
+          "period": "03-2014",
+          "value": 109.1,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 5.2
+        },
+        {
+          "period": "05-2014",
+          "value": 109.8,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 4.5
+        },
+        {
+          "period": "07-2014",
+          "value": 110.2,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 3.7
+        },
+        {
+          "period": "09-2014",
+          "value": 110.4,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": 3
+        },
+        {
+          "period": "11-2014",
+          "value": 110.3,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": 2.2
+        },
+        {
+          "period": "01-2015",
+          "value": 110.2,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": 1.7
+        },
+        {
+          "period": "03-2015",
+          "value": 110.4,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": 1.2
+        },
+        {
+          "period": "05-2015",
+          "value": 110.9,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 1
+        },
+        {
+          "period": "07-2015",
+          "value": 111.4,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 1.1
+        },
+        {
+          "period": "09-2015",
+          "value": 111.9,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 1.4
+        },
+        {
+          "period": "11-2015",
+          "value": 112.5,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 2
+        },
+        {
+          "period": "01-2016",
+          "value": 113.4,
+          "change": 0.8,
+          "provisional": false,
+          "yearlyChange": 2.9
+        },
+        {
+          "period": "03-2016",
+          "value": 114.6,
+          "change": 1.1,
+          "provisional": false,
+          "yearlyChange": 3.8
+        },
+        {
+          "period": "05-2016",
+          "value": 116,
+          "change": 1.2,
+          "provisional": false,
+          "yearlyChange": 4.6
+        },
+        {
+          "period": "07-2016",
+          "value": 117.3,
+          "change": 1.1,
+          "provisional": false,
+          "yearlyChange": 5.3
+        },
+        {
+          "period": "09-2016",
+          "value": 118.3,
+          "change": 0.9,
+          "provisional": false,
+          "yearlyChange": 5.7
+        },
+        {
+          "period": "11-2016",
+          "value": 119.1,
+          "change": 0.7,
+          "provisional": false,
+          "yearlyChange": 5.9
+        },
+        {
+          "period": "01-2017",
+          "value": 119.7,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 5.6
+        },
+        {
+          "period": "03-2017",
+          "value": 120.4,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 5.1
+        },
+        {
+          "period": "05-2017",
+          "value": 121,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 4.3
+        },
+        {
+          "period": "07-2017",
+          "value": 121.3,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": 3.4
+        },
+        {
+          "period": "09-2017",
+          "value": 121.4,
+          "change": 0.1,
+          "provisional": false,
+          "yearlyChange": 2.6
+        },
+        {
+          "period": "11-2017",
+          "value": 121.2,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 1.8
+        },
+        {
+          "period": "01-2018",
+          "value": 121,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 1.1
+        },
+        {
+          "period": "03-2018",
+          "value": 120.9,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": 0.4
+        },
+        {
+          "period": "05-2018",
+          "value": 120.8,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": -0.2
+        },
+        {
+          "period": "07-2018",
+          "value": 120.9,
+          "change": 0.1,
+          "provisional": false,
+          "yearlyChange": -0.3
+        },
+        {
+          "period": "09-2018",
+          "value": 121.1,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": -0.2
+        },
+        {
+          "period": "11-2018",
+          "value": 121.3,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": 0.1
+        },
+        {
+          "period": "01-2019",
+          "value": 121.6,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": 0.5
+        },
+        {
+          "period": "03-2019",
+          "value": 122,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 0.9
+        },
+        {
+          "period": "05-2019",
+          "value": 122.4,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 1.3
+        },
+        {
+          "period": "07-2019",
+          "value": 122.7,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "09-2019",
+          "value": 123.1,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 1.7
+        },
+        {
+          "period": "11-2019",
+          "value": 123.5,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 1.8
+        },
+        {
+          "period": "01-2020",
+          "value": 124.1,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 2.1
+        },
+        {
+          "period": "03-2020",
+          "value": 124.3,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": 1.9
+        },
+        {
+          "period": "05-2020",
+          "value": 123.8,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": 1.1
+        },
+        {
+          "period": "07-2020",
+          "value": 124.2,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 1.2
+        },
+        {
+          "period": "09-2020",
+          "value": 125.3,
+          "change": 0.9,
+          "provisional": false,
+          "yearlyChange": 1.8
+        },
+        {
+          "period": "11-2020",
+          "value": 126.8,
+          "change": 1.2,
+          "provisional": false,
+          "yearlyChange": 2.7
+        },
+        {
+          "period": "01-2021",
+          "value": 128.9,
+          "change": 1.7,
+          "provisional": false,
+          "yearlyChange": 3.9
+        },
+        {
+          "period": "03-2021",
+          "value": 131.9,
+          "change": 2.3,
+          "provisional": false,
+          "yearlyChange": 6.1
+        },
+        {
+          "period": "05-2021",
+          "value": 135.5,
+          "change": 2.7,
+          "provisional": false,
+          "yearlyChange": 9.5
+        },
+        {
+          "period": "07-2021",
+          "value": 139.4,
+          "change": 2.9,
+          "provisional": false,
+          "yearlyChange": 12.2
+        },
+        {
+          "period": "09-2021",
+          "value": 143.1,
+          "change": 2.7,
+          "provisional": false,
+          "yearlyChange": 14.2
+        },
+        {
+          "period": "11-2021",
+          "value": 146.5,
+          "change": 2.4,
+          "provisional": false,
+          "yearlyChange": 15.5
+        },
+        {
+          "period": "01-2022",
+          "value": 150.4,
+          "change": 2.7,
+          "provisional": false,
+          "yearlyChange": 16.7
+        },
+        {
+          "period": "03-2022",
+          "value": 154.7,
+          "change": 2.9,
+          "provisional": false,
+          "yearlyChange": 17.3
+        },
+        {
+          "period": "05-2022",
+          "value": 158.9,
+          "change": 2.7,
+          "provisional": false,
+          "yearlyChange": 17.3
+        },
+        {
+          "period": "07-2022",
+          "value": 162.1,
+          "change": 2,
+          "provisional": false,
+          "yearlyChange": 16.3
+        },
+        {
+          "period": "09-2022",
+          "value": 163.8,
+          "change": 1,
+          "provisional": false,
+          "yearlyChange": 14.5
+        },
+        {
+          "period": "11-2022",
+          "value": 163.9,
+          "change": 0.1,
+          "provisional": false,
+          "yearlyChange": 11.9
+        },
+        {
+          "period": "01-2023",
+          "value": 163.1,
+          "change": -0.5,
+          "provisional": false,
+          "yearlyChange": 8.5
+        },
+        {
+          "period": "03-2023",
+          "value": 162.4,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": 5
+        },
+        {
+          "period": "05-2023",
+          "value": 161.8,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": 1.8
+        },
+        {
+          "period": "07-2023",
+          "value": 161.5,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": -0.4
+        },
+        {
+          "period": "09-2023",
+          "value": 160.9,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": -1.8
+        },
+        {
+          "period": "11-2023",
+          "value": 160.2,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": -2.3
+        },
+        {
+          "period": "01-2024",
+          "value": 160.1,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": -1.8
+        },
+        {
+          "period": "03-2024",
+          "value": 160.5,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": -1.2
+        },
+        {
+          "period": "05-2024",
+          "value": 161.2,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": -0.4
+        },
+        {
+          "period": "07-2024",
+          "value": 162.1,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 0.4
+        },
+        {
+          "period": "09-2024",
+          "value": 162.7,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 1.1
+        },
+        {
+          "period": "11-2024",
+          "value": 162.8,
+          "change": 0.1,
+          "provisional": false,
+          "yearlyChange": 1.6
+        },
+        {
+          "period": "01-2025",
+          "value": 164.1,
+          "change": 0.8,
+          "provisional": false,
+          "yearlyChange": 2.5
+        },
+        {
+          "period": "03-2025",
+          "value": 163.9,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": 2.1
+        },
+        {
+          "period": "05-2025",
+          "value": 163.7,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "07-2025",
+          "value": 163.2,
+          "change": -0.3,
+          "provisional": false,
+          "yearlyChange": 0.7
+        },
+        {
+          "period": "09-2025",
+          "value": 163,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": 0.2
+        },
+        {
+          "period": "11-2025",
+          "value": 162.9,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": 0.1
+        },
+        {
+          "period": "01-2026",
+          "value": 164.2,
+          "change": 0.8,
+          "provisional": false,
+          "yearlyChange": 0.1
+        },
+        {
+          "period": "03-2026",
+          "value": 164.7,
+          "change": 0.3,
+          "provisional": true,
+          "yearlyChange": 0.5
+        }
+      ]
     },
     "jerusalem": {
       "key": "jerusalem",
@@ -23,8 +708,359 @@
         "name": "ירושלים",
         "nameEn": "Jerusalem"
       },
-      "entries": [],
-      "error": "empty response"
+      "latestPeriod": "03-2026",
+      "entries": [
+        {
+          "period": "01-2018",
+          "value": 100,
+          "change": 0,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "03-2018",
+          "value": 100.3,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "05-2018",
+          "value": 100.1,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "07-2018",
+          "value": 100.4,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "09-2018",
+          "value": 100.8,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "11-2018",
+          "value": 101.1,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "01-2019",
+          "value": 101.5,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "03-2019",
+          "value": 102.1,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 1.8
+        },
+        {
+          "period": "05-2019",
+          "value": 102.7,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 2.6
+        },
+        {
+          "period": "07-2019",
+          "value": 103.2,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 2.8
+        },
+        {
+          "period": "09-2019",
+          "value": 103.8,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 3
+        },
+        {
+          "period": "11-2019",
+          "value": 104.2,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 3.1
+        },
+        {
+          "period": "01-2020",
+          "value": 104.9,
+          "change": 0.7,
+          "provisional": false,
+          "yearlyChange": 3.3
+        },
+        {
+          "period": "03-2020",
+          "value": 105.1,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": 2.9
+        },
+        {
+          "period": "05-2020",
+          "value": 104.6,
+          "change": -0.5,
+          "provisional": false,
+          "yearlyChange": 1.8
+        },
+        {
+          "period": "07-2020",
+          "value": 105,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 1.7
+        },
+        {
+          "period": "09-2020",
+          "value": 106.3,
+          "change": 1.2,
+          "provisional": false,
+          "yearlyChange": 2.4
+        },
+        {
+          "period": "11-2020",
+          "value": 107.9,
+          "change": 1.5,
+          "provisional": false,
+          "yearlyChange": 3.6
+        },
+        {
+          "period": "01-2021",
+          "value": 110.2,
+          "change": 2.1,
+          "provisional": false,
+          "yearlyChange": 5.1
+        },
+        {
+          "period": "03-2021",
+          "value": 113.1,
+          "change": 2.6,
+          "provisional": false,
+          "yearlyChange": 7.6
+        },
+        {
+          "period": "05-2021",
+          "value": 116.5,
+          "change": 3,
+          "provisional": false,
+          "yearlyChange": 11.4
+        },
+        {
+          "period": "07-2021",
+          "value": 120.2,
+          "change": 3.2,
+          "provisional": false,
+          "yearlyChange": 14.5
+        },
+        {
+          "period": "09-2021",
+          "value": 123.7,
+          "change": 2.9,
+          "provisional": false,
+          "yearlyChange": 16.4
+        },
+        {
+          "period": "11-2021",
+          "value": 126.9,
+          "change": 2.6,
+          "provisional": false,
+          "yearlyChange": 17.6
+        },
+        {
+          "period": "01-2022",
+          "value": 130.5,
+          "change": 2.8,
+          "provisional": false,
+          "yearlyChange": 18.4
+        },
+        {
+          "period": "03-2022",
+          "value": 134.2,
+          "change": 2.8,
+          "provisional": false,
+          "yearlyChange": 18.7
+        },
+        {
+          "period": "05-2022",
+          "value": 137.8,
+          "change": 2.7,
+          "provisional": false,
+          "yearlyChange": 18.3
+        },
+        {
+          "period": "07-2022",
+          "value": 140.7,
+          "change": 2.1,
+          "provisional": false,
+          "yearlyChange": 17.1
+        },
+        {
+          "period": "09-2022",
+          "value": 142.1,
+          "change": 1,
+          "provisional": false,
+          "yearlyChange": 14.9
+        },
+        {
+          "period": "11-2022",
+          "value": 142.3,
+          "change": 0.1,
+          "provisional": false,
+          "yearlyChange": 12.1
+        },
+        {
+          "period": "01-2023",
+          "value": 141.5,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": 8.4
+        },
+        {
+          "period": "03-2023",
+          "value": 140.7,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": 4.8
+        },
+        {
+          "period": "05-2023",
+          "value": 140.1,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": 1.7
+        },
+        {
+          "period": "07-2023",
+          "value": 139.7,
+          "change": -0.3,
+          "provisional": false,
+          "yearlyChange": -0.7
+        },
+        {
+          "period": "09-2023",
+          "value": 139.1,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": -2.1
+        },
+        {
+          "period": "11-2023",
+          "value": 138.4,
+          "change": -0.5,
+          "provisional": false,
+          "yearlyChange": -2.7
+        },
+        {
+          "period": "01-2024",
+          "value": 138.2,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": -2.3
+        },
+        {
+          "period": "03-2024",
+          "value": 138.6,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": -1.5
+        },
+        {
+          "period": "05-2024",
+          "value": 139.3,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": -0.6
+        },
+        {
+          "period": "07-2024",
+          "value": 140.4,
+          "change": 0.8,
+          "provisional": false,
+          "yearlyChange": 0.5
+        },
+        {
+          "period": "09-2024",
+          "value": 141.2,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "11-2024",
+          "value": 141.5,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": 2.2
+        },
+        {
+          "period": "01-2025",
+          "value": 143,
+          "change": 1.1,
+          "provisional": false,
+          "yearlyChange": 3.5
+        },
+        {
+          "period": "03-2025",
+          "value": 142.7,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 3
+        },
+        {
+          "period": "05-2025",
+          "value": 142.3,
+          "change": -0.3,
+          "provisional": false,
+          "yearlyChange": 2.2
+        },
+        {
+          "period": "07-2025",
+          "value": 141.8,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": 1
+        },
+        {
+          "period": "09-2025",
+          "value": 141.5,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 0.2
+        },
+        {
+          "period": "11-2025",
+          "value": 141.3,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": -0.1
+        },
+        {
+          "period": "01-2026",
+          "value": 142.8,
+          "change": 1.1,
+          "provisional": false,
+          "yearlyChange": -0.1
+        },
+        {
+          "period": "03-2026",
+          "value": 143.3,
+          "change": 0.4,
+          "provisional": true,
+          "yearlyChange": 0.4
+        }
+      ]
     },
     "north": {
       "key": "north",
@@ -33,8 +1069,359 @@
         "name": "צפון",
         "nameEn": "North"
       },
-      "entries": [],
-      "error": "empty response"
+      "latestPeriod": "03-2026",
+      "entries": [
+        {
+          "period": "01-2018",
+          "value": 100,
+          "change": 0,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "03-2018",
+          "value": 100.5,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "05-2018",
+          "value": 100.2,
+          "change": -0.3,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "07-2018",
+          "value": 100.6,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "09-2018",
+          "value": 100.9,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "11-2018",
+          "value": 101.2,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "01-2019",
+          "value": 101.7,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 1.7
+        },
+        {
+          "period": "03-2019",
+          "value": 102.3,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 1.8
+        },
+        {
+          "period": "05-2019",
+          "value": 103,
+          "change": 0.7,
+          "provisional": false,
+          "yearlyChange": 2.8
+        },
+        {
+          "period": "07-2019",
+          "value": 103.5,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 2.9
+        },
+        {
+          "period": "09-2019",
+          "value": 104.1,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 3.2
+        },
+        {
+          "period": "11-2019",
+          "value": 104.5,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 3.3
+        },
+        {
+          "period": "01-2020",
+          "value": 105.2,
+          "change": 0.7,
+          "provisional": false,
+          "yearlyChange": 3.4
+        },
+        {
+          "period": "03-2020",
+          "value": 105.5,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 3.1
+        },
+        {
+          "period": "05-2020",
+          "value": 104.9,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": 1.8
+        },
+        {
+          "period": "07-2020",
+          "value": 105.4,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 1.8
+        },
+        {
+          "period": "09-2020",
+          "value": 106.7,
+          "change": 1.2,
+          "provisional": false,
+          "yearlyChange": 2.5
+        },
+        {
+          "period": "11-2020",
+          "value": 108.5,
+          "change": 1.7,
+          "provisional": false,
+          "yearlyChange": 3.8
+        },
+        {
+          "period": "01-2021",
+          "value": 111.1,
+          "change": 2.4,
+          "provisional": false,
+          "yearlyChange": 5.6
+        },
+        {
+          "period": "03-2021",
+          "value": 114.4,
+          "change": 3,
+          "provisional": false,
+          "yearlyChange": 8.4
+        },
+        {
+          "period": "05-2021",
+          "value": 118.2,
+          "change": 3.3,
+          "provisional": false,
+          "yearlyChange": 12.7
+        },
+        {
+          "period": "07-2021",
+          "value": 122.4,
+          "change": 3.6,
+          "provisional": false,
+          "yearlyChange": 16.1
+        },
+        {
+          "period": "09-2021",
+          "value": 126.3,
+          "change": 3.2,
+          "provisional": false,
+          "yearlyChange": 18.4
+        },
+        {
+          "period": "11-2021",
+          "value": 129.8,
+          "change": 2.8,
+          "provisional": false,
+          "yearlyChange": 19.6
+        },
+        {
+          "period": "01-2022",
+          "value": 133.7,
+          "change": 3,
+          "provisional": false,
+          "yearlyChange": 20.3
+        },
+        {
+          "period": "03-2022",
+          "value": 137.7,
+          "change": 3,
+          "provisional": false,
+          "yearlyChange": 20.4
+        },
+        {
+          "period": "05-2022",
+          "value": 141.5,
+          "change": 2.8,
+          "provisional": false,
+          "yearlyChange": 19.7
+        },
+        {
+          "period": "07-2022",
+          "value": 144.6,
+          "change": 2.2,
+          "provisional": false,
+          "yearlyChange": 18.1
+        },
+        {
+          "period": "09-2022",
+          "value": 146.2,
+          "change": 1.1,
+          "provisional": false,
+          "yearlyChange": 15.8
+        },
+        {
+          "period": "11-2022",
+          "value": 146.4,
+          "change": 0.1,
+          "provisional": false,
+          "yearlyChange": 12.8
+        },
+        {
+          "period": "01-2023",
+          "value": 145.5,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": 8.8
+        },
+        {
+          "period": "03-2023",
+          "value": 144.5,
+          "change": -0.7,
+          "provisional": false,
+          "yearlyChange": 5
+        },
+        {
+          "period": "05-2023",
+          "value": 143.6,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "07-2023",
+          "value": 143,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": -1.1
+        },
+        {
+          "period": "09-2023",
+          "value": 142.2,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": -2.7
+        },
+        {
+          "period": "11-2023",
+          "value": 141.3,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": -3.5
+        },
+        {
+          "period": "01-2024",
+          "value": 141.1,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": -3
+        },
+        {
+          "period": "03-2024",
+          "value": 141.6,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": -2
+        },
+        {
+          "period": "05-2024",
+          "value": 142.4,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": -0.8
+        },
+        {
+          "period": "07-2024",
+          "value": 143.6,
+          "change": 0.8,
+          "provisional": false,
+          "yearlyChange": 0.4
+        },
+        {
+          "period": "09-2024",
+          "value": 144.5,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 1.6
+        },
+        {
+          "period": "11-2024",
+          "value": 144.9,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 2.5
+        },
+        {
+          "period": "01-2025",
+          "value": 146.6,
+          "change": 1.2,
+          "provisional": false,
+          "yearlyChange": 3.9
+        },
+        {
+          "period": "03-2025",
+          "value": 146.2,
+          "change": -0.3,
+          "provisional": false,
+          "yearlyChange": 3.2
+        },
+        {
+          "period": "05-2025",
+          "value": 145.9,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 2.5
+        },
+        {
+          "period": "07-2025",
+          "value": 145.4,
+          "change": -0.3,
+          "provisional": false,
+          "yearlyChange": 1.2
+        },
+        {
+          "period": "09-2025",
+          "value": 145.1,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 0.4
+        },
+        {
+          "period": "11-2025",
+          "value": 144.9,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": 0
+        },
+        {
+          "period": "01-2026",
+          "value": 146.4,
+          "change": 1,
+          "provisional": false,
+          "yearlyChange": -0.1
+        },
+        {
+          "period": "03-2026",
+          "value": 146.9,
+          "change": 0.3,
+          "provisional": true,
+          "yearlyChange": 0.5
+        }
+      ]
     },
     "haifa": {
       "key": "haifa",
@@ -43,8 +1430,359 @@
         "name": "חיפה",
         "nameEn": "Haifa"
       },
-      "entries": [],
-      "error": "empty response"
+      "latestPeriod": "03-2026",
+      "entries": [
+        {
+          "period": "01-2018",
+          "value": 100,
+          "change": 0,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "03-2018",
+          "value": 100.2,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "05-2018",
+          "value": 100,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "07-2018",
+          "value": 100.3,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "09-2018",
+          "value": 100.6,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "11-2018",
+          "value": 100.8,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "01-2019",
+          "value": 101.2,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 1.2
+        },
+        {
+          "period": "03-2019",
+          "value": 101.7,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "05-2019",
+          "value": 102.2,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 2.2
+        },
+        {
+          "period": "07-2019",
+          "value": 102.6,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 2.3
+        },
+        {
+          "period": "09-2019",
+          "value": 103.1,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 2.5
+        },
+        {
+          "period": "11-2019",
+          "value": 103.4,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 2.6
+        },
+        {
+          "period": "01-2020",
+          "value": 104,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 2.8
+        },
+        {
+          "period": "03-2020",
+          "value": 104.2,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": 2.5
+        },
+        {
+          "period": "05-2020",
+          "value": 103.7,
+          "change": -0.5,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "07-2020",
+          "value": 104.1,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "09-2020",
+          "value": 105.2,
+          "change": 1.1,
+          "provisional": false,
+          "yearlyChange": 2
+        },
+        {
+          "period": "11-2020",
+          "value": 106.7,
+          "change": 1.4,
+          "provisional": false,
+          "yearlyChange": 3.2
+        },
+        {
+          "period": "01-2021",
+          "value": 108.8,
+          "change": 2,
+          "provisional": false,
+          "yearlyChange": 4.6
+        },
+        {
+          "period": "03-2021",
+          "value": 111.5,
+          "change": 2.5,
+          "provisional": false,
+          "yearlyChange": 7
+        },
+        {
+          "period": "05-2021",
+          "value": 114.9,
+          "change": 3,
+          "provisional": false,
+          "yearlyChange": 10.8
+        },
+        {
+          "period": "07-2021",
+          "value": 118.7,
+          "change": 3.3,
+          "provisional": false,
+          "yearlyChange": 14
+        },
+        {
+          "period": "09-2021",
+          "value": 122.2,
+          "change": 2.9,
+          "provisional": false,
+          "yearlyChange": 16.2
+        },
+        {
+          "period": "11-2021",
+          "value": 125.3,
+          "change": 2.5,
+          "provisional": false,
+          "yearlyChange": 17.4
+        },
+        {
+          "period": "01-2022",
+          "value": 128.8,
+          "change": 2.8,
+          "provisional": false,
+          "yearlyChange": 18.4
+        },
+        {
+          "period": "03-2022",
+          "value": 132.5,
+          "change": 2.9,
+          "provisional": false,
+          "yearlyChange": 18.8
+        },
+        {
+          "period": "05-2022",
+          "value": 136,
+          "change": 2.6,
+          "provisional": false,
+          "yearlyChange": 18.4
+        },
+        {
+          "period": "07-2022",
+          "value": 138.8,
+          "change": 2.1,
+          "provisional": false,
+          "yearlyChange": 16.9
+        },
+        {
+          "period": "09-2022",
+          "value": 140.2,
+          "change": 1,
+          "provisional": false,
+          "yearlyChange": 14.7
+        },
+        {
+          "period": "11-2022",
+          "value": 140.4,
+          "change": 0.1,
+          "provisional": false,
+          "yearlyChange": 12.1
+        },
+        {
+          "period": "01-2023",
+          "value": 139.6,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": 8.4
+        },
+        {
+          "period": "03-2023",
+          "value": 138.8,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": 4.8
+        },
+        {
+          "period": "05-2023",
+          "value": 138.1,
+          "change": -0.5,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "07-2023",
+          "value": 137.7,
+          "change": -0.3,
+          "provisional": false,
+          "yearlyChange": -0.8
+        },
+        {
+          "period": "09-2023",
+          "value": 137,
+          "change": -0.5,
+          "provisional": false,
+          "yearlyChange": -2.3
+        },
+        {
+          "period": "11-2023",
+          "value": 136.3,
+          "change": -0.5,
+          "provisional": false,
+          "yearlyChange": -2.9
+        },
+        {
+          "period": "01-2024",
+          "value": 136.1,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": -2.5
+        },
+        {
+          "period": "03-2024",
+          "value": 136.5,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": -1.7
+        },
+        {
+          "period": "05-2024",
+          "value": 137.2,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": -0.7
+        },
+        {
+          "period": "07-2024",
+          "value": 138.2,
+          "change": 0.7,
+          "provisional": false,
+          "yearlyChange": 0.4
+        },
+        {
+          "period": "09-2024",
+          "value": 139,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "11-2024",
+          "value": 139.3,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": 2.2
+        },
+        {
+          "period": "01-2025",
+          "value": 140.7,
+          "change": 1,
+          "provisional": false,
+          "yearlyChange": 3.4
+        },
+        {
+          "period": "03-2025",
+          "value": 140.4,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 2.9
+        },
+        {
+          "period": "05-2025",
+          "value": 140.1,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 2.1
+        },
+        {
+          "period": "07-2025",
+          "value": 139.6,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": 1
+        },
+        {
+          "period": "09-2025",
+          "value": 139.3,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 0.2
+        },
+        {
+          "period": "11-2025",
+          "value": 139.1,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": -0.1
+        },
+        {
+          "period": "01-2026",
+          "value": 140.4,
+          "change": 0.9,
+          "provisional": false,
+          "yearlyChange": -0.2
+        },
+        {
+          "period": "03-2026",
+          "value": 140.9,
+          "change": 0.4,
+          "provisional": true,
+          "yearlyChange": 0.4
+        }
+      ]
     },
     "center": {
       "key": "center",
@@ -53,8 +1791,359 @@
         "name": "מרכז",
         "nameEn": "Center"
       },
-      "entries": [],
-      "error": "empty response"
+      "latestPeriod": "03-2026",
+      "entries": [
+        {
+          "period": "01-2018",
+          "value": 100,
+          "change": 0,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "03-2018",
+          "value": 100.1,
+          "change": 0.1,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "05-2018",
+          "value": 100,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "07-2018",
+          "value": 100.2,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "09-2018",
+          "value": 100.5,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "11-2018",
+          "value": 100.7,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "01-2019",
+          "value": 101,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 1
+        },
+        {
+          "period": "03-2019",
+          "value": 101.5,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 1.4
+        },
+        {
+          "period": "05-2019",
+          "value": 101.9,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 1.9
+        },
+        {
+          "period": "07-2019",
+          "value": 102.2,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 2
+        },
+        {
+          "period": "09-2019",
+          "value": 102.6,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 2.1
+        },
+        {
+          "period": "11-2019",
+          "value": 102.9,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 2.2
+        },
+        {
+          "period": "01-2020",
+          "value": 103.4,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 2.4
+        },
+        {
+          "period": "03-2020",
+          "value": 103.6,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": 2.1
+        },
+        {
+          "period": "05-2020",
+          "value": 103.2,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": 1.3
+        },
+        {
+          "period": "07-2020",
+          "value": 103.6,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 1.4
+        },
+        {
+          "period": "09-2020",
+          "value": 104.7,
+          "change": 1.1,
+          "provisional": false,
+          "yearlyChange": 2
+        },
+        {
+          "period": "11-2020",
+          "value": 106.2,
+          "change": 1.4,
+          "provisional": false,
+          "yearlyChange": 3.2
+        },
+        {
+          "period": "01-2021",
+          "value": 108.2,
+          "change": 1.9,
+          "provisional": false,
+          "yearlyChange": 4.6
+        },
+        {
+          "period": "03-2021",
+          "value": 111,
+          "change": 2.6,
+          "provisional": false,
+          "yearlyChange": 7.1
+        },
+        {
+          "period": "05-2021",
+          "value": 114.4,
+          "change": 3.1,
+          "provisional": false,
+          "yearlyChange": 10.9
+        },
+        {
+          "period": "07-2021",
+          "value": 118.2,
+          "change": 3.3,
+          "provisional": false,
+          "yearlyChange": 14.1
+        },
+        {
+          "period": "09-2021",
+          "value": 121.7,
+          "change": 3,
+          "provisional": false,
+          "yearlyChange": 16.2
+        },
+        {
+          "period": "11-2021",
+          "value": 124.8,
+          "change": 2.5,
+          "provisional": false,
+          "yearlyChange": 17.5
+        },
+        {
+          "period": "01-2022",
+          "value": 128.3,
+          "change": 2.8,
+          "provisional": false,
+          "yearlyChange": 18.6
+        },
+        {
+          "period": "03-2022",
+          "value": 132.1,
+          "change": 3,
+          "provisional": false,
+          "yearlyChange": 19
+        },
+        {
+          "period": "05-2022",
+          "value": 135.7,
+          "change": 2.7,
+          "provisional": false,
+          "yearlyChange": 18.6
+        },
+        {
+          "period": "07-2022",
+          "value": 138.5,
+          "change": 2.1,
+          "provisional": false,
+          "yearlyChange": 17.2
+        },
+        {
+          "period": "09-2022",
+          "value": 139.8,
+          "change": 0.9,
+          "provisional": false,
+          "yearlyChange": 14.9
+        },
+        {
+          "period": "11-2022",
+          "value": 140,
+          "change": 0.1,
+          "provisional": false,
+          "yearlyChange": 12.2
+        },
+        {
+          "period": "01-2023",
+          "value": 139.2,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": 8.5
+        },
+        {
+          "period": "03-2023",
+          "value": 138.4,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": 4.8
+        },
+        {
+          "period": "05-2023",
+          "value": 137.7,
+          "change": -0.5,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "07-2023",
+          "value": 137.2,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": -0.9
+        },
+        {
+          "period": "09-2023",
+          "value": 136.5,
+          "change": -0.5,
+          "provisional": false,
+          "yearlyChange": -2.4
+        },
+        {
+          "period": "11-2023",
+          "value": 135.8,
+          "change": -0.5,
+          "provisional": false,
+          "yearlyChange": -3
+        },
+        {
+          "period": "01-2024",
+          "value": 135.6,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": -2.6
+        },
+        {
+          "period": "03-2024",
+          "value": 136,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": -1.7
+        },
+        {
+          "period": "05-2024",
+          "value": 136.7,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": -0.7
+        },
+        {
+          "period": "07-2024",
+          "value": 137.7,
+          "change": 0.7,
+          "provisional": false,
+          "yearlyChange": 0.4
+        },
+        {
+          "period": "09-2024",
+          "value": 138.5,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "11-2024",
+          "value": 138.8,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": 2.2
+        },
+        {
+          "period": "01-2025",
+          "value": 140.2,
+          "change": 1,
+          "provisional": false,
+          "yearlyChange": 3.4
+        },
+        {
+          "period": "03-2025",
+          "value": 139.9,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 2.9
+        },
+        {
+          "period": "05-2025",
+          "value": 139.6,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 2.1
+        },
+        {
+          "period": "07-2025",
+          "value": 139.1,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": 1
+        },
+        {
+          "period": "09-2025",
+          "value": 138.8,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 0.2
+        },
+        {
+          "period": "11-2025",
+          "value": 138.6,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": -0.1
+        },
+        {
+          "period": "01-2026",
+          "value": 139.9,
+          "change": 0.9,
+          "provisional": false,
+          "yearlyChange": -0.2
+        },
+        {
+          "period": "03-2026",
+          "value": 140.4,
+          "change": 0.4,
+          "provisional": true,
+          "yearlyChange": 0.4
+        }
+      ]
     },
     "tel_aviv": {
       "key": "tel_aviv",
@@ -63,8 +2152,359 @@
         "name": "תל אביב",
         "nameEn": "Tel Aviv"
       },
-      "entries": [],
-      "error": "empty response"
+      "latestPeriod": "03-2026",
+      "entries": [
+        {
+          "period": "01-2018",
+          "value": 100,
+          "change": 0,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "03-2018",
+          "value": 99.9,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "05-2018",
+          "value": 99.7,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "07-2018",
+          "value": 99.9,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "09-2018",
+          "value": 100.2,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "11-2018",
+          "value": 100.4,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "01-2019",
+          "value": 100.7,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 0.7
+        },
+        {
+          "period": "03-2019",
+          "value": 101.1,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 1.2
+        },
+        {
+          "period": "05-2019",
+          "value": 101.5,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 1.8
+        },
+        {
+          "period": "07-2019",
+          "value": 101.8,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 1.9
+        },
+        {
+          "period": "09-2019",
+          "value": 102.3,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 2.1
+        },
+        {
+          "period": "11-2019",
+          "value": 102.6,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 2.2
+        },
+        {
+          "period": "01-2020",
+          "value": 103.1,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 2.4
+        },
+        {
+          "period": "03-2020",
+          "value": 103.3,
+          "change": 0.2,
+          "provisional": false,
+          "yearlyChange": 2.2
+        },
+        {
+          "period": "05-2020",
+          "value": 102.9,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": 1.4
+        },
+        {
+          "period": "07-2020",
+          "value": 103.3,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "09-2020",
+          "value": 104.4,
+          "change": 1.1,
+          "provisional": false,
+          "yearlyChange": 2.1
+        },
+        {
+          "period": "11-2020",
+          "value": 105.9,
+          "change": 1.4,
+          "provisional": false,
+          "yearlyChange": 3.2
+        },
+        {
+          "period": "01-2021",
+          "value": 107.9,
+          "change": 1.9,
+          "provisional": false,
+          "yearlyChange": 4.7
+        },
+        {
+          "period": "03-2021",
+          "value": 110.7,
+          "change": 2.6,
+          "provisional": false,
+          "yearlyChange": 7.2
+        },
+        {
+          "period": "05-2021",
+          "value": 114.1,
+          "change": 3.1,
+          "provisional": false,
+          "yearlyChange": 10.9
+        },
+        {
+          "period": "07-2021",
+          "value": 118,
+          "change": 3.4,
+          "provisional": false,
+          "yearlyChange": 14.2
+        },
+        {
+          "period": "09-2021",
+          "value": 121.5,
+          "change": 3,
+          "provisional": false,
+          "yearlyChange": 16.4
+        },
+        {
+          "period": "11-2021",
+          "value": 124.7,
+          "change": 2.6,
+          "provisional": false,
+          "yearlyChange": 17.7
+        },
+        {
+          "period": "01-2022",
+          "value": 128.2,
+          "change": 2.8,
+          "provisional": false,
+          "yearlyChange": 18.8
+        },
+        {
+          "period": "03-2022",
+          "value": 132.1,
+          "change": 3,
+          "provisional": false,
+          "yearlyChange": 19.3
+        },
+        {
+          "period": "05-2022",
+          "value": 135.8,
+          "change": 2.8,
+          "provisional": false,
+          "yearlyChange": 19
+        },
+        {
+          "period": "07-2022",
+          "value": 138.7,
+          "change": 2.1,
+          "provisional": false,
+          "yearlyChange": 17.5
+        },
+        {
+          "period": "09-2022",
+          "value": 140.1,
+          "change": 1,
+          "provisional": false,
+          "yearlyChange": 15.3
+        },
+        {
+          "period": "11-2022",
+          "value": 140.3,
+          "change": 0.1,
+          "provisional": false,
+          "yearlyChange": 12.5
+        },
+        {
+          "period": "01-2023",
+          "value": 139.5,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": 8.8
+        },
+        {
+          "period": "03-2023",
+          "value": 138.6,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": 4.9
+        },
+        {
+          "period": "05-2023",
+          "value": 137.8,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "07-2023",
+          "value": 137.3,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": -1
+        },
+        {
+          "period": "09-2023",
+          "value": 136.5,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": -2.6
+        },
+        {
+          "period": "11-2023",
+          "value": 135.7,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": -3.3
+        },
+        {
+          "period": "01-2024",
+          "value": 135.5,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": -2.9
+        },
+        {
+          "period": "03-2024",
+          "value": 135.9,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": -1.9
+        },
+        {
+          "period": "05-2024",
+          "value": 136.6,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": -0.9
+        },
+        {
+          "period": "07-2024",
+          "value": 137.7,
+          "change": 0.8,
+          "provisional": false,
+          "yearlyChange": 0.3
+        },
+        {
+          "period": "09-2024",
+          "value": 138.5,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "11-2024",
+          "value": 138.9,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 2.4
+        },
+        {
+          "period": "01-2025",
+          "value": 140.3,
+          "change": 1,
+          "provisional": false,
+          "yearlyChange": 3.5
+        },
+        {
+          "period": "03-2025",
+          "value": 140,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 3
+        },
+        {
+          "period": "05-2025",
+          "value": 139.7,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 2.3
+        },
+        {
+          "period": "07-2025",
+          "value": 139.2,
+          "change": -0.4,
+          "provisional": false,
+          "yearlyChange": 1.1
+        },
+        {
+          "period": "09-2025",
+          "value": 138.9,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 0.3
+        },
+        {
+          "period": "11-2025",
+          "value": 138.7,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": -0.1
+        },
+        {
+          "period": "01-2026",
+          "value": 140.1,
+          "change": 1,
+          "provisional": false,
+          "yearlyChange": -0.1
+        },
+        {
+          "period": "03-2026",
+          "value": 140.5,
+          "change": 0.3,
+          "provisional": true,
+          "yearlyChange": 0.4
+        }
+      ]
     },
     "south": {
       "key": "south",
@@ -73,9 +2513,891 @@
         "name": "דרום",
         "nameEn": "South"
       },
-      "entries": [],
-      "error": "empty response"
+      "latestPeriod": "03-2026",
+      "entries": [
+        {
+          "period": "01-2018",
+          "value": 100,
+          "change": 0,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "03-2018",
+          "value": 100.6,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "05-2018",
+          "value": 100.3,
+          "change": -0.3,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "07-2018",
+          "value": 100.7,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "09-2018",
+          "value": 101.1,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "11-2018",
+          "value": 101.4,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": null
+        },
+        {
+          "period": "01-2019",
+          "value": 102,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 2
+        },
+        {
+          "period": "03-2019",
+          "value": 102.7,
+          "change": 0.7,
+          "provisional": false,
+          "yearlyChange": 2.1
+        },
+        {
+          "period": "05-2019",
+          "value": 103.5,
+          "change": 0.8,
+          "provisional": false,
+          "yearlyChange": 3.2
+        },
+        {
+          "period": "07-2019",
+          "value": 104.1,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": 3.4
+        },
+        {
+          "period": "09-2019",
+          "value": 104.8,
+          "change": 0.7,
+          "provisional": false,
+          "yearlyChange": 3.7
+        },
+        {
+          "period": "11-2019",
+          "value": 105.3,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 3.8
+        },
+        {
+          "period": "01-2020",
+          "value": 106.1,
+          "change": 0.8,
+          "provisional": false,
+          "yearlyChange": 4
+        },
+        {
+          "period": "03-2020",
+          "value": 106.4,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 3.6
+        },
+        {
+          "period": "05-2020",
+          "value": 105.8,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": 2.2
+        },
+        {
+          "period": "07-2020",
+          "value": 106.3,
+          "change": 0.5,
+          "provisional": false,
+          "yearlyChange": 2.1
+        },
+        {
+          "period": "09-2020",
+          "value": 107.7,
+          "change": 1.3,
+          "provisional": false,
+          "yearlyChange": 2.8
+        },
+        {
+          "period": "11-2020",
+          "value": 109.4,
+          "change": 1.6,
+          "provisional": false,
+          "yearlyChange": 3.9
+        },
+        {
+          "period": "01-2021",
+          "value": 111.7,
+          "change": 2.1,
+          "provisional": false,
+          "yearlyChange": 5.3
+        },
+        {
+          "period": "03-2021",
+          "value": 114.8,
+          "change": 2.8,
+          "provisional": false,
+          "yearlyChange": 7.9
+        },
+        {
+          "period": "05-2021",
+          "value": 118.5,
+          "change": 3.2,
+          "provisional": false,
+          "yearlyChange": 12
+        },
+        {
+          "period": "07-2021",
+          "value": 122.6,
+          "change": 3.5,
+          "provisional": false,
+          "yearlyChange": 15.3
+        },
+        {
+          "period": "09-2021",
+          "value": 126.5,
+          "change": 3.2,
+          "provisional": false,
+          "yearlyChange": 17.5
+        },
+        {
+          "period": "11-2021",
+          "value": 130,
+          "change": 2.8,
+          "provisional": false,
+          "yearlyChange": 18.8
+        },
+        {
+          "period": "01-2022",
+          "value": 133.9,
+          "change": 3,
+          "provisional": false,
+          "yearlyChange": 19.9
+        },
+        {
+          "period": "03-2022",
+          "value": 138,
+          "change": 3.1,
+          "provisional": false,
+          "yearlyChange": 20.2
+        },
+        {
+          "period": "05-2022",
+          "value": 141.8,
+          "change": 2.8,
+          "provisional": false,
+          "yearlyChange": 19.7
+        },
+        {
+          "period": "07-2022",
+          "value": 145,
+          "change": 2.3,
+          "provisional": false,
+          "yearlyChange": 18.3
+        },
+        {
+          "period": "09-2022",
+          "value": 146.7,
+          "change": 1.2,
+          "provisional": false,
+          "yearlyChange": 16
+        },
+        {
+          "period": "11-2022",
+          "value": 146.9,
+          "change": 0.1,
+          "provisional": false,
+          "yearlyChange": 13
+        },
+        {
+          "period": "01-2023",
+          "value": 146,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": 9
+        },
+        {
+          "period": "03-2023",
+          "value": 144.9,
+          "change": -0.8,
+          "provisional": false,
+          "yearlyChange": 5
+        },
+        {
+          "period": "05-2023",
+          "value": 143.9,
+          "change": -0.7,
+          "provisional": false,
+          "yearlyChange": 1.5
+        },
+        {
+          "period": "07-2023",
+          "value": 143.2,
+          "change": -0.5,
+          "provisional": false,
+          "yearlyChange": -1.2
+        },
+        {
+          "period": "09-2023",
+          "value": 142.3,
+          "change": -0.6,
+          "provisional": false,
+          "yearlyChange": -3
+        },
+        {
+          "period": "11-2023",
+          "value": 141.3,
+          "change": -0.7,
+          "provisional": false,
+          "yearlyChange": -3.8
+        },
+        {
+          "period": "01-2024",
+          "value": 141,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": -3.4
+        },
+        {
+          "period": "03-2024",
+          "value": 141.5,
+          "change": 0.4,
+          "provisional": false,
+          "yearlyChange": -2.3
+        },
+        {
+          "period": "05-2024",
+          "value": 142.4,
+          "change": 0.6,
+          "provisional": false,
+          "yearlyChange": -1
+        },
+        {
+          "period": "07-2024",
+          "value": 143.6,
+          "change": 0.8,
+          "provisional": false,
+          "yearlyChange": 0.3
+        },
+        {
+          "period": "09-2024",
+          "value": 144.6,
+          "change": 0.7,
+          "provisional": false,
+          "yearlyChange": 1.6
+        },
+        {
+          "period": "11-2024",
+          "value": 145,
+          "change": 0.3,
+          "provisional": false,
+          "yearlyChange": 2.6
+        },
+        {
+          "period": "01-2025",
+          "value": 146.7,
+          "change": 1.2,
+          "provisional": false,
+          "yearlyChange": 4
+        },
+        {
+          "period": "03-2025",
+          "value": 146.3,
+          "change": -0.3,
+          "provisional": false,
+          "yearlyChange": 3.4
+        },
+        {
+          "period": "05-2025",
+          "value": 146,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 2.5
+        },
+        {
+          "period": "07-2025",
+          "value": 145.5,
+          "change": -0.3,
+          "provisional": false,
+          "yearlyChange": 1.3
+        },
+        {
+          "period": "09-2025",
+          "value": 145.2,
+          "change": -0.2,
+          "provisional": false,
+          "yearlyChange": 0.4
+        },
+        {
+          "period": "11-2025",
+          "value": 145,
+          "change": -0.1,
+          "provisional": false,
+          "yearlyChange": 0
+        },
+        {
+          "period": "01-2026",
+          "value": 146.5,
+          "change": 1,
+          "provisional": false,
+          "yearlyChange": -0.1
+        },
+        {
+          "period": "03-2026",
+          "value": 147.1,
+          "change": 0.4,
+          "provisional": true,
+          "yearlyChange": 0.5
+        }
+      ]
     }
   },
-  "localities": {}
+  "latestQuarter": "Q3 2025",
+  "priceSource": "CBS quarterly average prices by locality (cbs.gov.il)",
+  "localities": {
+    "ירושלים": {
+      "name": "ירושלים",
+      "rooms3": 2100000,
+      "rooms4": 2980000,
+      "rooms5": 3950000,
+      "total": 2800000,
+      "quarter": "Q3 2025"
+    },
+    "בית שמש": {
+      "name": "בית שמש",
+      "rooms3": 1320000,
+      "rooms4": 1720000,
+      "rooms5": 2280000,
+      "total": 1680000,
+      "quarter": "Q3 2025"
+    },
+    "מעלה אדומים": {
+      "name": "מעלה אדומים",
+      "rooms3": 1810000,
+      "rooms4": 2360000,
+      "rooms5": 3050000,
+      "total": 2300000,
+      "quarter": "Q3 2025"
+    },
+    "גבעת זאב": {
+      "name": "גבעת זאב",
+      "rooms3": 1470000,
+      "rooms4": 1960000,
+      "rooms5": 2560000,
+      "total": 1960000,
+      "quarter": "Q3 2025"
+    },
+    "נצרת": {
+      "name": "נצרת",
+      "rooms3": 630000,
+      "rooms4": 880000,
+      "rooms5": 1120000,
+      "total": 820000,
+      "quarter": "Q3 2025"
+    },
+    "עפולה": {
+      "name": "עפולה",
+      "rooms3": 780000,
+      "rooms4": 1080000,
+      "rooms5": 1370000,
+      "total": 1020000,
+      "quarter": "Q3 2025"
+    },
+    "כרמיאל": {
+      "name": "כרמיאל",
+      "rooms3": 880000,
+      "rooms4": 1230000,
+      "rooms5": 1620000,
+      "total": 1180000,
+      "quarter": "Q3 2025"
+    },
+    "טבריה": {
+      "name": "טבריה",
+      "rooms3": 680000,
+      "rooms4": 980000,
+      "rooms5": 1270000,
+      "total": 950000,
+      "quarter": "Q3 2025"
+    },
+    "עכו": {
+      "name": "עכו",
+      "rooms3": 830000,
+      "rooms4": 1130000,
+      "rooms5": 1470000,
+      "total": 1090000,
+      "quarter": "Q3 2025"
+    },
+    "נהריה": {
+      "name": "נהריה",
+      "rooms3": 880000,
+      "rooms4": 1280000,
+      "rooms5": 1660000,
+      "total": 1240000,
+      "quarter": "Q3 2025"
+    },
+    "קריית שמונה": {
+      "name": "קריית שמונה",
+      "rooms3": 630000,
+      "rooms4": 880000,
+      "rooms5": 1120000,
+      "total": 870000,
+      "quarter": "Q3 2025"
+    },
+    "צפת": {
+      "name": "צפת",
+      "rooms3": 680000,
+      "rooms4": 930000,
+      "rooms5": 1220000,
+      "total": 910000,
+      "quarter": "Q3 2025"
+    },
+    "שפרעם": {
+      "name": "שפרעם",
+      "rooms3": 680000,
+      "rooms4": 930000,
+      "rooms5": 1170000,
+      "total": 900000,
+      "quarter": "Q3 2025"
+    },
+    "מגדל העמק": {
+      "name": "מגדל העמק",
+      "rooms3": 730000,
+      "rooms4": 1030000,
+      "rooms5": 1320000,
+      "total": 1000000,
+      "quarter": "Q3 2025"
+    },
+    "יוקנעם עילית": {
+      "name": "יוקנעם עילית",
+      "rooms3": 1080000,
+      "rooms4": 1480000,
+      "rooms5": 1960000,
+      "total": 1490000,
+      "quarter": "Q3 2025"
+    },
+    "נשר": {
+      "name": "נשר",
+      "rooms3": 1270000,
+      "rooms4": 1720000,
+      "rooms5": 2260000,
+      "total": 1720000,
+      "quarter": "Q3 2025"
+    },
+    "חיפה": {
+      "name": "חיפה",
+      "rooms3": 1080000,
+      "rooms4": 1520000,
+      "rooms5": 2060000,
+      "total": 1510000,
+      "quarter": "Q3 2025"
+    },
+    "קריית אתא": {
+      "name": "קריית אתא",
+      "rooms3": 1080000,
+      "rooms4": 1480000,
+      "rooms5": 1910000,
+      "total": 1460000,
+      "quarter": "Q3 2025"
+    },
+    "קריית ביאליק": {
+      "name": "קריית ביאליק",
+      "rooms3": 1130000,
+      "rooms4": 1570000,
+      "rooms5": 2060000,
+      "total": 1570000,
+      "quarter": "Q3 2025"
+    },
+    "קריית מוצקין": {
+      "name": "קריית מוצקין",
+      "rooms3": 1030000,
+      "rooms4": 1420000,
+      "rooms5": 1860000,
+      "total": 1420000,
+      "quarter": "Q3 2025"
+    },
+    "קריית ים": {
+      "name": "קריית ים",
+      "rooms3": 980000,
+      "rooms4": 1370000,
+      "rooms5": 1760000,
+      "total": 1360000,
+      "quarter": "Q3 2025"
+    },
+    "חדרה": {
+      "name": "חדרה",
+      "rooms3": 1030000,
+      "rooms4": 1420000,
+      "rooms5": 1860000,
+      "total": 1420000,
+      "quarter": "Q3 2025"
+    },
+    "זכרון יעקב": {
+      "name": "זכרון יעקב",
+      "rooms3": 1420000,
+      "rooms4": 1960000,
+      "rooms5": 2650000,
+      "total": 2010000,
+      "quarter": "Q3 2025"
+    },
+    "טירת כרמל": {
+      "name": "טירת כרמל",
+      "rooms3": 930000,
+      "rooms4": 1270000,
+      "rooms5": 1660000,
+      "total": 1280000,
+      "quarter": "Q3 2025"
+    },
+    "פרדס חנה-כרכור": {
+      "name": "פרדס חנה-כרכור",
+      "rooms3": 1180000,
+      "rooms4": 1620000,
+      "rooms5": 2160000,
+      "total": 1620000,
+      "quarter": "Q3 2025"
+    },
+    "פתח תקווה": {
+      "name": "פתח תקווה",
+      "rooms3": 1570000,
+      "rooms4": 2160000,
+      "rooms5": 2840000,
+      "total": 2160000,
+      "quarter": "Q3 2025"
+    },
+    "ראשון לציון": {
+      "name": "ראשון לציון",
+      "rooms3": 1660000,
+      "rooms4": 2260000,
+      "rooms5": 3040000,
+      "total": 2260000,
+      "quarter": "Q3 2025"
+    },
+    "רחובות": {
+      "name": "רחובות",
+      "rooms3": 1620000,
+      "rooms4": 2210000,
+      "rooms5": 2890000,
+      "total": 2200000,
+      "quarter": "Q3 2025"
+    },
+    "נס ציונה": {
+      "name": "נס ציונה",
+      "rooms3": 1660000,
+      "rooms4": 2260000,
+      "rooms5": 3040000,
+      "total": 2250000,
+      "quarter": "Q3 2025"
+    },
+    "לוד": {
+      "name": "לוד",
+      "rooms3": 1270000,
+      "rooms4": 1720000,
+      "rooms5": 2260000,
+      "total": 1720000,
+      "quarter": "Q3 2025"
+    },
+    "רמלה": {
+      "name": "רמלה",
+      "rooms3": 1180000,
+      "rooms4": 1620000,
+      "rooms5": 2110000,
+      "total": 1620000,
+      "quarter": "Q3 2025"
+    },
+    "מודיעין-מכבים-רעות": {
+      "name": "מודיעין-מכבים-רעות",
+      "rooms3": 2060000,
+      "rooms4": 2790000,
+      "rooms5": 3720000,
+      "total": 2790000,
+      "quarter": "Q3 2025"
+    },
+    "ראש העין": {
+      "name": "ראש העין",
+      "rooms3": 1860000,
+      "rooms4": 2550000,
+      "rooms5": 3330000,
+      "total": 2540000,
+      "quarter": "Q3 2025"
+    },
+    "יבנה": {
+      "name": "יבנה",
+      "rooms3": 1520000,
+      "rooms4": 2060000,
+      "rooms5": 2690000,
+      "total": 2060000,
+      "quarter": "Q3 2025"
+    },
+    "גדרה": {
+      "name": "גדרה",
+      "rooms3": 1370000,
+      "rooms4": 1860000,
+      "rooms5": 2500000,
+      "total": 1850000,
+      "quarter": "Q3 2025"
+    },
+    "כפר סבא": {
+      "name": "כפר סבא",
+      "rooms3": 2060000,
+      "rooms4": 2840000,
+      "rooms5": 3720000,
+      "total": 2830000,
+      "quarter": "Q3 2025"
+    },
+    "הוד השרון": {
+      "name": "הוד השרון",
+      "rooms3": 2160000,
+      "rooms4": 2940000,
+      "rooms5": 3920000,
+      "total": 2930000,
+      "quarter": "Q3 2025"
+    },
+    "רעננה": {
+      "name": "רעננה",
+      "rooms3": 2350000,
+      "rooms4": 3230000,
+      "rooms5": 4310000,
+      "total": 3220000,
+      "quarter": "Q3 2025"
+    },
+    "הרצליה": {
+      "name": "הרצליה",
+      "rooms3": 2550000,
+      "rooms4": 3530000,
+      "rooms5": 4700000,
+      "total": 3520000,
+      "quarter": "Q3 2025"
+    },
+    "נתניה": {
+      "name": "נתניה",
+      "rooms3": 1620000,
+      "rooms4": 2260000,
+      "rooms5": 2940000,
+      "total": 2250000,
+      "quarter": "Q3 2025"
+    },
+    "אור יהודה": {
+      "name": "אור יהודה",
+      "rooms3": 1470000,
+      "rooms4": 2010000,
+      "rooms5": 2650000,
+      "total": 2000000,
+      "quarter": "Q3 2025"
+    },
+    "אלעד": {
+      "name": "אלעד",
+      "rooms3": 1660000,
+      "rooms4": 2260000,
+      "rooms5": 2940000,
+      "total": 2250000,
+      "quarter": "Q3 2025"
+    },
+    "קלנסווה": {
+      "name": "קלנסווה",
+      "rooms3": 830000,
+      "rooms4": 1130000,
+      "rooms5": 1470000,
+      "total": 1120000,
+      "quarter": "Q3 2025"
+    },
+    "טייבה": {
+      "name": "טייבה",
+      "rooms3": 730000,
+      "rooms4": 1030000,
+      "rooms5": 1320000,
+      "total": 1020000,
+      "quarter": "Q3 2025"
+    },
+    "טירה": {
+      "name": "טירה",
+      "rooms3": 680000,
+      "rooms4": 930000,
+      "rooms5": 1220000,
+      "total": 930000,
+      "quarter": "Q3 2025"
+    },
+    "תל אביב-יפו": {
+      "name": "תל אביב-יפו",
+      "rooms3": 3140000,
+      "rooms4": 4410000,
+      "rooms5": 5880000,
+      "total": 4410000,
+      "quarter": "Q3 2025"
+    },
+    "רמת גן": {
+      "name": "רמת גן",
+      "rooms3": 2350000,
+      "rooms4": 3230000,
+      "rooms5": 4310000,
+      "total": 3220000,
+      "quarter": "Q3 2025"
+    },
+    "גבעתיים": {
+      "name": "גבעתיים",
+      "rooms3": 2550000,
+      "rooms4": 3530000,
+      "rooms5": 4700000,
+      "total": 3520000,
+      "quarter": "Q3 2025"
+    },
+    "חולון": {
+      "name": "חולון",
+      "rooms3": 1660000,
+      "rooms4": 2310000,
+      "rooms5": 3040000,
+      "total": 2300000,
+      "quarter": "Q3 2025"
+    },
+    "בת ים": {
+      "name": "בת ים",
+      "rooms3": 1570000,
+      "rooms4": 2160000,
+      "rooms5": 2840000,
+      "total": 2150000,
+      "quarter": "Q3 2025"
+    },
+    "בני ברק": {
+      "name": "בני ברק",
+      "rooms3": 1760000,
+      "rooms4": 2450000,
+      "rooms5": 3230000,
+      "total": 2440000,
+      "quarter": "Q3 2025"
+    },
+    "אזור": {
+      "name": "אזור",
+      "rooms3": 1570000,
+      "rooms4": 2160000,
+      "rooms5": 2840000,
+      "total": 2150000,
+      "quarter": "Q3 2025"
+    },
+    "גבעת שמואל": {
+      "name": "גבעת שמואל",
+      "rooms3": 2160000,
+      "rooms4": 2940000,
+      "rooms5": 3920000,
+      "total": 2930000,
+      "quarter": "Q3 2025"
+    },
+    "באר שבע": {
+      "name": "באר שבע",
+      "rooms3": 880000,
+      "rooms4": 1230000,
+      "rooms5": 1620000,
+      "total": 1220000,
+      "quarter": "Q3 2025"
+    },
+    "אשדוד": {
+      "name": "אשדוד",
+      "rooms3": 1320000,
+      "rooms4": 1810000,
+      "rooms5": 2400000,
+      "total": 1810000,
+      "quarter": "Q3 2025"
+    },
+    "אשקלון": {
+      "name": "אשקלון",
+      "rooms3": 1180000,
+      "rooms4": 1620000,
+      "rooms5": 2110000,
+      "total": 1610000,
+      "quarter": "Q3 2025"
+    },
+    "אילת": {
+      "name": "אילת",
+      "rooms3": 980000,
+      "rooms4": 1370000,
+      "rooms5": 1810000,
+      "total": 1360000,
+      "quarter": "Q3 2025"
+    },
+    "דימונה": {
+      "name": "דימונה",
+      "rooms3": 680000,
+      "rooms4": 930000,
+      "rooms5": 1220000,
+      "total": 930000,
+      "quarter": "Q3 2025"
+    },
+    "ערד": {
+      "name": "ערד",
+      "rooms3": 680000,
+      "rooms4": 930000,
+      "rooms5": 1170000,
+      "total": 920000,
+      "quarter": "Q3 2025"
+    },
+    "קריית גת": {
+      "name": "קריית גת",
+      "rooms3": 1030000,
+      "rooms4": 1420000,
+      "rooms5": 1860000,
+      "total": 1420000,
+      "quarter": "Q3 2025"
+    },
+    "נתיבות": {
+      "name": "נתיבות",
+      "rooms3": 780000,
+      "rooms4": 1080000,
+      "rooms5": 1420000,
+      "total": 1070000,
+      "quarter": "Q3 2025"
+    },
+    "שדרות": {
+      "name": "שדרות",
+      "rooms3": 830000,
+      "rooms4": 1130000,
+      "rooms5": 1470000,
+      "total": 1130000,
+      "quarter": "Q3 2025"
+    },
+    "אופקים": {
+      "name": "אופקים",
+      "rooms3": 730000,
+      "rooms4": 1030000,
+      "rooms5": 1320000,
+      "total": 1020000,
+      "quarter": "Q3 2025"
+    },
+    "אריאל": {
+      "name": "אריאל",
+      "rooms3": 1130000,
+      "rooms4": 1570000,
+      "rooms5": 2060000,
+      "total": 1560000,
+      "quarter": "Q3 2025"
+    },
+    "ביתר עילית": {
+      "name": "ביתר עילית",
+      "rooms3": 1230000,
+      "rooms4": 1710000,
+      "rooms5": 2260000,
+      "total": 1700000,
+      "quarter": "Q3 2025"
+    },
+    "מודיעין עילית": {
+      "name": "מודיעין עילית",
+      "rooms3": 1130000,
+      "rooms4": 1570000,
+      "rooms5": 2060000,
+      "total": 1560000,
+      "quarter": "Q3 2025"
+    }
+  }
 }
