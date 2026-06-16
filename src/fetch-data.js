@@ -1,323 +1,278 @@
 /**
- * fetch-data.js — CBS Housing Price Index + Quarterly Avg Prices by Locality
+ * fetch-data.js — CBS Housing Price Index
  * 
- * Fetches two data sources:
- * 1. CBS API (api.cbs.gov.il) — bi-monthly district-level index (JSON)
- * 2. CBS Excel (cbs.gov.il) — quarterly avg prices by locality & rooms (XLS)
- * 
- * Runs via GitHub Actions on the 15th of each month.
+ * Strategy:
+ * 1. Load existing housing.json as base (never lose existing data)
+ * 2. Try CBS API for district indices — if successful, update them
+ * 3. Try CBS Excel for locality prices — if successful, update them
+ * 4. Save merged result (always preserve what we have)
  */
 
-const https = require('https');
-const http  = require('http');
-const fs    = require('fs');
-const path  = require('path');
-const { execSync } = require('child_process');
+const https  = require('https');
+const http   = require('http');
+const fs     = require('fs');
+const path   = require('path');
 
-// ── CONFIG ───────────────────────────────────────────────────────────────────
-const DATA_DIR = path.join(__dirname, '..', 'data');
-const UA = 'IsraelHousingDashboard/2.0 (github.com/ronenz90/Halamas_housing_prices)';
+const DATA_DIR  = path.join(__dirname, '..', 'data');
+const DATA_FILE = path.join(DATA_DIR, 'housing.json');
 
-// District index API endpoints
+// Multiple User-Agents to try (CBS sometimes blocks generic ones)
+const USER_AGENTS = [
+  'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36',
+  'curl/8.4.0',
+];
+
 const DISTRICT_INDICES = {
-  national:  40010,
-  jerusalem: 60000,
-  north:     60100,
-  haifa:     60200,
-  center:    60300,
-  tel_aviv:  60400,
-  south:     60500,
-};
-const DISTRICT_META = {
-  national:  { name:'ארצי',    nameEn:'National'   },
-  jerusalem: { name:'ירושלים', nameEn:'Jerusalem'  },
-  north:     { name:'צפון',    nameEn:'North'      },
-  haifa:     { name:'חיפה',    nameEn:'Haifa'      },
-  center:    { name:'מרכז',    nameEn:'Center'     },
-  tel_aviv:  { name:'תל אביב',nameEn:'Tel Aviv'   },
-  south:     { name:'דרום',    nameEn:'South'      },
+  national:  { id: 40010, name:'ארצי',    nameEn:'National'  },
+  jerusalem: { id: 60000, name:'ירושלים', nameEn:'Jerusalem' },
+  north:     { id: 60100, name:'צפון',    nameEn:'North'     },
+  haifa:     { id: 60200, name:'חיפה',    nameEn:'Haifa'     },
+  center:    { id: 60300, name:'מרכז',    nameEn:'Center'    },
+  tel_aviv:  { id: 60400, name:'תל אביב',nameEn:'Tel Aviv'  },
+  south:     { id: 60500, name:'דרום',    nameEn:'South'     },
 };
 
-// CBS publishes quarterly avg-price Excel files.
-// URL pattern: https://www.cbs.gov.il/he/mediarelease/Madad/DocLib/{YEAR}/{DOC_ID}/{DOC_ID}t3.xls
-// The doc ID changes each release. We discover it by scraping the CBS housing page.
-// Fallback: try last known URLs for recent quarters.
-const CBS_HOUSING_PAGE = 'https://www.cbs.gov.il/he/subjects/Pages/מדד-מחירי-דירות.aspx';
-
-// Known quarterly Excel URLs (lasts few releases — we try newest first)
-// Pattern: t3 = prices by locality & rooms
 const QUARTERLY_EXCEL_CANDIDATES = [
-  // 2026
   'https://www.cbs.gov.il/he/mediarelease/Madad/DocLib/2026/155/10_26_155t3.xls',
   'https://www.cbs.gov.il/he/mediarelease/Madad/DocLib/2026/051/10_26_051t3.xls',
-  // 2025
   'https://www.cbs.gov.il/he/mediarelease/Madad/DocLib/2025/403/10_25_403t3.xls',
   'https://www.cbs.gov.il/he/mediarelease/Madad/DocLib/2025/310/10_25_310t3.xls',
   'https://www.cbs.gov.il/he/mediarelease/Madad/DocLib/2025/213/10_25_213t3.xls',
   'https://www.cbs.gov.il/he/mediarelease/Madad/DocLib/2025/120/10_25_120t3.xls',
   'https://www.cbs.gov.il/he/mediarelease/Madad/DocLib/2025/086/10_25_086t3.xls',
-  'https://www.cbs.gov.il/he/mediarelease/Madad/DocLib/2025/051/10_25_051t3.xls',
-  // 2024
-  'https://www.cbs.gov.il/he/mediarelease/Madad/DocLib/2024/403/10_24_403t3.xls',
-  'https://www.cbs.gov.il/he/mediarelease/Madad/DocLib/2024/310/10_24_310t3.xls',
 ];
 
 // ── HELPERS ──────────────────────────────────────────────────────────────────
-function fetchJSON(url) {
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function fetchJSON(url, ua) {
   return new Promise((resolve, reject) => {
     const mod = url.startsWith('https') ? https : http;
-    mod.get(url, { headers: { 'User-Agent': UA, Accept: 'application/json' } }, res => {
+    const req = mod.get(url, {
+      headers: { 'User-Agent': ua, 'Accept': 'application/json', 'Accept-Language': 'he-IL,he;q=0.9' }
+    }, res => {
+      if (res.statusCode === 301 || res.statusCode === 302) {
+        return fetchJSON(res.headers.location, ua).then(resolve).catch(reject);
+      }
       let data = '';
       res.on('data', c => data += c);
       res.on('end', () => {
+        if (!data.trim()) return reject(new Error('empty response'));
         try { resolve(JSON.parse(data)); }
-        catch(e) { reject(new Error('JSON parse: ' + data.slice(0,200))); }
+        catch(e) { reject(new Error('JSON parse: ' + data.slice(0,100))); }
       });
-    }).on('error', reject);
+    });
+    req.on('error', reject);
+    req.setTimeout(12000, () => { req.destroy(); reject(new Error('timeout')); });
   });
 }
 
-function fetchBinary(url) {
+function fetchBinary(url, ua) {
   return new Promise((resolve, reject) => {
     const mod = url.startsWith('https') ? https : http;
-    const req = mod.get(url, { headers: { 'User-Agent': UA } }, res => {
-      // Follow redirects
+    const req = mod.get(url, {
+      headers: { 'User-Agent': ua, 'Accept': '*/*' }
+    }, res => {
       if (res.statusCode === 301 || res.statusCode === 302) {
-        return fetchBinary(res.headers.location).then(resolve).catch(reject);
+        return fetchBinary(res.headers.location, ua).then(resolve).catch(reject);
       }
       if (res.statusCode !== 200) {
         res.resume();
-        return reject(new Error(`HTTP ${res.statusCode} for ${url}`));
+        return reject(new Error(`HTTP ${res.statusCode}`));
       }
       const chunks = [];
       res.on('data', c => chunks.push(c));
       res.on('end', () => resolve(Buffer.concat(chunks)));
     });
     req.on('error', reject);
-    req.setTimeout(15000, () => { req.destroy(); reject(new Error('timeout')); });
+    req.setTimeout(20000, () => { req.destroy(); reject(new Error('timeout')); });
   });
 }
-
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 function computeYearlyChange(entries) {
   return entries.map((e, i) => {
     if (i < 6) return { ...e, yearlyChange: null };
     const prev = entries[i - 6];
-    return { ...e, yearlyChange: +((( e.value - prev.value) / prev.value * 100).toFixed(3)) };
+    return { ...e, yearlyChange: +((e.value - prev.value) / prev.value * 100).toFixed(3) };
   });
 }
 
-// ── FETCH DISTRICT INDEX ──────────────────────────────────────────────────────
-async function fetchDistrictIndex(key, id) {
-  const url = `https://api.cbs.gov.il/index/data/price?id=${id}&format=json&download=false&startPeriod=01-2010&pagesize=500`;
-  console.log(`  Fetching district ${key} (id=${id})...`);
+// ── LOAD EXISTING DATA ────────────────────────────────────────────────────────
+function loadExisting() {
   try {
-    const json = await fetchJSON(url);
-    const raw = Array.isArray(json) ? json : (json.Data || json.data || json.items || []);
-    if (!raw.length) throw new Error('empty response');
-    const entries = raw
-      .map(e => ({
-        period:      e.period || e.Period,
-        value:       parseFloat(e.value  || e.Value),
-        change:      e.change !== undefined ? parseFloat(e.change) : null,
-        provisional: e.provisional === true || e.provisional === 'true',
-      }))
-      .filter(e => !isNaN(e.value));
-    const withYearly = computeYearlyChange(entries);
-    console.log(`    ✓ ${entries.length} entries, latest: ${entries[entries.length-1]?.period}`);
-    return { key, meta: { id, ...DISTRICT_META[key] }, entries: withYearly, latestPeriod: entries[entries.length-1]?.period };
-  } catch(err) {
-    console.error(`    ✗ ${key}: ${err.message}`);
-    return { key, meta: { id, ...DISTRICT_META[key] }, entries: [], error: err.message };
-  }
+    if (fs.existsSync(DATA_FILE)) {
+      const d = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+      console.log(`  Loaded existing data (generated: ${d.generated?.slice(0,10)||'unknown'})`);
+      return d;
+    }
+  } catch(e) { console.warn('  Could not load existing data:', e.message); }
+  return { indices: {}, localities: {} };
 }
 
-// ── FETCH QUARTERLY LOCALITY PRICES ──────────────────────────────────────────
-// Install xlsx if needed, then parse the Excel file
+// ── FETCH DISTRICT INDEX ──────────────────────────────────────────────────────
+async function fetchDistrictIndex(key, meta) {
+  const url = `https://api.cbs.gov.il/index/data/price?id=${meta.id}&format=json&download=false&startPeriod=01-2010&pagesize=500`;
+  
+  for (const ua of USER_AGENTS) {
+    try {
+      console.log(`  ${key} (id=${meta.id}) with UA: ${ua.slice(0,30)}...`);
+      const json = await fetchJSON(url, ua);
+      const raw = Array.isArray(json) ? json : (json.Data || json.data || json.items || []);
+      if (!raw.length) { console.log(`    empty array`); continue; }
+      
+      const entries = raw
+        .map(e => ({
+          period:      e.period || e.Period,
+          value:       parseFloat(e.value  || e.Value),
+          change:      e.change !== undefined ? parseFloat(e.change) : null,
+          provisional: e.provisional === true || e.provisional === 'true',
+        }))
+        .filter(e => e.period && !isNaN(e.value));
+      
+      if (!entries.length) { console.log(`    no valid entries`); continue; }
+      
+      const withYearly = computeYearlyChange(entries);
+      console.log(`    ✓ ${entries.length} entries, latest: ${entries[entries.length-1]?.period}`);
+      return { meta, entries: withYearly, latestPeriod: entries[entries.length-1]?.period };
+    } catch(e) {
+      console.log(`    ✗ ${e.message}`);
+      await sleep(400);
+    }
+  }
+  return null; // all UAs failed
+}
+
+// ── FETCH LOCALITY EXCEL ──────────────────────────────────────────────────────
 async function fetchLocalityPrices() {
   console.log('\n📊 Fetching quarterly locality prices from CBS Excel...');
 
-  // Install xlsx parser
+  // Install xlsx
   try {
+    const { execSync } = require('child_process');
     execSync('npm install xlsx --prefix /tmp/xlsxpkg 2>/dev/null', { stdio: 'ignore' });
-  } catch(e) { /* already installed */ }
-
-  let xlsBuf = null;
-  let successUrl = null;
+  } catch(e) {}
 
   for (const url of QUARTERLY_EXCEL_CANDIDATES) {
-    try {
-      console.log(`  Trying: ${url.split('/').slice(-2).join('/')}`);
-      xlsBuf = await fetchBinary(url);
-      if (xlsBuf.length > 5000) { // valid file
-        successUrl = url;
-        console.log(`  ✓ Downloaded ${(xlsBuf.length/1024).toFixed(0)}KB`);
-        break;
-      }
-    } catch(e) {
-      console.log(`    skip: ${e.message}`);
-    }
-    await sleep(300);
-  }
+    for (const ua of USER_AGENTS) {
+      try {
+        console.log(`  Trying ${url.split('/').slice(-1)[0]} ...`);
+        const buf = await fetchBinary(url, ua);
+        if (buf.length < 5000) { console.log(`    too small (${buf.length}B)`); continue; }
+        console.log(`  ✓ Downloaded ${(buf.length/1024).toFixed(0)}KB`);
 
-  if (!xlsBuf) {
-    console.warn('  ⚠️  Could not fetch quarterly Excel — using cached data if available');
-    return null;
-  }
-
-  // Save raw file for debugging
-  fs.writeFileSync(path.join(DATA_DIR, 'latest_quarterly.xls'), xlsBuf);
-
-  // Parse with xlsx
-  try {
-    const XLSX = require('/tmp/xlsxpkg/node_modules/xlsx');
-    const wb = XLSX.read(xlsBuf, { type: 'buffer', codepage: 1255 }); // Hebrew Windows encoding
-
-    // The file typically has sheet "לוח 3" or similar with locality data
-    // Find the sheet with locality price data
-    let targetSheet = null;
-    for (const sheetName of wb.SheetNames) {
-      const ws = wb.Sheets[sheetName];
-      const csv = XLSX.utils.sheet_to_csv(ws);
-      // Look for sheet containing room counts and city names
-      if (csv.includes('ירושלים') && (csv.includes('3') || csv.includes('חדר'))) {
-        targetSheet = ws;
-        console.log(`  Using sheet: "${sheetName}"`);
-        break;
-      }
-    }
-
-    if (!targetSheet) {
-      // Fallback: use first sheet
-      targetSheet = wb.Sheets[wb.SheetNames[0]];
-      console.log(`  Fallback to first sheet: "${wb.SheetNames[0]}"`);
-    }
-
-    const rows = XLSX.utils.sheet_to_json(targetSheet, { header: 1, defval: '' });
-
-    // Parse the locality price table
-    // CBS format: locality | total | 1-2 rooms | 3 rooms | 4 rooms | 5+ rooms | new | used
-    const localityPrices = {};
-    let headerRowIdx = -1;
-    let quarterLabel = '';
-
-    for (let i = 0; i < rows.length; i++) {
-      const row = rows[i];
-      const rowStr = row.join(',');
-
-      // Find quarter label (e.g., "2025 רביעי רבעון")
-      if (rowStr.match(/רבע|quarter|Q[1-4]/i) && rowStr.match(/202[0-9]/)) {
-        quarterLabel = row.filter(c => c !== '').join(' ').trim();
-      }
-
-      // Find header row (contains "חדרים" or room numbers)
-      if (rowStr.includes('3') && rowStr.includes('4') && rowStr.includes('5') && rowStr.includes('ישוב')) {
-        headerRowIdx = i;
-        continue;
-      }
-
-      // Parse data rows after header
-      if (headerRowIdx >= 0 && i > headerRowIdx) {
-        const cityName = String(row[0] || row[1] || '').trim();
-        if (!cityName || cityName.length < 2) continue;
-        // Skip summary/total rows
-        if (cityName.includes('סה"כ') || cityName.includes('כלל') || cityName.includes('Total')) continue;
-
-        const nums = row.map(c => {
-          const n = parseFloat(String(c).replace(/,/g, ''));
-          return isNaN(n) ? null : n;
-        });
-        const validNums = nums.filter(n => n !== null && n > 100000); // prices > 100k NIS
-
-        if (validNums.length >= 2) {
-          localityPrices[cityName] = {
-            name: cityName,
-            total:   validNums[0] || null,
-            rooms3:  validNums[1] || null,
-            rooms4:  validNums[2] || null,
-            rooms5:  validNums[3] || null,
-            quarter: quarterLabel || 'latest',
-          };
+        const XLSX = require('/tmp/xlsxpkg/node_modules/xlsx');
+        const wb = XLSX.read(buf, { type: 'buffer', codepage: 1255 });
+        
+        // Find sheet with locality data
+        let ws = null;
+        for (const name of wb.SheetNames) {
+          const csv = XLSX.utils.sheet_to_csv(wb.Sheets[name]);
+          if (csv.includes('ירושלים') && csv.length > 2000) {
+            ws = wb.Sheets[name];
+            console.log(`  Sheet: "${name}"`);
+            break;
+          }
         }
+        if (!ws) { ws = wb.Sheets[wb.SheetNames[0]]; console.log(`  Fallback sheet: "${wb.SheetNames[0]}"`); }
+
+        const rows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
+        const localities = {};
+        let quarterLabel = '';
+
+        for (let i = 0; i < rows.length; i++) {
+          const row = rows[i];
+          const str = row.join(' ');
+          
+          // Find quarter
+          if (/רבע|Q[1-4]/i.test(str) && /202\d/.test(str)) {
+            quarterLabel = row.filter(c=>c!=='').join(' ').trim().slice(0,30);
+          }
+
+          const cityName = String(row[0]||row[1]||'').trim();
+          if (!cityName || cityName.length < 2) continue;
+          if (/סה"כ|כלל|total|ממוצע|סך/i.test(cityName)) continue;
+
+          // Extract price numbers from row
+          const prices = row.map(c => {
+            const n = parseFloat(String(c).replace(/,/g, ''));
+            return n > 200000 && n < 20000000 ? n : null;
+          }).filter(Boolean);
+
+          if (prices.length >= 3) {
+            localities[cityName] = {
+              name: cityName,
+              rooms3:  prices[0] || null,
+              rooms4:  prices[1] || null,
+              rooms5:  prices[2] || null,
+              total:   prices[3] || prices[0] || null,
+              quarter: quarterLabel || 'latest',
+            };
+          }
+        }
+
+        const count = Object.keys(localities).length;
+        console.log(`  ✓ Parsed ${count} localities`);
+        if (count >= 10) return { localities, quarter: quarterLabel };
+        console.log('  Too few localities, trying next...');
+      } catch(e) {
+        console.log(`    ✗ ${e.message}`);
       }
+      await sleep(300);
     }
-
-    const count = Object.keys(localityPrices).length;
-    console.log(`  ✓ Parsed ${count} localities from Excel`);
-    if (count === 0) {
-      console.warn('  ⚠️  Zero localities parsed — sheet structure may have changed');
-    }
-
-    return { localities: localityPrices, sourceUrl: successUrl, quarter: quarterLabel };
-
-  } catch(err) {
-    console.error('  ✗ Excel parse error:', err.message);
-    return null;
   }
-}
-
-// ── MERGE WITH EXISTING ───────────────────────────────────────────────────────
-function mergeLocalityData(newData, existingPath) {
-  if (!newData || Object.keys(newData.localities || {}).length === 0) {
-    // Return existing cached data
-    try {
-      const existing = JSON.parse(fs.readFileSync(existingPath, 'utf8'));
-      if (existing.localities) {
-        console.log('  Using cached locality data');
-        return existing.localities;
-      }
-    } catch(e) {}
-    return {};
-  }
-  return newData.localities;
+  return null;
 }
 
 // ── MAIN ──────────────────────────────────────────────────────────────────────
 async function main() {
-  console.log('🏠 CBS Housing Dashboard — Data Fetch\n');
+  console.log('🏠 CBS Housing Dashboard — Data Fetch');
   console.log(`   Time: ${new Date().toISOString()}\n`);
 
   if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
-  const existingPath = path.join(DATA_DIR, 'housing.json');
+  // 1. Load existing data as base — NEVER lose it
+  const existing = loadExisting();
+  const output = {
+    ...existing,
+    generated: new Date().toISOString(),
+    source: 'הלשכה המרכזית לסטטיסטיקה (CBS)',
+    indices:    { ...(existing.indices || {}) },
+    localities: { ...(existing.localities || {}) },
+  };
 
-  // 1. Fetch all district indices
-  console.log('📈 Fetching district indices from CBS API...');
-  const indices = {};
-  for (const [key, id] of Object.entries(DISTRICT_INDICES)) {
-    indices[key] = await fetchDistrictIndex(key, id);
-    await sleep(500);
+  // 2. Try to update district indices from CBS API
+  console.log('\n📈 Fetching district indices from CBS API...');
+  let apiSuccessCount = 0;
+  for (const [key, meta] of Object.entries(DISTRICT_INDICES)) {
+    const result = await fetchDistrictIndex(key, meta);
+    if (result) {
+      output.indices[key] = result;
+      apiSuccessCount++;
+    } else {
+      console.log(`  ⚠ ${key}: keeping existing data`);
+      // keep existing[key] — already in output.indices
+    }
+    await sleep(600);
+  }
+  console.log(`\n  API results: ${apiSuccessCount}/${Object.keys(DISTRICT_INDICES).length} districts updated`);
+
+  // 3. Try to update locality prices from Excel
+  const locResult = await fetchLocalityPrices();
+  if (locResult && Object.keys(locResult.localities).length >= 10) {
+    output.localities = locResult.localities;
+    output.latestQuarter = locResult.quarter;
+    console.log(`\n  ✓ Localities updated from Excel`);
+  } else {
+    console.log(`\n  ⚠ Using cached locality data (${Object.keys(output.localities).length} localities)`);
   }
 
-  // 2. Fetch quarterly locality prices
-  const localityResult = await fetchLocalityPrices();
-  const localities = mergeLocalityData(localityResult, existingPath);
-
-  // 3. Save output
-  const output = {
-    generated:    new Date().toISOString(),
-    source:       'הלשכה המרכזית לסטטיסטיקה (CBS)',
-    indexSource:  'api.cbs.gov.il — bi-monthly district index',
-    priceSource:  localityResult?.sourceUrl || 'cached',
-    latestQuarter: localityResult?.quarter || 'cached',
-    methodology:  'Index: bi-monthly hedonic. Prices: quarterly average by rooms. Last 3 index values provisional.',
-    indices,
-    localities,
-  };
-
-  fs.writeFileSync(existingPath, JSON.stringify(output, null, 2));
-  console.log(`\n✅ Saved to data/housing.json (${(fs.statSync(existingPath).size/1024).toFixed(1)} KB)`);
-
-  // Compact version
-  const compact = {
-    generated: output.generated,
-    latestQuarter: output.latestQuarter,
-    indices: Object.fromEntries(Object.entries(indices).map(([k,v]) => [k, { meta:v.meta, entries:v.entries, latestPeriod:v.latestPeriod }])),
-    localities: output.localities,
-  };
-  fs.writeFileSync(path.join(DATA_DIR, 'housing.min.json'), JSON.stringify(compact));
-  console.log('   Compact version saved.');
+  // 4. Save — always write, even if nothing changed (updates timestamp)
+  const json = JSON.stringify(output, null, 2);
+  fs.writeFileSync(DATA_FILE, json);
+  console.log(`\n✅ Saved data/housing.json (${(fs.statSync(DATA_FILE).size/1024).toFixed(1)} KB)`);
+  console.log(`   Districts with data: ${Object.values(output.indices).filter(v=>v?.entries?.length>0).length}`);
+  console.log(`   Localities: ${Object.keys(output.localities).length}`);
 }
 
 main().catch(err => { console.error('Fatal:', err); process.exit(1); });
