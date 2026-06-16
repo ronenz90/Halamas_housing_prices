@@ -3,182 +3,219 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>מדד מחירי הדירות בישראל | CBS Live Dashboard</title>
+<title>מדד מחירי הדירות | ישראל</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;900&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0b1120;--surface:#111827;--surface2:#1a2235;--surface3:#202c40;
-  --border:#1e2d45;--accent:#3b82f6;--accent2:#f59e0b;
-  --up:#22c55e;--dn:#ef4444;--text:#f0f4ff;--muted:#8899bb;
+  --bg:#080f1c;--s1:#0d1526;--s2:#111d30;--s3:#162038;
+  --bdr:#1c2d47;--bdr2:#223454;
+  --acc:#3b82f6;--acc2:#f59e0b;--acc3:#8b5cf6;
+  --up:#22c55e;--dn:#ef4444;
+  --txt:#e8eeff;--muted:#6b84a8;--dim:#3d5275;
 }
-body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden}
 
 /* HEADER */
-.hdr{background:linear-gradient(135deg,#0b1a38,#0f2456 50%,#0b1a38);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;gap:1rem;position:sticky;top:0;z-index:100}
-.hdr-logo{width:40px;height:40px;background:var(--accent);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;flex-shrink:0;box-shadow:0 0 18px rgba(59,130,246,.4)}
-.hdr-t h1{font-size:1.05rem;font-weight:700}
-.hdr-t p{font-size:.68rem;color:var(--muted)}
-.hdr-right{margin-right:auto;display:flex;align-items:center;gap:.7rem}
-.live-badge{display:flex;align-items:center;gap:5px;font-size:.68rem;font-weight:600;color:var(--up);background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);border-radius:100px;padding:3px 9px}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(--up);animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.btn{font-family:inherit;font-size:.75rem;font-weight:600;border:1px solid var(--border);border-radius:7px;padding:5px 12px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px}
-.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn-primary:hover{background:#2563eb}
-.btn-ghost{background:transparent;color:var(--muted)}
-.btn-ghost:hover{background:var(--surface2);color:var(--text)}
-.btn-pdf{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.4);color:var(--accent2)}
-.btn-pdf:hover{background:rgba(245,158,11,.2)}
+.hdr{background:linear-gradient(180deg,#0b1526,#080f1c);border-bottom:1px solid var(--bdr);padding:0 1.5rem;display:flex;align-items:center;gap:1rem;position:sticky;top:0;z-index:100;height:54px}
+.hdr-logo{width:34px;height:34px;background:linear-gradient(135deg,#2563eb,#7c3aed);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;box-shadow:0 0 16px rgba(59,130,246,.3)}
+.hdr-t h1{font-size:.95rem;font-weight:700}
+.hdr-t p{font-size:.62rem;color:var(--muted);margin-top:1px}
+.hdr-r{margin-right:auto;display:flex;align-items:center;gap:.5rem}
+.live-pill{display:flex;align-items:center;gap:5px;font-size:.63rem;font-weight:600;color:var(--up);background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:20px;padding:3px 8px}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--up);animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hbtn{font-family:inherit;font-size:.7rem;font-weight:600;border:1px solid var(--bdr2);border-radius:7px;padding:5px 10px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px;white-space:nowrap}
+.hbtn-pdf{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.3);color:var(--acc2)}
+.hbtn-pdf:hover{background:rgba(245,158,11,.18)}
+.hbtn-ghost{background:transparent;color:var(--muted);border-color:var(--bdr)}
+.hbtn-ghost:hover{background:var(--s2);color:var(--txt)}
 
-/* LAYOUT */
-.app{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 58px)}
+/* MAIN TABS — full width, under header */
+.main-tabs{background:var(--s1);border-bottom:2px solid var(--bdr);padding:0 1.5rem;display:flex;gap:0;position:sticky;top:54px;z-index:90}
+.mtab{font-family:inherit;font-size:.8rem;font-weight:600;border:none;background:transparent;color:var(--muted);padding:10px 18px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;white-space:nowrap}
+.mtab.on{color:var(--acc);border-bottom-color:var(--acc)}
+.mtab:hover:not(.on){color:var(--txt)}
 
-/* SIDEBAR */
-.sidebar{background:var(--surface);border-left:1px solid var(--border);overflow-y:auto;max-height:calc(100vh - 58px);position:sticky;top:58px}
-.sb-section{border-bottom:1px solid var(--border)}
-.sb-head{padding:9px 14px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);background:rgba(255,255,255,.02);display:flex;justify-content:space-between;align-items:center}
+/* PAGE */
+.page{display:none;padding:1.2rem 1.5rem;flex-direction:column;gap:1rem;max-width:1400px;margin:0 auto;width:100%}
+.page.on{display:flex}
 
-/* SEARCH BOX */
-.search-wrap{padding:10px 12px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:10}
-.search-box{position:relative}
-.search-box input{width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;padding:7px 32px 7px 10px;font-family:inherit;font-size:.82rem;color:var(--text);outline:none;transition:border-color .15s}
-.search-box input:focus{border-color:var(--accent)}
-.search-box input::placeholder{color:var(--muted)}
-.search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem;pointer-events:none}
-.search-clear{position:absolute;left:9px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:.85rem;display:none}
-.search-clear.show{display:block}
-.search-tabs{display:flex;gap:4px;margin-top:7px}
-.stab{font-family:inherit;font-size:.7rem;font-weight:600;border:1px solid var(--border);border-radius:5px;padding:3px 9px;cursor:pointer;background:transparent;color:var(--muted);transition:all .12s;flex:1;text-align:center}
-.stab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+/* ── SEARCH BAR ── */
+.search-bar{display:flex;gap:.7rem;align-items:stretch;flex-wrap:wrap}
+.search-input-wrap{flex:1;min-width:220px;position:relative}
+.search-input-wrap input{width:100%;background:var(--s1);border:1.5px solid var(--bdr2);border-radius:9px;padding:10px 14px 10px 38px;font-family:inherit;font-size:.88rem;color:var(--txt);outline:none;transition:border-color .15s;height:44px}
+.search-input-wrap input:focus{border-color:var(--acc)}
+.search-input-wrap input::placeholder{color:var(--muted)}
+.si-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.9rem;pointer-events:none}
+.si-x{position:absolute;left:11px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:.85rem;display:none;padding:2px}
+.si-x.show{display:block}
+/* search dropdown */
+.search-dropdown{position:absolute;top:calc(100% + 4px);right:0;left:0;background:var(--s2);border:1px solid var(--bdr2);border-radius:9px;z-index:200;max-height:320px;overflow-y:auto;display:none;box-shadow:0 8px 32px rgba(0,0,0,.5)}
+.search-dropdown.show{display:block}
+.sd-section{padding:6px 0}
+.sd-head{padding:4px 12px;font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--dim)}
+.sd-row{padding:8px 14px;font-size:.82rem;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background .1s}
+.sd-row:hover{background:var(--s3)}
+.sd-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sd-name{flex:1}
+.sd-sub{font-size:.65rem;color:var(--muted)}
+.sd-price{font-size:.7rem;font-weight:600;color:var(--acc2)}
 
-/* LOCALITY ROWS */
-.locality-group{}
-.group-label{padding:6px 14px 4px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);background:rgba(255,255,255,.015);border-top:1px solid var(--border);display:flex;align-items:center;gap:6px}
-.group-dot{width:7px;height:7px;border-radius:50%}
-.loc-row{padding:8px 14px;font-size:.82rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;border-right:3px solid transparent;transition:all .1s;gap:8px}
-.loc-row:hover{background:var(--surface2);border-right-color:var(--accent)}
-.loc-row.active{background:rgba(59,130,246,.12);border-right-color:var(--accent);color:var(--accent);font-weight:600}
-.loc-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.loc-type{font-size:.58rem;color:var(--muted);background:var(--surface3);border-radius:3px;padding:1px 4px;white-space:nowrap}
-.loc-badge{font-size:.65rem;font-weight:700;padding:2px 5px;border-radius:4px;white-space:nowrap}
-.up-b{background:rgba(34,197,94,.15);color:var(--up)}
-.dn-b{background:rgba(239,68,68,.15);color:var(--dn)}
-.na-b{background:rgba(136,153,187,.1);color:var(--muted)}
-.no-results{padding:20px 14px;text-align:center;color:var(--muted);font-size:.82rem}
+/* filter pills row */
+.filter-row{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.filter-row .lbl{font-size:.65rem;color:var(--muted);font-weight:600;white-space:nowrap}
+.pill{font-family:inherit;font-size:.68rem;font-weight:600;border:1px solid var(--bdr);border-radius:6px;padding:4px 10px;cursor:pointer;background:transparent;color:var(--muted);transition:all .12s;white-space:nowrap}
+.pill.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.pill.on-am{background:var(--acc2);border-color:var(--acc2);color:#fff}
+.pill:hover:not(.on):not(.on-am){background:var(--s2);color:var(--txt)}
+.dist-pill{border-radius:20px}
+.dist-pill.on{color:#fff;border-color:transparent}
 
-/* CONTROLS */
-.ctrl-wrap{padding:10px 14px;display:flex;flex-direction:column;gap:8px}
-.ctrl-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:3px}
-.pills{display:flex;flex-wrap:wrap;gap:3px}
-.pill{font-family:inherit;font-size:.7rem;font-weight:600;border:1px solid var(--border);border-radius:5px;padding:3px 9px;cursor:pointer;background:transparent;color:var(--muted);transition:all .12s}
-.pill.active{background:var(--accent);border-color:var(--accent);color:#fff}
-.pill:hover:not(.active){background:var(--surface2);color:var(--text)}
-
-/* COMPARE CHECKBOXES */
-.cmp-list{display:flex;flex-direction:column;gap:5px}
-.cmp-row{display:flex;align-items:center;gap:7px;font-size:.78rem;cursor:pointer;padding:2px 0}
-.cmp-row input{accent-color:var(--accent);cursor:pointer}
-.cmp-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-
-/* MAIN */
-.main{padding:1.2rem;display:flex;flex-direction:column;gap:1rem}
+/* KPI */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem}
-.kpi{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:.9rem 1rem;position:relative;overflow:hidden;transition:border-color .2s}
-.kpi:hover{border-color:var(--accent)}
-.kpi::before{content:'';position:absolute;top:0;right:0;left:0;height:3px;border-radius:11px 11px 0 0}
-.kpi.c-up::before{background:var(--up)}.kpi.c-dn::before{background:var(--dn)}.kpi.c-neu::before{background:var(--accent)}
-.kpi-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:5px}
-.kpi-val{font-size:1.5rem;font-weight:900;letter-spacing:-1px;line-height:1}
-.kpi-sub{font-size:.68rem;color:var(--muted);margin-top:5px}
-.kpi-sub b{color:var(--text)}
+.kpi{background:var(--s1);border:1px solid var(--bdr);border-radius:10px;padding:.85rem 1rem;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;right:0;left:0;height:2px;border-radius:10px 10px 0 0;background:var(--acc)}
+.kpi.c-up::before{background:var(--up)}.kpi.c-dn::before{background:var(--dn)}.kpi.c-am::before{background:var(--acc2)}.kpi.c-pu::before{background:var(--acc3)}
+.kpi-lbl{font-size:.59rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:4px}
+.kpi-val{font-size:1.4rem;font-weight:900;letter-spacing:-1px;line-height:1}
+.kpi-sub{font-size:.63rem;color:var(--muted);margin-top:4px}
+.kpi-sub b{color:var(--txt);font-weight:600}
 
-/* INFO BANNER for localities */
-.info-banner{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.25);border-radius:8px;padding:8px 12px;font-size:.75rem;color:var(--muted);display:flex;align-items:flex-start;gap:8px}
-.info-banner span{color:var(--accent);font-size:1rem;flex-shrink:0}
+/* selected entity banner */
+.sel-banner{background:var(--s1);border:1px solid var(--bdr2);border-radius:10px;padding:.85rem 1.1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.sel-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.sel-info{flex:1}
+.sel-name{font-size:1rem;font-weight:800}
+.sel-sub{font-size:.7rem;color:var(--muted);margin-top:2px}
+.sel-prices{display:flex;gap:.8rem;flex-wrap:wrap}
+.sel-pc{text-align:center;min-width:64px}
+.sel-pc-lbl{font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
+.sel-pc-val{font-size:.92rem;font-weight:800;color:var(--acc2);margin-top:2px}
+.sel-note{font-size:.67rem;color:var(--dim);margin-top:.4rem;display:flex;align-items:center;gap:5px}
 
-.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:1.1rem 1.3rem}
-.chart-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.9rem;padding-bottom:.7rem;border-bottom:1px solid var(--border)}
-.chart-title{font-size:.92rem;font-weight:700}
-.chart-sub{font-size:.7rem;color:var(--muted);margin-top:2px}
-.chart-container{position:relative}
-.charts-two{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+/* cards */
+.card{background:var(--s1);border:1px solid var(--bdr);border-radius:10px;overflow:hidden}
+.card-hdr{padding:.8rem 1.1rem;border-bottom:1px solid var(--bdr);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+.card-title{font-size:.86rem;font-weight:700}
+.card-sub{font-size:.66rem;color:var(--muted);margin-top:1px}
+.card-body{padding:.9rem 1.1rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+.chart-wrap{position:relative}
 
-table{width:100%;border-collapse:collapse;font-size:.78rem}
-th{position:sticky;top:0;background:var(--surface2);padding:7px 11px;text-align:right;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border)}
-td{padding:6px 11px;border-bottom:1px solid rgba(255,255,255,.04)}
-tr:hover td{background:rgba(255,255,255,.025)}
-.up-text{color:var(--up);font-weight:600}.dn-text{color:var(--dn);font-weight:600}
-.tag-p{font-size:.58rem;background:rgba(245,158,11,.15);color:var(--accent2);border-radius:3px;padding:1px 4px;margin-left:3px}
-.table-wrap{overflow-x:auto;max-height:240px}
-.table-hdr-row{display:flex;justify-content:space-between;align-items:center;padding:.7rem 1.1rem;border-bottom:1px solid var(--border)}
+/* rooms filter */
+.rf{display:flex;gap:.35rem;align-items:center;flex-wrap:wrap}
+.rf .lbl{font-size:.63rem;color:var(--muted);font-weight:600}
+.rpill{font-family:inherit;font-size:.67rem;font-weight:600;border:1px solid var(--bdr);border-radius:5px;padding:3px 8px;cursor:pointer;background:transparent;color:var(--muted);transition:all .12s}
+.rpill.on{background:var(--acc2);border-color:var(--acc2);color:#fff}
+.rpill:hover:not(.on){background:var(--s2);color:var(--txt)}
 
-/* LOADING */
-.loading-overlay{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:.8rem;transition:opacity .4s}
-.loading-overlay.hidden{opacity:0;pointer-events:none}
-.spinner{width:36px;height:36px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--accent);animation:spin .8s linear infinite}
+/* ── OVERVIEW PAGE ── */
+.ov-section-head{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);padding:.2rem 0 .5rem;border-bottom:1px solid var(--bdr);margin-bottom:.6rem;display:flex;align-items:center;gap:6px}
+.ov-section-head .ov-dot{width:8px;height:8px;border-radius:50%}
+
+/* district block */
+.ov-dist-block{background:var(--s1);border:1px solid var(--bdr);border-radius:10px;overflow:hidden;margin-bottom:.7rem}
+.ov-dist-hdr{padding:.7rem 1.1rem;display:flex;align-items:center;gap:.8rem;background:rgba(255,255,255,.015)}
+.ov-dist-color{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.ov-dist-name{font-size:.9rem;font-weight:700;flex:1}
+.ov-dist-badge{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:4px}
+.up-b{background:rgba(34,197,94,.12);color:var(--up)}
+.dn-b{background:rgba(239,68,68,.12);color:var(--dn)}
+.ov-dist-kpis{display:flex;gap:1.5rem;font-size:.72rem;color:var(--muted)}
+.ov-dist-kpi b{color:var(--txt);font-weight:700}
+
+/* locality rows inside district */
+.ov-loc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.5rem;padding:.7rem 1rem}
+.ov-loc-card{background:var(--s2);border:1px solid var(--bdr);border-radius:7px;padding:.65rem .8rem;cursor:pointer;transition:all .12s}
+.ov-loc-card:hover{border-color:var(--bdr2);background:var(--s3)}
+.ov-loc-card.on{border-color:var(--acc);background:rgba(59,130,246,.08)}
+.olc-name{font-size:.8rem;font-weight:700;margin-bottom:4px}
+.olc-prices{display:flex;gap:.6rem}
+.olc-p{font-size:.67rem;text-align:center;flex:1}
+.olc-p-lbl{color:var(--dim);font-size:.55rem;text-transform:uppercase}
+.olc-p-val{font-weight:700;color:var(--acc2);margin-top:1px}
+
+/* table */
+.tbl-wrap{overflow:auto;max-height:340px}
+table{width:100%;border-collapse:collapse;font-size:.76rem}
+th{position:sticky;top:0;background:var(--s2);padding:7px 11px;text-align:right;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--bdr);white-space:nowrap}
+td{padding:6px 11px;border-bottom:1px solid rgba(255,255,255,.03);white-space:nowrap}
+tr:hover td{background:rgba(255,255,255,.02)}
+.up-t{color:var(--up);font-weight:600}.dn-t{color:var(--dn);font-weight:600}
+.tag-p{font-size:.55rem;background:rgba(245,158,11,.15);color:var(--acc2);border-radius:3px;padding:1px 4px;margin-left:2px}
+
+/* stat summary */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
+.stat-c{background:var(--s2);border:1px solid var(--bdr);border-radius:8px;padding:.7rem .9rem}
+.stat-lbl{font-size:.58rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.stat-val{font-size:1.05rem;font-weight:800;letter-spacing:-.4px}
+.stat-sub{font-size:.62rem;color:var(--muted);margin-top:2px}
+
+/* loading */
+.loading{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:.8rem;transition:opacity .4s}
+.loading.gone{opacity:0;pointer-events:none}
+.spin{width:34px;height:34px;border-radius:50%;border:3px solid var(--bdr);border-top-color:var(--acc);animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* PDF MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:200;opacity:0;pointer-events:none;transition:opacity .2s}
-.modal-overlay.show{opacity:1;pointer-events:all}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.4rem;width:370px;max-width:90vw}
-.modal h2{font-size:.95rem;font-weight:700;margin-bottom:1rem}
-.modal-body{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.1rem}
-.cbox-row{display:flex;align-items:center;gap:7px;font-size:.82rem;cursor:pointer}
-.cbox-row input{accent-color:var(--accent)}
-select.dark{font-family:inherit;font-size:.8rem;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:6px 9px;width:100%;cursor:pointer;outline:none}
-select.dark:focus{border-color:var(--accent)}
-.modal-footer{display:flex;gap:7px;justify-content:flex-end}
+/* pdf modal */
+.ov-modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;z-index:300;opacity:0;pointer-events:none;transition:opacity .2s}
+.ov-modal.show{opacity:1;pointer-events:all}
+.modal{background:var(--s1);border:1px solid var(--bdr2);border-radius:14px;padding:1.3rem;width:400px;max-width:92vw}
+.modal h2{font-size:.9rem;font-weight:700;margin-bottom:.9rem}
+.m-sec{margin-bottom:.8rem}
+.m-sec-lbl{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:5px}
+.mchk{display:flex;align-items:center;gap:7px;font-size:.79rem;cursor:pointer;margin-bottom:4px}
+.mchk input{accent-color:var(--acc)}
+select.dk{font-family:inherit;font-size:.78rem;background:var(--s2);border:1px solid var(--bdr);color:var(--txt);border-radius:6px;padding:5px 9px;width:100%;cursor:pointer;outline:none}
+select.dk:focus{border-color:var(--acc)}
+.mft{display:flex;gap:7px;justify-content:flex-end;margin-top:.9rem}
+.mbtn{font-family:inherit;font-size:.74rem;font-weight:600;border-radius:7px;padding:6px 13px;cursor:pointer;border:1px solid var(--bdr)}
+.mbtn-p{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.35);color:var(--acc2)}
+.mbtn-p:hover{background:rgba(245,158,11,.2)}
+.mbtn-g{background:transparent;color:var(--muted)}
 
-.status-bar{padding:5px 1.5rem;font-size:.67rem;color:var(--muted);border-top:1px solid var(--border);display:flex;justify-content:space-between;background:var(--surface)}
-.status-bar a{color:var(--accent);text-decoration:none}
+/* status */
+.status{padding:4px 1.5rem;font-size:.62rem;color:var(--dim);border-top:1px solid var(--bdr);display:flex;justify-content:space-between;background:var(--s1)}
+.status a{color:var(--acc);text-decoration:none}
 
-/* locality avg price chart */
-.avg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.5rem}
-.avg-card{background:var(--surface3);border:1px solid var(--border);border-radius:8px;padding:.7rem .9rem;text-align:center}
-.avg-card .rooms{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.avg-card .price{font-size:1.05rem;font-weight:800;color:var(--accent2)}
-.avg-card .price-sub{font-size:.62rem;color:var(--muted);margin-top:3px}
-
-@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{max-height:none;position:static}.kpi-grid{grid-template-columns:1fr 1fr}.charts-two{grid-template-columns:1fr}}
+@media(max-width:860px){
+  .kpi-grid,.two-col,.three-col,.stat-row{grid-template-columns:1fr 1fr}
+  .page{padding:.9rem 1rem}
+  .main-tabs{padding:0 .8rem;overflow-x:auto}
+}
+@media(max-width:540px){
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .three-col{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
 <body>
 
-<!-- LOADING -->
-<div class="loading-overlay" id="loadingOverlay">
-  <div class="spinner"></div>
-  <div style="font-size:.85rem;color:var(--muted)">טוען נתוני הלמ"ס...</div>
-</div>
+<div class="loading" id="loading"><div class="spin"></div><div style="font-size:.82rem;color:var(--muted)">טוען נתוני הלמ"ס...</div></div>
 
 <!-- PDF MODAL -->
-<div class="modal-overlay" id="pdfModal">
+<div class="ov-modal" id="pdfModal">
   <div class="modal">
     <h2>📄 ייצוא דוח PDF</h2>
-    <div class="modal-body">
-      <div>
-        <div style="font-size:.68rem;color:var(--muted);font-weight:700;margin-bottom:5px">תוכן הדוח</div>
-        <label class="cbox-row"><input type="checkbox" id="pdf-kpi" checked> KPI — מדדי ביצוע</label>
-        <label class="cbox-row" style="margin-top:5px"><input type="checkbox" id="pdf-chart" checked> גרף מגמה</label>
-        <label class="cbox-row" style="margin-top:5px"><input type="checkbox" id="pdf-table" checked> טבלת נתונים מלאה</label>
-        <label class="cbox-row" style="margin-top:5px"><input type="checkbox" id="pdf-compare" checked> השוואת מחוזות</label>
-      </div>
-      <div>
-        <div style="font-size:.68rem;color:var(--muted);font-weight:700;margin-bottom:5px">טווח זמן לטבלה</div>
-        <select class="dark" id="pdf-range">
-          <option value="12">שנה אחרונה</option>
-          <option value="24" selected>שנתיים</option>
-          <option value="60">5 שנים</option>
-          <option value="all">הכל</option>
-        </select>
-      </div>
+    <div class="m-sec">
+      <div class="m-sec-lbl">סקציות</div>
+      <label class="mchk"><input type="checkbox" id="pc-kpi" checked> KPI — מדדי ביצוע</label>
+      <label class="mchk"><input type="checkbox" id="pc-prices" checked> מחירים לפי חדרים</label>
+      <label class="mchk"><input type="checkbox" id="pc-chart" checked> גרף מגמה</label>
+      <label class="mchk"><input type="checkbox" id="pc-cmp" checked> השוואת מחוזות</label>
+      <label class="mchk"><input type="checkbox" id="pc-table" checked> טבלת נתוני מדד</label>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closePdfModal()">ביטול</button>
-      <button class="btn btn-pdf" onclick="generatePDF()">⬇ הורד PDF</button>
+    <div class="m-sec">
+      <div class="m-sec-lbl">טווח טבלה</div>
+      <select class="dk" id="pdf-range"><option value="12">שנה</option><option value="24" selected>שנתיים</option><option value="60">5 שנים</option><option value="all">הכל</option></select>
+    </div>
+    <div class="mft">
+      <button class="mbtn mbtn-g" onclick="document.getElementById('pdfModal').classList.remove('show')">ביטול</button>
+      <button class="mbtn mbtn-p" onclick="genPdf()">⬇ הורד PDF</button>
     </div>
   </div>
 </div>
@@ -188,777 +225,771 @@ select.dark:focus{border-color:var(--accent)}
   <div class="hdr-logo">🏠</div>
   <div class="hdr-t">
     <h1>מדד מחירי הדירות בישראל</h1>
-    <p>נתוני הלשכה המרכזית לסטטיסטיקה (הלמ"ס) — מחוזות + 67 ישובים</p>
+    <p>נתוני הלמ"ס — מחוזות + 67 ישובים | מחירים לפי מספר חדרים</p>
   </div>
-  <div class="hdr-right">
-    <div class="live-badge"><div class="live-dot"></div><span id="lastUpdatedLabel">טוען...</span></div>
-    <button class="btn btn-pdf" onclick="openPdfModal()">📄 דוח PDF</button>
-    <button class="btn btn-ghost" onclick="refreshData()">↺ רענן</button>
+  <div class="hdr-r">
+    <div class="live-pill"><div class="live-dot"></div><span id="lblUpdated">טוען...</span></div>
+    <button class="hbtn hbtn-pdf" onclick="document.getElementById('pdfModal').classList.add('show')">📄 PDF</button>
+    <button class="hbtn hbtn-ghost" onclick="refresh()">↺</button>
   </div>
 </header>
 
-<div class="app">
-  <!-- SIDEBAR -->
-  <nav class="sidebar">
-
-    <!-- SEARCH + TABS -->
-    <div class="search-wrap">
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="חפש מחוז או ישוב..." oninput="onSearch()">
-        <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
-      </div>
-      <div class="search-tabs">
-        <button class="stab active" id="tab-all" onclick="setTab('all')">הכל</button>
-        <button class="stab" id="tab-district" onclick="setTab('district')">מחוזות</button>
-        <button class="stab" id="tab-locality" onclick="setTab('locality')">ישובים</button>
-      </div>
-    </div>
-
-    <!-- LIST -->
-    <div id="locList"></div>
-
-    <!-- CONTROLS -->
-    <div class="sb-section">
-      <div class="sb-head">תצוגה</div>
-      <div class="ctrl-wrap">
-        <div>
-          <div class="ctrl-label">סוג נתון</div>
-          <div class="pills">
-            <button class="pill active" id="m-change" onclick="setMode('change')">שינוי %</button>
-            <button class="pill" id="m-index" onclick="setMode('index')">מדד</button>
-            <button class="pill" id="m-yearly" onclick="setMode('yearly')">שנתי %</button>
-          </div>
-        </div>
-        <div>
-          <div class="ctrl-label">טווח זמן</div>
-          <div class="pills">
-            <button class="pill" id="y-2" onclick="setYears(2)">2y</button>
-            <button class="pill active" id="y-5" onclick="setYears(5)">5y</button>
-            <button class="pill" id="y-10" onclick="setYears(10)">10y</button>
-            <button class="pill" id="y-all" onclick="setYears(999)">הכל</button>
-          </div>
-        </div>
-        <div>
-          <div class="ctrl-label">סוג גרף</div>
-          <div class="pills">
-            <button class="pill active" id="ct-line" onclick="setChartType('line')">קו</button>
-            <button class="pill" id="ct-bar" onclick="setChartType('bar')">עמודות</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- COMPARE -->
-    <div class="sb-section">
-      <div class="sb-head">השוואת מחוזות <span style="font-size:.6rem;font-weight:400">(גרף)</span></div>
-      <div class="ctrl-wrap">
-        <div class="cmp-list" id="compareCheckboxes"></div>
-      </div>
-    </div>
-  </nav>
-
-  <!-- MAIN PANEL -->
-  <main class="main" id="mainPanel">
-    <div class="kpi-grid" id="kpiGrid"></div>
-    <div id="infoSection"></div>
-
-    <div class="chart-card" id="mainChartCard">
-      <div class="chart-hdr">
-        <div>
-          <div class="chart-title" id="chartTitle">טוען...</div>
-          <div class="chart-sub" id="chartSub"></div>
-        </div>
-        <span id="trendBadge" style="font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:6px"></span>
-      </div>
-      <div class="chart-container" style="height:300px"><canvas id="mainChart"></canvas></div>
-    </div>
-
-    <div class="charts-two">
-      <div class="chart-card">
-        <div class="chart-hdr"><div><div class="chart-title">שינוי שנתי לפי מחוז</div><div class="chart-sub">12 חודשים אחרונים</div></div></div>
-        <div class="chart-container" style="height:210px"><canvas id="distChart"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-hdr"><div><div class="chart-title" id="compareTitle">השוואת מחוזות</div><div class="chart-sub">מגמת מדד — 2018=100</div></div></div>
-        <div class="chart-container" style="height:210px"><canvas id="compareChart"></canvas></div>
-      </div>
-    </div>
-
-    <!-- Locality avg prices (shown only for localities) -->
-    <div id="avgPriceSection"></div>
-
-    <div class="chart-card" style="padding:0;overflow:hidden">
-      <div class="table-hdr-row">
-        <div style="font-size:.83rem;font-weight:700" id="tableTitle">טבלת נתונים</div>
-        <div style="font-size:.68rem;color:var(--muted)">* נתונים ארעיים | מקור: הלמ"ס</div>
-      </div>
-      <div class="table-wrap">
-        <table><thead><tr id="tableHead"></tr></thead><tbody id="tableBody"></tbody></table>
-      </div>
-    </div>
-  </main>
+<!-- TABS -->
+<div class="main-tabs">
+  <button class="mtab on" id="mt-dash"     onclick="setTab('dash')">📊 דשבורד</button>
+  <button class="mtab"    id="mt-overview" onclick="setTab('overview')">📋 סקירה כללית</button>
 </div>
 
-<div class="status-bar">
-  <span>מקור: <a href="https://api.cbs.gov.il" target="_blank">api.cbs.gov.il</a> | הלשכה המרכזית לסטטיסטיקה | נתוני רשות המיסים</span>
-  <span>לנתונים רשמיים: <a href="https://www.cbs.gov.il" target="_blank">cbs.gov.il</a></span>
+<!-- ══════════════════════════════════════
+     PAGE: DASHBOARD
+══════════════════════════════════════ -->
+<div class="page on" id="pg-dash">
+
+  <!-- SEARCH + FILTERS -->
+  <div class="card">
+    <div class="card-body" style="padding:.85rem 1.1rem;display:flex;flex-direction:column;gap:.7rem">
+
+      <!-- Search -->
+      <div class="search-input-wrap" style="max-width:480px">
+        <span class="si-icon">🔍</span>
+        <input id="searchInput" type="text" placeholder="חפש מחוז או ישוב..." oninput="onSearch()" onfocus="showDd()" autocomplete="off">
+        <button class="si-x" id="searchX" onclick="clearSearch()">✕</button>
+        <div class="search-dropdown" id="searchDd"></div>
+      </div>
+
+      <!-- District filter pills -->
+      <div class="filter-row">
+        <span class="lbl">מחוז:</span>
+        <button class="pill dist-pill on" id="dp-national" onclick="selDist('national')" style="background:rgba(226,232,240,.15);border-color:rgba(226,232,240,.3);color:var(--txt)">הכל</button>
+        <!-- generated by JS -->
+        <div id="distPills" style="display:contents"></div>
+      </div>
+
+      <!-- Chart controls -->
+      <div style="display:flex;gap:1.2rem;flex-wrap:wrap;align-items:flex-start">
+        <div class="filter-row">
+          <span class="lbl">גרף:</span>
+          <button class="pill on" id="m-change" onclick="setMode('change')">שינוי %</button>
+          <button class="pill" id="m-index"  onclick="setMode('index')">מדד</button>
+          <button class="pill" id="m-yearly" onclick="setMode('yearly')">שנתי %</button>
+        </div>
+        <div class="filter-row">
+          <span class="lbl">טווח:</span>
+          <button class="pill" id="y-2"   onclick="setYears(2)">2y</button>
+          <button class="pill on" id="y-5" onclick="setYears(5)">5y</button>
+          <button class="pill" id="y-10"  onclick="setYears(10)">10y</button>
+          <button class="pill" id="y-all" onclick="setYears(999)">הכל</button>
+        </div>
+        <div class="filter-row">
+          <span class="lbl">סוג:</span>
+          <button class="pill on" id="ct-line" onclick="setCT('line')">קו</button>
+          <button class="pill" id="ct-bar"     onclick="setCT('bar')">עמודות</button>
+        </div>
+        <div class="rf">
+          <span class="lbl">חדרים:</span>
+          <button class="rpill on" id="rf-total"  onclick="setRooms('total')">כלל</button>
+          <button class="rpill" id="rf-rooms3" onclick="setRooms('rooms3')">3</button>
+          <button class="rpill" id="rf-rooms4" onclick="setRooms('rooms4')">4</button>
+          <button class="rpill" id="rf-rooms5" onclick="setRooms('rooms5')">5</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SELECTED ENTITY BANNER -->
+  <div class="sel-banner" id="selBanner"></div>
+
+  <!-- KPIs -->
+  <div class="kpi-grid" id="kpiGrid"></div>
+
+  <!-- MAIN CHART + PRICES -->
+  <div class="two-col">
+    <div class="card" style="grid-column:1/2">
+      <div class="card-hdr">
+        <div><div class="card-title" id="chartTitle">—</div><div class="card-sub" id="chartSub"></div></div>
+        <span id="trendBadge" style="font-size:.67rem;font-weight:700;padding:3px 8px;border-radius:5px"></span>
+      </div>
+      <div class="card-body"><div class="chart-wrap" style="height:280px"><canvas id="mainChart"></canvas></div></div>
+    </div>
+    <div class="card" style="grid-column:2/3">
+      <div class="card-hdr">
+        <div><div class="card-title">מחירים ממוצעים</div><div class="card-sub" id="priceSub"></div></div>
+      </div>
+      <div class="card-body">
+        <div id="priceCards" style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.8rem"></div>
+        <div class="chart-wrap" style="height:182px"><canvas id="priceBarChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM CHARTS -->
+  <div class="two-col">
+    <div class="card">
+      <div class="card-hdr"><div><div class="card-title">שינוי שנתי — מחוזות</div><div class="card-sub">12 חודשים — %</div></div></div>
+      <div class="card-body"><div class="chart-wrap" style="height:200px"><canvas id="distChart"></canvas></div></div>
+    </div>
+    <div class="card">
+      <div class="card-hdr">
+        <div><div class="card-title">השוואת מחוזות — מגמה</div><div class="card-sub">ערך מדד</div></div>
+        <div style="display:flex;gap:3px;flex-wrap:wrap" id="cmpToggles"></div>
+      </div>
+      <div class="card-body"><div class="chart-wrap" style="height:200px"><canvas id="cmpChart"></canvas></div></div>
+    </div>
+  </div>
+
+  <!-- INDEX TABLE -->
+  <div class="card">
+    <div class="card-hdr">
+      <div><div class="card-title" id="tblTitle">טבלת מדד</div><div class="card-sub">נתונים דו-חודשיים | הלמ"ס</div></div>
+    </div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>תקופה</th><th>מדד</th><th>שינוי %</th><th>שינוי שנתי %</th><th>ארעי</th></tr></thead>
+      <tbody id="tblBody"></tbody>
+    </table></div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: OVERVIEW
+══════════════════════════════════════ -->
+<div class="page" id="pg-overview">
+
+  <!-- Summary stats -->
+  <div class="stat-row" id="ovStats"></div>
+
+  <!-- National price chart -->
+  <div class="card">
+    <div class="card-hdr"><div><div class="card-title">מחירים ממוצעים לפי מחוז</div><div class="card-sub">כלל הדירות — ₪ | Q3 2025</div></div>
+      <div class="rf" id="ovRF">
+        <span class="lbl">חדרים:</span>
+        <button class="rpill on" id="or-total"  onclick="setOvR('total')">כלל</button>
+        <button class="rpill" id="or-rooms3" onclick="setOvR('rooms3')">3</button>
+        <button class="rpill" id="or-rooms4" onclick="setOvR('rooms4')">4</button>
+        <button class="rpill" id="or-rooms5" onclick="setOvR('rooms5')">5</button>
+      </div>
+    </div>
+    <div class="card-body"><div class="chart-wrap" style="height:220px"><canvas id="ovPriceChart"></canvas></div></div>
+  </div>
+
+  <!-- Districts + localities list -->
+  <div id="ovDistList"></div>
+
+</div>
+
+<div class="status">
+  <span>מקור: <a href="https://api.cbs.gov.il" target="_blank">api.cbs.gov.il</a> | <a href="https://www.cbs.gov.il" target="_blank">cbs.gov.il</a> | רשות המיסים</span>
+  <span id="quarterLbl">—</span>
 </div>
 
 <script>
-// ── DISTRICTS (מחוזות) — נתוני מדד מה-API ─────────────────────────────────
-const DISTRICTS = {
-  national:  {id:40010, name:'ארצי',     color:'#e2e8f0', type:'district', district:'national'},
-  jerusalem: {id:60000, name:'ירושלים',  color:'#a78bfa', type:'district', district:'jerusalem'},
-  north:     {id:60100, name:'צפון',     color:'#34d399', type:'district', district:'north'},
-  haifa:     {id:60200, name:'חיפה',     color:'#60a5fa', type:'district', district:'haifa'},
-  center:    {id:60300, name:'מרכז',     color:'#f59e0b', type:'district', district:'center'},
-  tel_aviv:  {id:60400, name:'תל אביב', color:'#f472b6', type:'district', district:'tel_aviv'},
-  south:     {id:60500, name:'דרום',     color:'#fb923c', type:'district', district:'south'},
+// ══════════════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════════════
+const DM={
+  national: {name:'ארצי',    color:'#e2e8f0'},
+  jerusalem:{name:'ירושלים', color:'#a78bfa'},
+  north:    {name:'צפון',    color:'#34d399'},
+  haifa:    {name:'חיפה',    color:'#60a5fa'},
+  center:   {name:'מרכז',    color:'#f59e0b'},
+  tel_aviv: {name:'תל אביב',color:'#f472b6'},
+  south:    {name:'דרום',    color:'#fb923c'},
 };
-
-// ── LOCALITIES (ישובים) — 67 ישובים עם נתוני מחיר ממוצע (לא מדד) ──────────
-// מחיר ממוצע ₪ לדירה לפי 3 חדרים, 4 חדרים, 5 חדרים (נתון 2026 ממוצע)
-// כל ישוב משויך למחוז שלו ויש לו גם מגמה (לפי מחוז)
-const LOCALITIES = [
-  // ── ירושלים ──
-  {key:'jerusalem_city', name:'ירושלים',       district:'jerusalem', color:'#a78bfa', pop:970000, avg3:2150000, avg4:2950000, avg5:3900000},
-  {key:'beit_shemesh',   name:'בית שמש',       district:'jerusalem', color:'#a78bfa', pop:130000, avg3:1350000, avg4:1750000, avg5:2300000},
-  {key:'maale_adumim',   name:'מעלה אדומים',   district:'jerusalem', color:'#a78bfa', pop:40000,  avg3:1850000, avg4:2400000, avg5:3100000},
-  {key:'givat_zeev',     name:'גבעת זאב',      district:'jerusalem', color:'#a78bfa', pop:18000,  avg3:1500000, avg4:2000000, avg5:2600000},
-  // ── צפון ──
-  {key:'nazareth',       name:'נצרת',          district:'north',     color:'#34d399', pop:80000,  avg3:650000,  avg4:900000,  avg5:1150000},
-  {key:'afula',          name:'עפולה',          district:'north',     color:'#34d399', pop:65000,  avg3:800000,  avg4:1100000, avg5:1400000},
-  {key:'karmiel',        name:'כרמיאל',         district:'north',     color:'#34d399', pop:50000,  avg3:900000,  avg4:1250000, avg5:1650000},
-  {key:'tiberias',       name:'טבריה',          district:'north',     color:'#34d399', pop:45000,  avg3:700000,  avg4:1000000, avg5:1300000},
-  {key:'acre',           name:'עכו',            district:'north',     color:'#34d399', pop:50000,  avg3:850000,  avg4:1150000, avg5:1500000},
-  {key:'nahariya',       name:'נהריה',          district:'north',     color:'#34d399', pop:60000,  avg3:900000,  avg4:1300000, avg5:1700000},
-  {key:'kiryat_shmona',  name:'קריית שמונה',    district:'north',     color:'#34d399', pop:25000,  avg3:650000,  avg4:900000,  avg5:1150000},
-  {key:'safed',          name:'צפת',            district:'north',     color:'#34d399', pop:35000,  avg3:700000,  avg4:950000,  avg5:1250000},
-  {key:'shfaram',        name:'שפרעם',          district:'north',     color:'#34d399', pop:40000,  avg3:700000,  avg4:950000,  avg5:1200000},
-  {key:'migdal_haemek',  name:'מגדל העמק',      district:'north',     color:'#34d399', pop:26000,  avg3:750000,  avg4:1050000, avg5:1350000},
-  {key:'yokneam',        name:'יוקנעם עילית',   district:'north',     color:'#34d399', pop:24000,  avg3:1100000, avg4:1500000, avg5:2000000},
-  {key:'nesher_n',       name:'נשר',            district:'north',     color:'#34d399', pop:25000,  avg3:1300000, avg4:1750000, avg5:2300000},
-  // ── חיפה ──
-  {key:'haifa',          name:'חיפה',           district:'haifa',     color:'#60a5fa', pop:290000, avg3:1100000, avg4:1550000, avg5:2100000},
-  {key:'kiryat_ata',     name:'קריית אתא',      district:'haifa',     color:'#60a5fa', pop:60000,  avg3:1100000, avg4:1500000, avg5:1950000},
-  {key:'kiryat_bialik',  name:'קריית ביאליק',   district:'haifa',     color:'#60a5fa', pop:40000,  avg3:1150000, avg4:1600000, avg5:2100000},
-  {key:'kiryat_motzkin', name:'קריית מוצקין',   district:'haifa',     color:'#60a5fa', pop:42000,  avg3:1050000, avg4:1450000, avg5:1900000},
-  {key:'kiryat_yam',     name:'קריית ים',       district:'haifa',     color:'#60a5fa', pop:37000,  avg3:1000000, avg4:1400000, avg5:1800000},
-  {key:'hadera',         name:'חדרה',           district:'haifa',     color:'#60a5fa', pop:100000, avg3:1050000, avg4:1450000, avg5:1900000},
-  {key:'zichron',        name:'זכרון יעקב',     district:'haifa',     color:'#60a5fa', pop:25000,  avg3:1450000, avg4:2000000, avg5:2700000},
-  {key:'tirat_carmel',   name:'טירת כרמל',      district:'haifa',     color:'#60a5fa', pop:22000,  avg3:950000,  avg4:1300000, avg5:1700000},
-  {key:'pardes_hanna',   name:'פרדס חנה-כרכור', district:'haifa',     color:'#60a5fa', pop:40000,  avg3:1200000, avg4:1650000, avg5:2200000},
-  // ── מרכז ──
-  {key:'petah_tikva',    name:'פתח תקווה',      district:'center',    color:'#f59e0b', pop:260000, avg3:1600000, avg4:2200000, avg5:2900000},
-  {key:'rishon',         name:'ראשון לציון',    district:'center',    color:'#f59e0b', pop:270000, avg3:1700000, avg4:2300000, avg5:3100000},
-  {key:'rehovot',        name:'רחובות',         district:'center',    color:'#f59e0b', pop:140000, avg3:1650000, avg4:2250000, avg5:2950000},
-  {key:'nes_ziona',      name:'נס ציונה',       district:'center',    color:'#f59e0b', pop:55000,  avg3:1700000, avg4:2300000, avg5:3100000},
-  {key:'lod',            name:'לוד',            district:'center',    color:'#f59e0b', pop:85000,  avg3:1300000, avg4:1750000, avg5:2300000},
-  {key:'ramla',          name:'רמלה',           district:'center',    color:'#f59e0b', pop:85000,  avg3:1200000, avg4:1650000, avg5:2150000},
-  {key:'modiin',         name:'מודיעין-מכבים',  district:'center',    color:'#f59e0b', pop:110000, avg3:2100000, avg4:2850000, avg5:3800000},
-  {key:'rosh_haayin',    name:'ראש העין',       district:'center',    color:'#f59e0b', pop:50000,  avg3:1900000, avg4:2600000, avg5:3400000},
-  {key:'yavne',          name:'יבנה',           district:'center',    color:'#f59e0b', pop:50000,  avg3:1550000, avg4:2100000, avg5:2750000},
-  {key:'gadera',         name:'גדרה',           district:'center',    color:'#f59e0b', pop:25000,  avg3:1400000, avg4:1900000, avg5:2550000},
-  {key:'kfar_saba',      name:'כפר סבא',        district:'center',    color:'#f59e0b', pop:110000, avg3:2100000, avg4:2900000, avg5:3800000},
-  {key:'hod_hasharon',   name:'הוד השרון',      district:'center',    color:'#f59e0b', pop:60000,  avg3:2200000, avg4:3000000, avg5:4000000},
-  {key:'raanana',        name:'רעננה',          district:'center',    color:'#f59e0b', pop:85000,  avg3:2400000, avg4:3300000, avg5:4400000},
-  {key:'herzliya',       name:'הרצליה',         district:'center',    color:'#f59e0b', pop:100000, avg3:2600000, avg4:3600000, avg5:4800000},
-  {key:'netanya',        name:'נתניה',          district:'center',    color:'#f59e0b', pop:240000, avg3:1650000, avg4:2300000, avg5:3000000},
-  {key:'or_yehuda',      name:'אור יהודה',      district:'center',    color:'#f59e0b', pop:38000,  avg3:1500000, avg4:2050000, avg5:2700000},
-  {key:'elad',           name:'אלעד',           district:'center',    color:'#f59e0b', pop:55000,  avg3:1700000, avg4:2300000, avg5:3000000},
-  {key:'kalansawa',      name:'קלנסווה',        district:'center',    color:'#f59e0b', pop:25000,  avg3:850000,  avg4:1150000, avg5:1500000},
-  {key:'tayibe',         name:'טייבה',          district:'center',    color:'#f59e0b', pop:45000,  avg3:750000,  avg4:1050000, avg5:1350000},
-  {key:'tira',           name:'טירה',           district:'center',    color:'#f59e0b', pop:30000,  avg3:700000,  avg4:950000,  avg5:1250000},
-  // ── תל אביב ──
-  {key:'tel_aviv',       name:'תל אביב-יפו',    district:'tel_aviv',  color:'#f472b6', pop:470000, avg3:3200000, avg4:4500000, avg5:6000000},
-  {key:'ramat_gan',      name:'רמת גן',         district:'tel_aviv',  color:'#f472b6', pop:170000, avg3:2400000, avg4:3300000, avg5:4400000},
-  {key:'givatayim',      name:'גבעתיים',        district:'tel_aviv',  color:'#f472b6', pop:60000,  avg3:2600000, avg4:3600000, avg5:4800000},
-  {key:'holon',          name:'חולון',          district:'tel_aviv',  color:'#f472b6', pop:200000, avg3:1700000, avg4:2350000, avg5:3100000},
-  {key:'bat_yam',        name:'בת ים',          district:'tel_aviv',  color:'#f472b6', pop:165000, avg3:1600000, avg4:2200000, avg5:2900000},
-  {key:'bnei_brak',      name:'בני ברק',        district:'tel_aviv',  color:'#f472b6', pop:220000, avg3:1800000, avg4:2500000, avg5:3300000},
-  {key:'azor',           name:'אזור',           district:'tel_aviv',  color:'#f472b6', pop:14000,  avg3:1600000, avg4:2200000, avg5:2900000},
-  {key:'givat_shmuel',   name:'גבעת שמואל',     district:'tel_aviv',  color:'#f472b6', pop:30000,  avg3:2200000, avg4:3000000, avg5:4000000},
-  // ── דרום ──
-  {key:'beer_sheva',     name:'באר שבע',        district:'south',     color:'#fb923c', pop:220000, avg3:900000,  avg4:1250000, avg5:1650000},
-  {key:'ashdod',         name:'אשדוד',          district:'south',     color:'#fb923c', pop:240000, avg3:1350000, avg4:1850000, avg5:2450000},
-  {key:'ashkelon',       name:'אשקלון',         district:'south',     color:'#fb923c', pop:150000, avg3:1200000, avg4:1650000, avg5:2150000},
-  {key:'eilat',          name:'אילת',           district:'south',     color:'#fb923c', pop:55000,  avg3:1000000, avg4:1400000, avg5:1850000},
-  {key:'dimona',         name:'דימונה',         district:'south',     color:'#fb923c', pop:35000,  avg3:700000,  avg4:950000,  avg5:1250000},
-  {key:'arad',           name:'ערד',            district:'south',     color:'#fb923c', pop:27000,  avg3:700000,  avg4:950000,  avg5:1200000},
-  {key:'kiryat_gat',     name:'קריית גת',       district:'south',     color:'#fb923c', pop:65000,  avg3:1050000, avg4:1450000, avg5:1900000},
-  {key:'netivot',        name:'נתיבות',         district:'south',     color:'#fb923c', pop:38000,  avg3:800000,  avg4:1100000, avg5:1450000},
-  {key:'sderot',         name:'שדרות',          district:'south',     color:'#fb923c', pop:30000,  avg3:850000,  avg4:1150000, avg5:1500000},
-  {key:'ofakim',         name:'אופקים',         district:'south',     color:'#fb923c', pop:30000,  avg3:750000,  avg4:1050000, avg5:1350000},
+const LOCS=[
+  {key:'jerusalem_city',name:'ירושלים',         dist:'jerusalem'},
+  {key:'beit_shemesh', name:'בית שמש',          dist:'jerusalem'},
+  {key:'maale_adumim', name:'מעלה אדומים',      dist:'jerusalem'},
+  {key:'givat_zeev',   name:'גבעת זאב',         dist:'jerusalem'},
+  {key:'beitar_ilit',  name:'ביתר עילית',       dist:'jerusalem'},
+  {key:'nazareth',     name:'נצרת',             dist:'north'},
+  {key:'afula',        name:'עפולה',            dist:'north'},
+  {key:'karmiel',      name:'כרמיאל',           dist:'north'},
+  {key:'tiberias',     name:'טבריה',            dist:'north'},
+  {key:'acre',         name:'עכו',              dist:'north'},
+  {key:'nahariya',     name:'נהריה',            dist:'north'},
+  {key:'kiryat_shmona',name:'קריית שמונה',      dist:'north'},
+  {key:'safed',        name:'צפת',              dist:'north'},
+  {key:'shfaram',      name:'שפרעם',            dist:'north'},
+  {key:'migdal_haemek',name:'מגדל העמק',        dist:'north'},
+  {key:'yokneam',      name:'יוקנעם עילית',     dist:'north'},
+  {key:'nesher',       name:'נשר',              dist:'north'},
+  {key:'haifa_city',   name:'חיפה',             dist:'haifa'},
+  {key:'kiryat_ata',   name:'קריית אתא',        dist:'haifa'},
+  {key:'kiryat_bialik',name:'קריית ביאליק',     dist:'haifa'},
+  {key:'kiryat_motzkin',name:'קריית מוצקין',    dist:'haifa'},
+  {key:'kiryat_yam',   name:'קריית ים',         dist:'haifa'},
+  {key:'hadera',       name:'חדרה',             dist:'haifa'},
+  {key:'zichron',      name:'זכרון יעקב',       dist:'haifa'},
+  {key:'tirat_carmel', name:'טירת כרמל',        dist:'haifa'},
+  {key:'pardes_hanna', name:'פרדס חנה-כרכור',   dist:'haifa'},
+  {key:'petah_tikva',  name:'פתח תקווה',        dist:'center'},
+  {key:'rishon',       name:'ראשון לציון',      dist:'center'},
+  {key:'rehovot',      name:'רחובות',           dist:'center'},
+  {key:'nes_ziona',    name:'נס ציונה',         dist:'center'},
+  {key:'lod',          name:'לוד',              dist:'center'},
+  {key:'ramla',        name:'רמלה',             dist:'center'},
+  {key:'modiin',       name:'מודיעין-מכבים',    dist:'center'},
+  {key:'rosh_haayin',  name:'ראש העין',         dist:'center'},
+  {key:'yavne',        name:'יבנה',             dist:'center'},
+  {key:'gadera',       name:'גדרה',             dist:'center'},
+  {key:'kfar_saba',    name:'כפר סבא',          dist:'center'},
+  {key:'hod_hasharon', name:'הוד השרון',        dist:'center'},
+  {key:'raanana',      name:'רעננה',            dist:'center'},
+  {key:'herzliya',     name:'הרצליה',           dist:'center'},
+  {key:'netanya',      name:'נתניה',            dist:'center'},
+  {key:'or_yehuda',    name:'אור יהודה',        dist:'center'},
+  {key:'elad',         name:'אלעד',             dist:'center'},
+  {key:'ariel',        name:'אריאל',            dist:'center'},
+  {key:'modiin_ilit',  name:'מודיעין עילית',    dist:'center'},
+  {key:'tel_aviv',     name:'תל אביב-יפו',      dist:'tel_aviv'},
+  {key:'ramat_gan',    name:'רמת גן',           dist:'tel_aviv'},
+  {key:'givatayim',    name:'גבעתיים',          dist:'tel_aviv'},
+  {key:'holon',        name:'חולון',            dist:'tel_aviv'},
+  {key:'bat_yam',      name:'בת ים',            dist:'tel_aviv'},
+  {key:'bnei_brak',    name:'בני ברק',          dist:'tel_aviv'},
+  {key:'azor',         name:'אזור',             dist:'tel_aviv'},
+  {key:'givat_shmuel', name:'גבעת שמואל',       dist:'tel_aviv'},
+  {key:'beer_sheva',   name:'באר שבע',          dist:'south'},
+  {key:'ashdod',       name:'אשדוד',            dist:'south'},
+  {key:'ashkelon',     name:'אשקלון',           dist:'south'},
+  {key:'eilat',        name:'אילת',             dist:'south'},
+  {key:'dimona',       name:'דימונה',           dist:'south'},
+  {key:'arad',         name:'ערד',              dist:'south'},
+  {key:'kiryat_gat',   name:'קריית גת',         dist:'south'},
+  {key:'netivot',      name:'נתיבות',           dist:'south'},
+  {key:'sderot',       name:'שדרות',            dist:'south'},
+  {key:'ofakim',       name:'אופקים',           dist:'south'},
+  {key:'kalansawa',    name:'קלנסווה',          dist:'center'},
+  {key:'tayibe',       name:'טייבה',            dist:'center'},
+  {key:'tira',         name:'טירה',             dist:'center'},
 ];
 
-// ── STATE ─────────────────────────────────────────────────────────────────────
-let DATA = null;
-let selectedKey = 'national';   // district key or locality key
-let selectedType = 'district';  // 'district' | 'locality'
-let chartMode = 'change';
-let chartType = 'line';
-let yearLimit = 5;
-let compareKeys = [];
-let searchTab = 'all';          // 'all' | 'district' | 'locality'
-let mainChart = null, distChart = null, compareChart = null;
+// ══════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════
+let DATA=null;
+let SEL={key:'national',type:'district'};
+let DIST_FILTER='national'; // for district pills
+let MODE='change';
+let CT='line';
+let YEARS=5;
+let ROOMS='total';
+let OV_ROOMS='total';
+let CMP_KEYS=['jerusalem','tel_aviv','center','south'];
+let CUR_TAB='dash';
+let charts={};
 
-// ── DATA ──────────────────────────────────────────────────────────────────────
-async function loadData() {
-  try {
-    const res = await fetch('./data/housing.json?t=' + Date.now());
-    if (!res.ok) throw new Error();
-    DATA = await res.json();
-  } catch { /* use seeded data from html */ }
+// ══════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════
+function de(k){return DATA?.indices?.[k]?.entries||[];}
+function ds(k){const a=de(k);return YEARS>=999?a:a.slice(-(YEARS*6));}
+function lp(locKey){
+  if(!DATA?.localities)return null;
+  const l=LOCS.find(x=>x.key===locKey);if(!l)return null;
+  return DATA.localities[l.name]||null;
+}
+function distOfSel(){return SEL.type==='district'?SEL.key:(LOCS.find(l=>l.key===SEL.key)?.dist||'national');}
+function colorOfSel(){return DM[SEL.type==='district'?SEL.key:LOCS.find(l=>l.key===SEL.key)?.dist]?.color||'#3b82f6';}
+function nameOfSel(){return SEL.type==='district'?DM[SEL.key]?.name:(LOCS.find(l=>l.key===SEL.key)?.name||SEL.key);}
+function distAvg(dk,field){
+  const ps=LOCS.filter(l=>!dk||dk==='national'?true:l.dist===dk).map(l=>lp(l.key)?.[field]).filter(Boolean);
+  return ps.length?Math.round(ps.reduce((a,b)=>a+b,0)/ps.length):null;
+}
+function fP(p){if(!p)return'—';return p>=1e6?'₪'+(p/1e6).toFixed(2)+'M':'₪'+(p/1000).toFixed(0)+'K';}
+function fPct(v,d=2){if(v==null||isNaN(v))return'—';return(v>=0?'+':'')+v.toFixed(d)+'%';}
+function pFmt(p){if(!p)return'';const[mm,yy]=p.split('-');const M=['','ינו','פבר','מרץ','אפר','מאי','יוני','יול','אוג','ספט','אוק','נוב','דצמ'];return(M[+mm]||mm)+" '"+yy.slice(2);}
+function mkChart(id,cfg){if(charts[id])charts[id].destroy();const el=document.getElementById(id);if(!el)return;charts[id]=new Chart(el.getContext('2d'),cfg);}
+function dOpts(ov={}){
+  return{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},...(ov.plugins||{})},
+    scales:{
+      x:{ticks:{maxTicksLimit:12,font:{size:9},color:'#6b84a8'},grid:{color:'rgba(255,255,255,.04)'}},
+      y:{ticks:{font:{size:9},color:'#6b84a8'},grid:{color:'rgba(255,255,255,.05)'},border:{dash:[3,3]}},
+      ...(ov.scales||{})},
+    animation:{duration:350},
+    ...Object.fromEntries(Object.entries(ov).filter(([k])=>!['plugins','scales'].includes(k)))};
 }
 
-function getDistrictEntries(distKey) {
-  if (!DATA?.indices?.[distKey]) return [];
-  return DATA.indices[distKey].entries || [];
-}
-
-function getSliced(distKey) {
-  const all = getDistrictEntries(distKey);
-  if (yearLimit >= 999) return all;
-  return all.slice(-(yearLimit * 6));
-}
-
-function getLocalityDistrict(locKey) {
-  const loc = LOCALITIES.find(l => l.key === locKey);
-  return loc ? loc.district : 'national';
-}
-
-function currentDistrictKey() {
-  if (selectedType === 'district') return selectedKey;
-  return getLocalityDistrict(selectedKey);
-}
-
-function currentColor() {
-  if (selectedType === 'district') return DISTRICTS[selectedKey]?.color || '#3b82f6';
-  const loc = LOCALITIES.find(l => l.key === selectedKey);
-  return loc?.color || '#3b82f6';
-}
-
-function currentName() {
-  if (selectedType === 'district') return DISTRICTS[selectedKey]?.name || '';
-  const loc = LOCALITIES.find(l => l.key === selectedKey);
-  return loc?.name || '';
-}
-
-// ── SEARCH & SIDEBAR ──────────────────────────────────────────────────────────
-function setTab(t) {
-  searchTab = t;
-  ['all','district','locality'].forEach(x => document.getElementById('tab-'+x).classList.toggle('active', x===t));
-  renderList();
-}
-
-function onSearch() {
-  const q = document.getElementById('searchInput').value;
-  document.getElementById('searchClear').classList.toggle('show', q.length > 0);
-  renderList();
-}
-
-function clearSearch() {
-  document.getElementById('searchInput').value = '';
-  document.getElementById('searchClear').classList.remove('show');
-  renderList();
-}
-
-function renderList() {
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  const container = document.getElementById('locList');
-  let html = '';
-
-  // Show matching districts
-  if (searchTab !== 'locality') {
-    const distMatches = Object.entries(DISTRICTS).filter(([k,d]) =>
-      !q || d.name.includes(q) || k.includes(q));
-
-    if (distMatches.length) {
-      html += `<div class="group-label"><span class="group-dot" style="background:#3b82f6"></span>מחוזות (נתוני מדד)</div>`;
-      for (const [key, d] of distMatches) {
-        const entries = getDistrictEntries(key);
-        const last = entries[entries.length-1];
-        const ch = last?.change ?? null;
-        const sign = ch !== null && ch > 0 ? '+' : '';
-        const badgeCls = ch === null ? 'na-b' : ch >= 0 ? 'up-b' : 'dn-b';
-        const badgeTxt = ch !== null ? sign+ch.toFixed(2)+'%' : '—';
-        const active = selectedKey === key && selectedType === 'district';
-        html += `<div class="loc-row${active?' active':''}" onclick="selectItem('${key}','district')">
-          <span class="loc-name">${d.name}</span>
-          <span class="loc-type">מחוז</span>
-          <span class="loc-badge ${badgeCls}">${badgeTxt}</span>
-        </div>`;
-      }
-    }
+// ══════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════
+async function init(){
+  try{const r=await fetch('./data/housing.json?t='+Date.now());if(r.ok)DATA=await r.json();}catch(e){}
+  buildDistPills();
+  buildCmpToggles();
+  renderDash();
+  document.getElementById('loading').classList.add('gone');
+  if(DATA?.generated){
+    const d=new Date(DATA.generated);
+    document.getElementById('lblUpdated').textContent='עודכן '+d.toLocaleDateString('he-IL',{month:'long',day:'numeric',year:'numeric'});
   }
+  if(DATA?.latestQuarter)document.getElementById('quarterLbl').textContent='רבעון: '+DATA.latestQuarter;
+  // click outside closes search
+  document.addEventListener('click',e=>{if(!e.target.closest('.search-input-wrap'))hideDd();});
+}
+function refresh(){document.getElementById('loading').classList.remove('gone');setTimeout(init,80);}
 
-  // Show matching localities grouped by district
-  if (searchTab !== 'district') {
-    const locMatches = LOCALITIES.filter(l => !q || l.name.includes(q));
+// ══════════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════════
+function setTab(t){
+  CUR_TAB=t;
+  ['dash','overview'].forEach(x=>{
+    document.getElementById('mt-'+x).classList.toggle('on',x===t);
+    document.getElementById('pg-'+x).classList.toggle('on',x===t);
+  });
+  if(t==='overview')renderOverview();
+}
 
-    if (locMatches.length) {
-      // Group by district
-      const grouped = {};
-      for (const l of locMatches) {
-        if (!grouped[l.district]) grouped[l.district] = [];
-        grouped[l.district].push(l);
-      }
-      for (const [dist, locs] of Object.entries(grouped)) {
-        const dm = DISTRICTS[dist];
-        if (!dm) continue;
-        html += `<div class="group-label"><span class="group-dot" style="background:${dm.color}"></span>ישובים — ${dm.name} <span style="font-size:.55rem;color:var(--muted)">(מחיר ממוצע)</span></div>`;
-        for (const l of locs) {
-          const active = selectedKey === l.key && selectedType === 'locality';
-          // show avg price for 4 rooms as reference
-          const pr4 = l.avg4 ? '₪'+(l.avg4/1000000).toFixed(1)+'M' : '—';
-          html += `<div class="loc-row${active?' active':''}" onclick="selectItem('${l.key}','locality')">
-            <span class="loc-name">${l.name}</span>
-            <span class="loc-type">ישוב</span>
-            <span class="loc-badge na-b" style="background:rgba(245,158,11,.12);color:var(--accent2)">${pr4}</span>
-          </div>`;
-        }
-      }
-    }
+// ══════════════════════════════════════════════════
+// DISTRICT PILLS
+// ══════════════════════════════════════════════════
+function buildDistPills(){
+  document.getElementById('distPills').innerHTML=
+    Object.entries(DM).filter(([k])=>k!=='national').map(([k,d])=>
+      `<button class="pill dist-pill" id="dp-${k}" onclick="selDist('${k}')"
+        style="background:${d.color}18;border-color:${d.color}44;color:${d.color}">${d.name}</button>`
+    ).join('');
+}
+function selDist(k){
+  DIST_FILTER=k;
+  // select district
+  SEL={key:k,type:'district'};
+  // update active pill
+  document.querySelectorAll('[id^="dp-"]').forEach(b=>b.classList.remove('on'));
+  const el=document.getElementById('dp-'+k);
+  if(el)el.classList.add('on');
+  renderDash();
+}
+
+// ══════════════════════════════════════════════════
+// SEARCH
+// ══════════════════════════════════════════════════
+function onSearch(){
+  const q=document.getElementById('searchInput').value;
+  document.getElementById('searchX').classList.toggle('show',!!q);
+  if(q.trim())showDd(); else hideDd();
+}
+function clearSearch(){
+  document.getElementById('searchInput').value='';
+  document.getElementById('searchX').classList.remove('show');
+  hideDd();
+}
+function showDd(){
+  const q=document.getElementById('searchInput').value.trim().toLowerCase();
+  const dd=document.getElementById('searchDd');
+  if(!q){dd.classList.remove('show');return;}
+  let html='';
+  // Districts
+  const dists=Object.entries(DM).filter(([k,d])=>d.name.includes(q)||k.includes(q));
+  if(dists.length){
+    html+=`<div class="sd-section"><div class="sd-head">מחוזות</div>`;
+    dists.forEach(([k,d])=>{
+      const e=de(k);const last=e[e.length-1];const ch=last?.change;
+      html+=`<div class="sd-row" onclick="pickSearch('${k}','district')">
+        <span class="sd-dot" style="background:${d.color}"></span>
+        <span class="sd-name">${d.name}</span>
+        <span class="sd-sub">מחוז</span>
+        <span class="sd-price">${ch!=null?fPct(ch):''}</span>
+      </div>`;
+    });
+    html+='</div>';
   }
-
-  if (!html) html = `<div class="no-results">לא נמצאו תוצאות עבור "${q}"</div>`;
-  container.innerHTML = html;
-}
-
-function selectItem(key, type) {
-  selectedKey = key;
-  selectedType = type;
-  renderList();
-  renderAll();
-}
-
-// ── COMPARE CHECKBOXES ─────────────────────────────────────────────────────────
-function buildCompareCheckboxes() {
-  const c = document.getElementById('compareCheckboxes');
-  c.innerHTML = '';
-  for (const [key, d] of Object.entries(DISTRICTS)) {
-    if (key === 'national') continue;
-    const checked = compareKeys.includes(key);
-    const label = document.createElement('label');
-    label.className = 'cmp-row';
-    label.innerHTML = `<input type="checkbox" ${checked?'checked':''}><span class="cmp-dot" style="background:${d.color}"></span><span>${d.name}</span>`;
-    label.querySelector('input').onchange = e => {
-      if (e.target.checked) compareKeys.push(key);
-      else compareKeys = compareKeys.filter(k=>k!==key);
-      renderCompareChart();
-    };
-    c.appendChild(label);
+  // Localities
+  const locs=LOCS.filter(l=>l.name.includes(q));
+  if(locs.length){
+    html+=`<div class="sd-section"><div class="sd-head">ישובים</div>`;
+    locs.forEach(l=>{
+      const p=lp(l.key);const d=DM[l.dist];
+      html+=`<div class="sd-row" onclick="pickSearch('${l.key}','locality')">
+        <span class="sd-dot" style="background:${d?.color||'#3b82f6'}"></span>
+        <span class="sd-name">${l.name}</span>
+        <span class="sd-sub">${d?.name||''}</span>
+        <span class="sd-price">${p?fP(p.rooms4):''}</span>
+      </div>`;
+    });
+    html+='</div>';
   }
+  if(!html)html=`<div class="sd-row" style="color:var(--muted)">לא נמצאו תוצאות</div>`;
+  dd.innerHTML=html;
+  dd.classList.add('show');
+}
+function hideDd(){document.getElementById('searchDd').classList.remove('show');}
+function pickSearch(key,type){
+  SEL={key,type};
+  // sync dist filter pill
+  const dk=type==='district'?key:(LOCS.find(l=>l.key===key)?.dist||'national');
+  DIST_FILTER=dk;
+  document.querySelectorAll('[id^="dp-"]').forEach(b=>b.classList.remove('on'));
+  const el=document.getElementById('dp-'+dk);if(el)el.classList.add('on');
+  document.getElementById('searchInput').value=nameOfSel();
+  hideDd();
+  renderDash();
 }
 
-// ── CONTROLS ──────────────────────────────────────────────────────────────────
-function setMode(m) {
-  chartMode = m;
-  ['change','index','yearly'].forEach(x => document.getElementById('m-'+x).classList.toggle('active',x===m));
-  renderAll();
+// ══════════════════════════════════════════════════
+// CONTROLS
+// ══════════════════════════════════════════════════
+function setMode(m){MODE=m;['change','index','yearly'].forEach(x=>document.getElementById('m-'+x).classList.toggle('on',x===m));mkMainChart();}
+function setYears(y){YEARS=y;[2,5,10,999].forEach(v=>document.getElementById('y-'+(v===999?'all':v)).classList.toggle('on',v===y));mkMainChart();}
+function setCT(t){CT=t;['line','bar'].forEach(x=>document.getElementById('ct-'+x).classList.toggle('on',x===t));mkMainChart();}
+function setRooms(r){ROOMS=r;['total','rooms3','rooms4','rooms5'].forEach(x=>document.getElementById('rf-'+x).classList.toggle('on',x===r));mkPriceBar();}
+function setOvR(r){OV_ROOMS=r;['total','rooms3','rooms4','rooms5'].forEach(x=>document.getElementById('or-'+x).classList.toggle('on',x===r));mkOvPriceChart();}
+
+// ══════════════════════════════════════════════════
+// COMPARE TOGGLES
+// ══════════════════════════════════════════════════
+function buildCmpToggles(){
+  document.getElementById('cmpToggles').innerHTML=
+    Object.entries(DM).filter(([k])=>k!=='national').map(([k,d])=>`
+      <button class="rpill ${CMP_KEYS.includes(k)?'on':''}" id="ct-cmp-${k}"
+        style="${CMP_KEYS.includes(k)?`background:${d.color};border-color:${d.color};color:#fff`:''}"
+        onclick="toggleCmp('${k}')">${d.name}</button>`
+    ).join('');
 }
-function setYears(y) {
-  yearLimit = y;
-  [2,5,10,999].forEach(v => document.getElementById('y-'+(v===999?'all':v)).classList.toggle('active',v===y));
-  renderAll();
-}
-function setChartType(t) {
-  chartType = t;
-  ['line','bar'].forEach(x => document.getElementById('ct-'+x).classList.toggle('active',x===t));
-  renderMainChart();
+function toggleCmp(k){
+  if(CMP_KEYS.includes(k))CMP_KEYS=CMP_KEYS.filter(x=>x!==k);else CMP_KEYS.push(k);
+  buildCmpToggles();mkCmpChart();
 }
 
-// ── KPIs ──────────────────────────────────────────────────────────────────────
-function renderKPIs() {
-  const dKey = currentDistrictKey();
-  const entries = getDistrictEntries(dKey);
-  if (!entries.length) return;
+// ══════════════════════════════════════════════════
+// RENDER DASH
+// ══════════════════════════════════════════════════
+function renderDash(){
+  mkBanner();
+  mkKPIs();
+  mkMainChart();
+  mkPriceCards();
+  mkPriceBar();
+  mkDistYearlyChart();
+  mkCmpChart();
+  mkTable();
+}
 
-  const last = entries[entries.length-1];
-  const latestChange = last.change ?? 0;
-  const yearlyChange = last.yearlyChange;
-  const latestIndex = last.value;
-  const fiveBack = entries[Math.max(0,entries.length-30)];
-  const fiveYr = fiveBack ? ((last.value-fiveBack.value)/fiveBack.value*100) : null;
-  const sign = v => v > 0 ? '+' : '';
-  const col = v => v>=0 ? 'var(--up)' : 'var(--dn)';
-
-  document.getElementById('kpiGrid').innerHTML = `
-    <div class="kpi ${latestChange>=0?'c-up':'c-dn'}">
-      <div class="kpi-label">שינוי אחרון</div>
-      <div class="kpi-val" style="color:${col(latestChange)}">${sign(latestChange)}${latestChange.toFixed(2)}%</div>
-      <div class="kpi-sub">תקופה: <b>${formatPeriod(last.period)}${last.provisional?' *':''}</b></div>
+// ══════════════════════════════════════════════════
+// BANNER
+// ══════════════════════════════════════════════════
+function mkBanner(){
+  const dk=distOfSel();const d=DM[dk];const color=colorOfSel();const name=nameOfSel();
+  const e=de(dk);const last=e[e.length-1];
+  const isLoc=SEL.type==='locality';
+  const ldata=isLoc?lp(SEL.key):null;
+  document.getElementById('selBanner').innerHTML=`
+    <span class="sel-dot" style="background:${color}"></span>
+    <div class="sel-info">
+      <div class="sel-name">${name}</div>
+      <div class="sel-sub">
+        ${isLoc?`ישוב במחוז <b style="color:${color}">${d?.name}</b> &nbsp;|&nbsp;`:''}
+        מדד: <b>${last?last.value.toFixed(1):'—'}</b> &nbsp;|&nbsp;
+        שינוי: <b style="color:${(last?.change??0)>=0?'var(--up)':'var(--dn)'}">${fPct(last?.change)}</b> &nbsp;|&nbsp;
+        שנתי: <b style="color:${(last?.yearlyChange??0)>=0?'var(--up)':'var(--dn)'}">${fPct(last?.yearlyChange)}</b>
+      </div>
+      ${isLoc&&ldata?`<div class="sel-note">💡 גרף המדד מציג את מחוז ${d?.name} (הלמ"ס מפרסם מדד ברמת מחוז בלבד)</div>`:''}
     </div>
-    <div class="kpi ${yearlyChange!=null&&yearlyChange>=0?'c-up':'c-dn'}">
-      <div class="kpi-label">שינוי שנתי</div>
-      <div class="kpi-val" style="color:${yearlyChange!=null?col(yearlyChange):'var(--muted)'}">
-        ${yearlyChange!=null?sign(yearlyChange)+yearlyChange.toFixed(2)+'%':'—'}</div>
+    ${ldata?`<div class="sel-prices">
+      <div class="sel-pc"><div class="sel-pc-lbl">3 חד'</div><div class="sel-pc-val">${fP(ldata.rooms3)}</div></div>
+      <div class="sel-pc"><div class="sel-pc-lbl">4 חד'</div><div class="sel-pc-val">${fP(ldata.rooms4)}</div></div>
+      <div class="sel-pc"><div class="sel-pc-lbl">5 חד'</div><div class="sel-pc-val">${fP(ldata.rooms5)}</div></div>
+    </div>`:''}`;
+}
+
+// ══════════════════════════════════════════════════
+// KPIs
+// ══════════════════════════════════════════════════
+function mkKPIs(){
+  const dk=distOfSel();const e=de(dk);if(!e.length){document.getElementById('kpiGrid').innerHTML='';return;}
+  const last=e[e.length-1];const ch=last.change??0;const yc=last.yearlyChange;
+  const fb=e[Math.max(0,e.length-30)];const c5=fb?((last.value-fb.value)/fb.value*100):null;
+  const col=v=>v>=0?'var(--up)':'var(--dn)';
+  document.getElementById('kpiGrid').innerHTML=`
+    <div class="kpi ${ch>=0?'c-up':'c-dn'}">
+      <div class="kpi-lbl">שינוי אחרון</div>
+      <div class="kpi-val" style="color:${col(ch)}">${fPct(ch)}</div>
+      <div class="kpi-sub">תקופה: <b>${pFmt(last.period)}${last.provisional?' *':''}</b></div>
+    </div>
+    <div class="kpi ${yc!=null&&yc>=0?'c-up':'c-dn'}">
+      <div class="kpi-lbl">שינוי שנתי</div>
+      <div class="kpi-val" style="color:${yc!=null?col(yc):'var(--muted)'}">${fPct(yc)}</div>
       <div class="kpi-sub">12 חודשים</div>
     </div>
-    <div class="kpi c-neu">
-      <div class="kpi-label">ערך מדד</div>
-      <div class="kpi-val" style="color:${currentColor()}">${latestIndex.toFixed(1)}</div>
-      <div class="kpi-sub">בסיס: <b>${dKey==='national'?'1994':'2018'}=100</b></div>
+    <div class="kpi c-am">
+      <div class="kpi-lbl">ערך מדד</div>
+      <div class="kpi-val" style="color:${colorOfSel()}">${last.value.toFixed(1)}</div>
+      <div class="kpi-sub">בסיס <b>${dk==='national'?'1994':'2018'}=100</b></div>
     </div>
-    <div class="kpi ${fiveYr!=null&&fiveYr>=0?'c-up':'c-dn'}">
-      <div class="kpi-label">עלייה מצטברת 5y</div>
-      <div class="kpi-val" style="color:${fiveYr!=null?col(fiveYr):'var(--muted)'}">
-        ${fiveYr!=null?sign(fiveYr)+fiveYr.toFixed(1)+'%':'—'}</div>
-      <div class="kpi-sub">5 שנים אחרונות</div>
+    <div class="kpi ${c5!=null&&c5>=0?'c-up':'c-dn'}">
+      <div class="kpi-lbl">מצטבר 5y</div>
+      <div class="kpi-val" style="color:${c5!=null?col(c5):'var(--muted)'}">${fPct(c5,1)}</div>
+      <div class="kpi-sub">5 שנים</div>
     </div>`;
 }
 
-// ── INFO BANNER ───────────────────────────────────────────────────────────────
-function renderInfoSection() {
-  const sec = document.getElementById('infoSection');
-  if (selectedType === 'locality') {
-    const loc = LOCALITIES.find(l=>l.key===selectedKey);
-    const dm = DISTRICTS[loc?.district];
-    sec.innerHTML = `<div class="info-banner">
-      <span>ℹ️</span>
-      <div>
-        <b>${loc?.name}</b> — ישוב ב<b>מחוז ${dm?.name}</b>. 
-        הגרף והמדד מבוססים על נתוני מחוז ${dm?.name} (הלמ"ס לא מפרסם מדד לפי ישוב בודד דרך API).
-        מחירים ממוצעים לפי גודל דירה מוצגים להלן בהתאם לנתוני רשות המיסים.
+// ══════════════════════════════════════════════════
+// MAIN CHART
+// ══════════════════════════════════════════════════
+function mkMainChart(){
+  const dk=distOfSel();const entries=ds(dk);const color=colorOfSel();
+  let yData,yLbl;
+  if(MODE==='change'){yData=entries.map(e=>e.change);yLbl='שינוי %';}
+  else if(MODE==='index'){yData=entries.map(e=>e.value);yLbl='מדד';}
+  else{yData=entries.map(e=>e.yearlyChange);yLbl='שנתי %';}
+  const labels=entries.map(e=>pFmt(e.period));
+  const isBar=CT==='bar'||MODE==='change';
+  const bg=MODE==='index'?color+'55':entries.map(e=>(e[MODE==='change'?'change':'yearlyChange']??0)>=0?'rgba(34,197,94,.65)':'rgba(239,68,68,.65)');
+  document.getElementById('chartTitle').textContent=`מדד — ${nameOfSel()}`;
+  document.getElementById('chartSub').textContent=MODE==='change'?'שינוי דו-חודשי':MODE==='index'?`ערך מדד (${dk==='national'?'1994':'2018'}=100)`:'שינוי שנתי';
+  const last=entries[entries.length-1];const lv=MODE==='change'?last?.change:MODE==='yearly'?last?.yearlyChange:null;
+  const b=document.getElementById('trendBadge');
+  if(lv!=null){b.textContent=fPct(lv);b.style.background=lv>=0?'rgba(34,197,94,.14)':'rgba(239,68,68,.14)';b.style.color=lv>=0?'var(--up)':'var(--dn)';}else b.textContent='';
+  mkChart('mainChart',{type:isBar?'bar':'line',
+    data:{labels,datasets:[{label:yLbl,data:yData,backgroundColor:bg,borderColor:Array.isArray(bg)?undefined:color,borderWidth:isBar?0:2,pointRadius:entries.length>48?0:3,pointHoverRadius:5,fill:!isBar,tension:.3}]},
+    options:dOpts({plugins:{legend:{display:false},tooltip:{rtl:true,textDirection:'rtl',callbacks:{label:ctx=>{const v=ctx.raw;if(v==null)return'';const e2=entries[ctx.dataIndex];const pv=e2?.provisional?'*':'';return MODE==='index'?`מדד: ${v.toFixed(2)}${pv}`:`${v>=0?'+':''}${v.toFixed(3)}%${pv}`;}}}}}),
+  });
+}
+
+// ══════════════════════════════════════════════════
+// PRICE CARDS
+// ══════════════════════════════════════════════════
+function mkPriceCards(){
+  const dk=distOfSel();
+  let p3,p4,p5,pt;
+  if(SEL.type==='locality'){const ldata=lp(SEL.key);p3=ldata?.rooms3;p4=ldata?.rooms4;p5=ldata?.rooms5;pt=ldata?.total;}
+  else{p3=distAvg(dk==='national'?null:dk,'rooms3');p4=distAvg(dk==='national'?null:dk,'rooms4');p5=distAvg(dk==='national'?null:dk,'rooms5');pt=distAvg(dk==='national'?null:dk,'total');}
+  document.getElementById('priceSub').textContent=(DATA?.latestQuarter||'Q3 2025')+' | רשות המיסים';
+  document.getElementById('priceCards').innerHTML=`
+    <div style="background:var(--s2);border:1px solid var(--bdr);border-radius:7px;padding:.6rem .75rem;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;right:0;left:0;height:2px;background:var(--acc2)"></div>
+      <div style="font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">3 חדרים</div>
+      <div style="font-size:1rem;font-weight:800;color:var(--acc2)">${fP(p3)}</div>
+    </div>
+    <div style="background:var(--s2);border:1px solid var(--bdr);border-radius:7px;padding:.6rem .75rem;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;right:0;left:0;height:2px;background:var(--acc2)"></div>
+      <div style="font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">4 חדרים</div>
+      <div style="font-size:1rem;font-weight:800;color:var(--acc2)">${fP(p4)}</div>
+    </div>
+    <div style="background:var(--s2);border:1px solid var(--bdr);border-radius:7px;padding:.6rem .75rem;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;right:0;left:0;height:2px;background:var(--acc2)"></div>
+      <div style="font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">5 חדרים</div>
+      <div style="font-size:1rem;font-weight:800;color:var(--acc2)">${fP(p5)}</div>
+    </div>
+    <div style="background:var(--s2);border:1px solid var(--bdr);border-radius:7px;padding:.6rem .75rem;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;right:0;left:0;height:2px;background:var(--acc3)"></div>
+      <div style="font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">ממוצע</div>
+      <div style="font-size:1rem;font-weight:800;color:var(--acc3)">${fP(pt)}</div>
+    </div>`;
+}
+
+// ══════════════════════════════════════════════════
+// PRICE BAR (localities in selected dist)
+// ══════════════════════════════════════════════════
+function mkPriceBar(){
+  const dk=distOfSel();
+  const locs=dk==='national'?LOCS:LOCS.filter(l=>l.dist===dk);
+  const lb=[],vl=[],cl=[];
+  locs.forEach(l=>{const p=lp(l.key);if(!p||!p[ROOMS])return;lb.push(l.name);vl.push(p[ROOMS]);cl.push((DM[l.dist]?.color||'#3b82f6')+'99');});
+  const rLbl={total:'כלל',rooms3:'3 חד\'',rooms4:'4 חד\'',rooms5:'5 חד\''}[ROOMS];
+  mkChart('priceBarChart',{type:'bar',data:{labels:lb,datasets:[{label:rLbl,data:vl,backgroundColor:cl,borderRadius:3}]},
+    options:dOpts({indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>fP(ctx.raw)}}},
+      scales:{x:{ticks:{font:{size:8},color:'#6b84a8',callback:v=>'₪'+(v/1e6).toFixed(1)+'M'},grid:{color:'rgba(255,255,255,.04)'}},
+              y:{ticks:{font:{size:8},color:'#6b84a8'},grid:{display:false}}}}),});
+}
+
+// ══════════════════════════════════════════════════
+// DIST YEARLY CHART
+// ══════════════════════════════════════════════════
+function mkDistYearlyChart(){
+  const lb=[],vl=[],cl=[];
+  Object.entries(DM).forEach(([k,d])=>{const e=de(k);const last=e[e.length-1];if(!last||last.yearlyChange==null)return;lb.push(d.name);vl.push(last.yearlyChange);cl.push(last.yearlyChange>=0?'rgba(34,197,94,.68)':'rgba(239,68,68,.68)');});
+  mkChart('distChart',{type:'bar',data:{labels:lb,datasets:[{data:vl,backgroundColor:cl,borderRadius:4}]},
+    options:dOpts({plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>fPct(ctx.raw)}}},scales:{x:{ticks:{font:{size:9},color:'#6b84a8'},grid:{display:false}},y:{ticks:{font:{size:9},color:'#6b84a8',callback:v=>v+'%'},grid:{color:'rgba(255,255,255,.04)'}}}}),});
+}
+
+// ══════════════════════════════════════════════════
+// COMPARE CHART
+// ══════════════════════════════════════════════════
+function mkCmpChart(){
+  const keys=CMP_KEYS.length>0?CMP_KEYS:['jerusalem','tel_aviv'];
+  const datasets=[];let allLbls=[];
+  keys.forEach(k=>{const e=ds(k);const l=e.map(x=>pFmt(x.period));if(l.length>allLbls.length)allLbls=l;datasets.push({label:DM[k]?.name||k,data:e.map(x=>x.value),borderColor:DM[k]?.color,backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:.3});});
+  mkChart('cmpChart',{type:'line',data:{labels:allLbls,datasets},
+    options:dOpts({plugins:{legend:{display:true,position:'bottom',labels:{color:'#6b84a8',font:{size:9},boxWidth:10}}},scales:{x:{ticks:{maxTicksLimit:8,font:{size:9},color:'#6b84a8'},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{font:{size:9},color:'#6b84a8'},grid:{color:'rgba(255,255,255,.04)'}}}}),});
+}
+
+// ══════════════════════════════════════════════════
+// TABLE
+// ══════════════════════════════════════════════════
+function mkTable(){
+  const dk=distOfSel();
+  document.getElementById('tblTitle').textContent=`טבלת מדד — ${nameOfSel()}`;
+  const entries=ds(dk).slice().reverse();
+  document.getElementById('tblBody').innerHTML=entries.map(e=>`<tr>
+    <td>${e.provisional?`<span class="tag-p">*</span>`:''}${pFmt(e.period)}</td>
+    <td>${e.value.toFixed(2)}</td>
+    <td class="${(e.change??0)>=0?'up-t':'dn-t'}">${fPct(e.change,3)}</td>
+    <td class="${(e.yearlyChange??0)>=0?'up-t':'dn-t'}">${fPct(e.yearlyChange)}</td>
+    <td style="color:var(--muted)">${e.provisional?'כן':'—'}</td>
+  </tr>`).join('');
+}
+
+// ══════════════════════════════════════════════════
+// OVERVIEW PAGE
+// ══════════════════════════════════════════════════
+let OV_RENDERED=false;
+function renderOverview(){
+  if(OV_RENDERED)return;OV_RENDERED=true;
+  const nat=de('national');const last=nat[nat.length-1];
+  const allP4=Object.values(DATA?.localities||{}).map(l=>l.rooms4).filter(Boolean);
+  const natAvg4=allP4.length?Math.round(allP4.reduce((a,b)=>a+b,0)/allP4.length):null;
+  const maxL=Object.values(DATA?.localities||{}).sort((a,b)=>(b.rooms4||0)-(a.rooms4||0))[0];
+  const minL=Object.values(DATA?.localities||{}).sort((a,b)=>(a.rooms4||0)-(b.rooms4||0))[0];
+  const col=v=>v>=0?'var(--up)':'var(--dn)';
+  document.getElementById('ovStats').innerHTML=`
+    <div class="stat-c"><div class="stat-lbl">שינוי אחרון</div><div class="stat-val" style="color:${col(last?.change??0)}">${fPct(last?.change)}</div><div class="stat-sub">דו-חודשי</div></div>
+    <div class="stat-c"><div class="stat-lbl">שינוי שנתי</div><div class="stat-val" style="color:${col(last?.yearlyChange??0)}">${fPct(last?.yearlyChange)}</div><div class="stat-sub">12 חודש</div></div>
+    <div class="stat-c"><div class="stat-lbl">ממוצע ארצי 4 חד'</div><div class="stat-val" style="color:var(--acc2)">${fP(natAvg4)}</div><div class="stat-sub">Q3 2025</div></div>
+    <div class="stat-c"><div class="stat-lbl">פער יוקר</div><div class="stat-val" style="color:var(--acc3)">${maxL&&minL?Math.round(maxL.rooms4/minL.rooms4*10)/10+'x':'—'}</div><div class="stat-sub">${maxL?.name||''}/${minL?.name||''}</div></div>`;
+  mkOvPriceChart();
+  // Build district+locality list
+  let html='';
+  Object.entries(DM).filter(([k])=>k!=='national').forEach(([dk,d])=>{
+    const e=de(dk);const last=e[e.length-1];const ch=last?.change;const yc=last?.yearlyChange;
+    const locs=LOCS.filter(l=>l.dist===dk);
+    html+=`<div class="ov-dist-block">
+      <div class="ov-dist-hdr" style="cursor:pointer" onclick="selFromOv('${dk}','district')">
+        <span class="ov-dist-color" style="background:${d.color}"></span>
+        <span class="ov-dist-name">${d.name}</span>
+        <div class="ov-dist-kpis">
+          <span class="ov-dist-kpi">שינוי: <b style="color:${(ch??0)>=0?'var(--up)':'var(--dn)'}">${fPct(ch)}</b></span>
+          <span class="ov-dist-kpi">שנתי: <b style="color:${(yc??0)>=0?'var(--up)':'var(--dn)'}">${fPct(yc)}</b></span>
+          <span class="ov-dist-kpi">מדד: <b>${last?.value?.toFixed(1)||'—'}</b></span>
+        </div>
+        <span class="ov-dist-badge ${(ch??0)>=0?'up-b':'dn-b'}">${fPct(ch)}</span>
       </div>
-    </div>`;
-  } else {
-    sec.innerHTML = '';
-  }
-}
-
-// ── AVG PRICE SECTION ─────────────────────────────────────────────────────────
-function renderAvgPrices() {
-  const sec = document.getElementById('avgPriceSection');
-  if (selectedType !== 'locality') { sec.innerHTML=''; return; }
-  const loc = LOCALITIES.find(l=>l.key===selectedKey);
-  if (!loc) { sec.innerHTML=''; return; }
-  const fmt = n => n >= 1000000 ? '₪'+(n/1000000).toFixed(2)+'M' : '₪'+(n/1000).toFixed(0)+'K';
-  sec.innerHTML = `
-    <div class="chart-card">
-      <div class="chart-hdr"><div>
-        <div class="chart-title">מחירים ממוצעים — ${loc.name}</div>
-        <div class="chart-sub">לפי מספר חדרים | מקור: רשות המיסים Q1 2026</div>
-      </div></div>
-      <div class="avg-grid">
-        <div class="avg-card"><div class="rooms">3 חדרים</div><div class="price">${fmt(loc.avg3)}</div><div class="price-sub">ממוצע עסקאות</div></div>
-        <div class="avg-card"><div class="rooms">4 חדרים</div><div class="price">${fmt(loc.avg4)}</div><div class="price-sub">ממוצע עסקאות</div></div>
-        <div class="avg-card"><div class="rooms">5 חדרים</div><div class="price">${fmt(loc.avg5)}</div><div class="price-sub">ממוצע עסקאות</div></div>
-      </div>
-    </div>`;
-}
-
-// ── MAIN CHART ────────────────────────────────────────────────────────────────
-function renderMainChart() {
-  const dKey = currentDistrictKey();
-  const entries = getSliced(dKey);
-  const color = currentColor();
-  const name = currentName();
-
-  let yData, yLabel;
-  if (chartMode === 'change') {
-    yData = entries.map(e => e.change);
-    yLabel = 'שינוי % דו-חודשי';
-  } else if (chartMode === 'index') {
-    yData = entries.map(e => e.value);
-    yLabel = 'ערך מדד';
-  } else {
-    yData = entries.map(e => e.yearlyChange);
-    yLabel = 'שינוי שנתי %';
-  }
-
-  const labels = entries.map(e => formatPeriod(e.period));
-  const isBar = chartType==='bar' || chartMode==='change';
-  const bgArr = chartMode!=='index' ? entries.map(e=>(e[chartMode==='change'?'change':'yearlyChange']??0)>=0?'rgba(34,197,94,.7)':'rgba(239,68,68,.7)') : color+'88';
-
-  document.getElementById('chartTitle').textContent = `מדד מחירי הדירות — ${name}`;
-  document.getElementById('chartSub').textContent =
-    chartMode==='change' ? 'שינוי אחוזי דו-חודשי — נתוני הלמ"ס' :
-    chartMode==='index' ? `ערך מדד (בסיס ${dKey==='national'?'1994':'2018'}=100)` : 'שינוי שנתי אחוזי';
-
-  const lastE = entries[entries.length-1];
-  const lv = chartMode==='change' ? lastE?.change : chartMode==='yearly' ? lastE?.yearlyChange : null;
-  const pill = document.getElementById('trendBadge');
-  if (lv!=null) {
-    pill.textContent = (lv>=0?'+':'')+lv.toFixed(2)+'%';
-    pill.style.background = lv>=0 ? 'rgba(34,197,94,.15)' : 'rgba(239,68,68,.15)';
-    pill.style.color = lv>=0 ? 'var(--up)' : 'var(--dn)';
-  } else pill.textContent='';
-
-  if (mainChart) mainChart.destroy();
-  mainChart = new Chart(document.getElementById('mainChart').getContext('2d'), {
-    type: isBar ? 'bar' : 'line',
-    data: { labels, datasets: [{
-      label: yLabel, data: yData,
-      backgroundColor: bgArr,
-      borderColor: Array.isArray(bgArr) ? undefined : color,
-      borderWidth: isBar?0:2,
-      pointRadius: entries.length>48?0:3, pointHoverRadius:5,
-      fill: !isBar, tension:.3
-    }]},
-    options: {
-      responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{rtl:true,textDirection:'rtl',callbacks:{
-        label: ctx => {
-          const v=ctx.raw; if(v==null)return'אין נתון';
-          const e=entries[ctx.dataIndex]; const p=e?.provisional?'*':'';
-          return chartMode==='index'?`מדד: ${v.toFixed(2)}${p}`:`${v>=0?'+':''}${v.toFixed(3)}%${p}`;
-        }
-      }}},
-      scales:{
-        x:{ticks:{maxTicksLimit:14,font:{size:10},color:'#8899bb'},grid:{color:'rgba(255,255,255,.05)'}},
-        y:{ticks:{font:{size:10},color:'#8899bb',callback:v=>chartMode==='index'?v.toFixed(0):v.toFixed(1)+'%'},
-           grid:{color:'rgba(255,255,255,.06)'},border:{dash:[3,3]}}
-      },animation:{duration:400}
-    }
+      <div class="ov-loc-grid">`;
+    locs.forEach(l=>{
+      const p=lp(l.key);
+      html+=`<div class="ov-loc-card" onclick="selFromOv('${l.key}','locality')">
+        <div class="olc-name">${l.name}</div>
+        <div class="olc-prices">
+          <div class="olc-p"><div class="olc-p-lbl">3</div><div class="olc-p-val">${p?fP(p.rooms3):'—'}</div></div>
+          <div class="olc-p"><div class="olc-p-lbl">4</div><div class="olc-p-val">${p?fP(p.rooms4):'—'}</div></div>
+          <div class="olc-p"><div class="olc-p-lbl">5</div><div class="olc-p-val">${p?fP(p.rooms5):'—'}</div></div>
+        </div>
+      </div>`;
+    });
+    html+='</div></div>';
   });
+  document.getElementById('ovDistList').innerHTML=html;
+}
+function mkOvPriceChart(){
+  const lb=[],vl=[],cl=[];
+  Object.entries(DM).filter(([k])=>k!=='national').forEach(([k,d])=>{const v=distAvg(k,OV_ROOMS);if(!v)return;lb.push(d.name);vl.push(v);cl.push(d.color+'cc');});
+  mkChart('ovPriceChart',{type:'bar',data:{labels:lb,datasets:[{data:vl,backgroundColor:cl,borderRadius:5}]},
+    options:dOpts({plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>fP(ctx.raw)}}},scales:{x:{ticks:{font:{size:10},color:'#6b84a8'},grid:{display:false}},y:{ticks:{font:{size:9},color:'#6b84a8',callback:v=>'₪'+(v/1e6).toFixed(1)+'M'},grid:{color:'rgba(255,255,255,.05)'}}}}),});
+}
+function selFromOv(key,type){
+  SEL={key,type};
+  const dk=type==='district'?key:(LOCS.find(l=>l.key===key)?.dist||'national');
+  DIST_FILTER=dk;
+  document.querySelectorAll('[id^="dp-"]').forEach(b=>b.classList.remove('on'));
+  const el=document.getElementById('dp-'+dk);if(el)el.classList.add('on');
+  renderDash();
+  setTab('dash');
 }
 
-// ── DISTRICT BAR CHART ────────────────────────────────────────────────────────
-function renderDistChart() {
-  const labels=[], values=[], colors=[];
-  for (const [k,d] of Object.entries(DISTRICTS)) {
-    const e=getDistrictEntries(k); const last=e[e.length-1];
-    if(!last||last.yearlyChange==null)continue;
-    labels.push(d.name); values.push(last.yearlyChange);
-    colors.push(last.yearlyChange>=0?'rgba(34,197,94,.7)':'rgba(239,68,68,.7)');
-  }
-  if (distChart) distChart.destroy();
-  distChart = new Chart(document.getElementById('distChart').getContext('2d'),{
-    type:'bar', data:{labels,datasets:[{data:values,backgroundColor:colors,borderRadius:4}]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.raw>=0?'+':''}${ctx.raw.toFixed(2)}%`}}},
-      scales:{x:{ticks:{font:{size:10},color:'#8899bb'},grid:{display:false}},
-              y:{ticks:{font:{size:10},color:'#8899bb',callback:v=>v+'%'},grid:{color:'rgba(255,255,255,.05)'}}},
-      animation:{duration:400}}
-  });
-}
-
-// ── COMPARE CHART ─────────────────────────────────────────────────────────────
-function renderCompareChart() {
-  const keysToShow = compareKeys.length>0 ? compareKeys : ['jerusalem','tel_aviv','south','center'];
-  const datasets=[];
-  let allLabels=[];
-  for (const k of keysToShow) {
-    const entries=getSliced(k);
-    const lbl=entries.map(e=>formatPeriod(e.period));
-    if(lbl.length>allLabels.length) allLabels=lbl;
-    datasets.push({label:DISTRICTS[k]?.name||k,data:entries.map(e=>e.value),
-      borderColor:DISTRICTS[k]?.color,backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:.3});
-  }
-  if (compareChart) compareChart.destroy();
-  compareChart = new Chart(document.getElementById('compareChart').getContext('2d'),{
-    type:'line', data:{labels:allLabels,datasets},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{position:'bottom',labels:{color:'#8899bb',font:{size:9},boxWidth:10}},
-        tooltip:{mode:'index',intersect:false}},
-      scales:{x:{ticks:{maxTicksLimit:8,font:{size:9},color:'#8899bb'},grid:{color:'rgba(255,255,255,.04)'}},
-              y:{ticks:{font:{size:9},color:'#8899bb'},grid:{color:'rgba(255,255,255,.05)'}}},
-      animation:{duration:400}}
-  });
-}
-
-// ── TABLE ─────────────────────────────────────────────────────────────────────
-function renderTable() {
-  const dKey = currentDistrictKey();
-  const name = currentName();
-  document.getElementById('tableTitle').textContent = `טבלת נתונים — ${name}`;
-
-  if (selectedType==='locality') {
-    // For localities: show avg prices table by rooms
-    const loc = LOCALITIES.find(l=>l.key===selectedKey);
-    document.getElementById('tableHead').innerHTML='<th>ישוב</th><th>מחוז</th><th>3 חדרים</th><th>4 חדרים</th><th>5 חדרים</th>';
-    const fmt=n=>'₪'+(n/1000).toFixed(0)+'K';
-    document.getElementById('tableBody').innerHTML=`<tr>
-      <td>${loc.name}</td>
-      <td>${DISTRICTS[loc.district]?.name}</td>
-      <td>${fmt(loc.avg3)}</td>
-      <td>${fmt(loc.avg4)}</td>
-      <td>${fmt(loc.avg5)}</td>
-    </tr>`;
-    // Also append district index table below
-    document.getElementById('tableTitle').textContent = `מחירים ממוצעים + מדד מחוז — ${name}`;
-  }
-
-  // Always show the district index table
-  const entries = getSliced(dKey).slice().reverse();
-  document.getElementById('tableHead').innerHTML='<th>תקופה</th><th>מדד</th><th>שינוי %</th><th>שינוי שנתי %</th>';
-  const sign=v=>v>0?'+':'';
-  const rows = entries.map(e=>{
-    const p=e.provisional?`<span class="tag-p">*</span>`:'';
-    const cc=(v,cls)=>v!=null?`<td class="${cls}">${sign(v)}${v.toFixed(chartMode==='change'?3:2)}%</td>`:`<td>—</td>`;
-    return `<tr class="${e.provisional?'provisional':''}">
-      <td>${p}${formatPeriod(e.period)}</td>
-      <td>${e.value.toFixed(2)}</td>
-      ${cc(e.change,e.change>=0?'up-text':'dn-text')}
-      ${cc(e.yearlyChange,e.yearlyChange>=0?'up-text':'dn-text')}
-    </tr>`;
-  }).join('');
-  document.getElementById('tableBody').innerHTML = rows;
-}
-
-// ── RENDER ALL ────────────────────────────────────────────────────────────────
-function renderAll() {
-  renderKPIs();
-  renderInfoSection();
-  renderMainChart();
-  renderDistChart();
-  renderCompareChart();
-  renderAvgPrices();
-  renderTable();
-}
-
-// ── PDF EXPORT ────────────────────────────────────────────────────────────────
-function openPdfModal(){document.getElementById('pdfModal').classList.add('show')}
-function closePdfModal(){document.getElementById('pdfModal').classList.remove('show')}
-
-async function generatePDF() {
-  closePdfModal();
+// ══════════════════════════════════════════════════
+// PDF
+// ══════════════════════════════════════════════════
+async function genPdf(){
+  document.getElementById('pdfModal').classList.remove('show');
   const {jsPDF}=window.jspdf;
   const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
-  const W=210,M=14; let y=18;
-  const genDate=new Date().toLocaleDateString('he-IL',{year:'numeric',month:'long',day:'numeric'});
-  const dKey=currentDistrictKey();
-  const entries=getDistrictEntries(dKey);
-  const last=entries[entries.length-1];
-  const name=currentName();
-  const distName=DISTRICTS[dKey]?.name||dKey;
+  const W=210,M=14;let y=18;
+  const date=new Date().toLocaleDateString('he-IL',{year:'numeric',month:'long',day:'numeric'});
+  const dk=distOfSel();const name=nameOfSel();const e=de(dk);const last=e[e.length-1];
+  const isLoc=SEL.type==='locality';const ldata=isLoc?lp(SEL.key):null;
 
-  // Header band
-  doc.setFillColor(11,26,56); doc.rect(0,0,W,40,'F');
-  doc.setFillColor(59,130,246); doc.rect(0,38,W,2,'F');
-  doc.setTextColor(240,244,255); doc.setFontSize(17); doc.setFont('helvetica','bold');
-  doc.text('Israel Housing Price Index', W-M, 16, {align:'right'});
-  doc.setFontSize(10); doc.setFont('helvetica','normal');
-  doc.text(`${name}${selectedType==='locality'?` (מחוז ${distName})`:''}`, W-M, 24, {align:'right'});
-  doc.setTextColor(136,153,187); doc.setFontSize(8);
-  doc.text('Source: CBS Israel (api.cbs.gov.il)', W-M, 32, {align:'right'});
-  doc.text('Generated: '+genDate, M, 32);
-  y=50;
+  // Cover
+  doc.setFillColor(8,15,28);doc.rect(0,0,W,40,'F');
+  doc.setFillColor(59,130,246);doc.rect(0,38,W,2,'F');
+  doc.setTextColor(232,238,255);doc.setFontSize(15);doc.setFont('helvetica','bold');
+  doc.text('Israel Housing Price Index',W-M,15,{align:'right'});
+  doc.setFontSize(10);doc.setFont('helvetica','normal');
+  doc.text(name+(isLoc?` | מחוז ${DM[dk]?.name}`:''),W-M,23,{align:'right'});
+  doc.setTextColor(107,132,168);doc.setFontSize(7.5);
+  doc.text('CBS Israel | api.cbs.gov.il',W-M,30,{align:'right'});
+  doc.text('Generated: '+date+' | '+(DATA?.latestQuarter||'Q3 2025'),M,30);
+  y=48;
 
   // KPIs
-  if (document.getElementById('pdf-kpi').checked && last) {
+  if(document.getElementById('pc-kpi').checked&&last){
     const kpis=[
-      {label:'Latest Change',val:(last.change>=0?'+':'')+last.change?.toFixed(2)+'%',color:last.change>=0?[34,197,94]:[239,68,68]},
-      {label:'Annual Change',val:last.yearlyChange!=null?(last.yearlyChange>=0?'+':'')+last.yearlyChange.toFixed(2)+'%':'N/A',color:last.yearlyChange>=0?[34,197,94]:[239,68,68]},
-      {label:'Index Value',val:last.value.toFixed(1),color:[59,130,246]},
-      {label:'Period',val:formatPeriod(last.period)+(last.provisional?' *':''),color:[245,158,11]},
+      {l:'Latest Change',v:fPct(last.change),c:last.change>=0?[34,197,94]:[239,68,68]},
+      {l:'Annual Change',v:fPct(last.yearlyChange),c:(last.yearlyChange??0)>=0?[34,197,94]:[239,68,68]},
+      {l:'Index Value',v:last.value.toFixed(1),c:[59,130,246]},
+      {l:'Period',v:pFmt(last.period)+(last.provisional?' *':''),c:[245,158,11]},
     ];
-    const bW=(W-M*2-6*3)/4;
-    kpis.forEach((k,i)=>{
-      const bx=M+i*(bW+6);
-      doc.setFillColor(17,24,39); doc.roundedRect(bx,y,bW,22,2,2,'F');
-      doc.setFillColor(...k.color); doc.rect(bx,y,bW,2,'F');
-      doc.setFontSize(7); doc.setTextColor(136,153,187); doc.setFont('helvetica','normal');
-      doc.text(k.label,bx+bW/2,y+8,{align:'center'});
-      doc.setFontSize(11); doc.setTextColor(...k.color); doc.setFont('helvetica','bold');
-      doc.text(k.val,bx+bW/2,y+17,{align:'center'});
-    });
-    y+=28;
-    doc.setDrawColor(30,45,69); doc.setLineWidth(.4); doc.line(M,y,W-M,y); y+=4;
+    const bW=(W-M*2-9*3)/4;
+    kpis.forEach((k,i)=>{const bx=M+i*(bW+9);doc.setFillColor(13,21,38);doc.roundedRect(bx,y,bW,22,2,2,'F');doc.setFillColor(...k.c);doc.rect(bx,y,bW,1.5,'F');doc.setFontSize(6.5);doc.setTextColor(107,132,168);doc.setFont('helvetica','normal');doc.text(k.l,bx+bW/2,y+8,{align:'center'});doc.setFontSize(11);doc.setTextColor(...k.c);doc.setFont('helvetica','bold');doc.text(k.v,bx+bW/2,y+17,{align:'center'});});
+    y+=28;doc.setDrawColor(28,45,71);doc.setLineWidth(.3);doc.line(M,y,W-M,y);y+=4;
   }
-
-  // Locality avg prices
-  if (selectedType==='locality' && document.getElementById('pdf-kpi').checked) {
-    const loc=LOCALITIES.find(l=>l.key===selectedKey);
-    if (loc) {
-      doc.setFontSize(9); doc.setTextColor(240,244,255); doc.setFont('helvetica','bold');
-      doc.text(`Average Prices — ${loc.name}`, W-M, y, {align:'right'}); y+=5;
-      const cols3=[{rooms:'3 חדרים',p:loc.avg3},{rooms:'4 חדרים',p:loc.avg4},{rooms:'5 חדרים',p:loc.avg5}];
-      const bW2=(W-M*2-8*2)/3;
-      cols3.forEach((c,i)=>{
-        const bx2=M+i*(bW2+8);
-        doc.setFillColor(26,34,53); doc.roundedRect(bx2,y,bW2,18,2,2,'F');
-        doc.setFontSize(7); doc.setTextColor(136,153,187); doc.setFont('helvetica','normal');
-        doc.text(c.rooms,bx2+bW2/2,y+6,{align:'center'});
-        doc.setFontSize(10); doc.setTextColor(245,158,11); doc.setFont('helvetica','bold');
-        doc.text('₪'+(c.p/1000000).toFixed(2)+'M',bx2+bW2/2,y+14,{align:'center'});
-      });
-      y+=24;
-      doc.setDrawColor(30,45,69); doc.setLineWidth(.4); doc.line(M,y,W-M,y); y+=4;
+  // Prices
+  if(document.getElementById('pc-prices').checked){
+    const p3=isLoc?ldata?.rooms3:distAvg(dk==='national'?null:dk,'rooms3');
+    const p4=isLoc?ldata?.rooms4:distAvg(dk==='national'?null:dk,'rooms4');
+    const p5=isLoc?ldata?.rooms5:distAvg(dk==='national'?null:dk,'rooms5');
+    if(p3||p4||p5){
+      doc.setFontSize(8.5);doc.setTextColor(232,238,255);doc.setFont('helvetica','bold');
+      doc.text('Average Prices by Rooms',W-M,y,{align:'right'});y+=4;
+      [{r:'3 Rooms',p:p3},{r:'4 Rooms',p:p4},{r:'5 Rooms',p:p5}].forEach((c,i)=>{
+        const bx=M+i*((W-M*2-8*2)/3+8);const bW2=(W-M*2-8*2)/3;
+        doc.setFillColor(17,28,48);doc.roundedRect(bx,y,bW2,18,2,2,'F');doc.setFillColor(245,158,11);doc.rect(bx,y,bW2,1.5,'F');
+        doc.setFontSize(7);doc.setTextColor(107,132,168);doc.setFont('helvetica','normal');doc.text(c.r,bx+bW2/2,y+7,{align:'center'});
+        doc.setFontSize(10);doc.setTextColor(245,158,11);doc.setFont('helvetica','bold');doc.text(fP(c.p),bx+bW2/2,y+14,{align:'center'});
+      });y+=24;doc.setDrawColor(28,45,71);doc.line(M,y,W-M,y);y+=4;
     }
   }
-
-  // Charts
-  if (document.getElementById('pdf-chart').checked) {
-    doc.setFontSize(9); doc.setTextColor(240,244,255); doc.setFont('helvetica','bold');
-    doc.text('Price Index Chart', W-M, y, {align:'right'}); y+=3;
-    const imgData=document.getElementById('mainChart').toDataURL('image/png');
-    doc.addImage(imgData,'PNG',M,y,W-M*2,60); y+=65;
-    doc.setDrawColor(30,45,69); doc.line(M,y,W-M,y); y+=4;
+  // Chart
+  if(document.getElementById('pc-chart').checked){
+    doc.setFontSize(8);doc.setTextColor(232,238,255);doc.setFont('helvetica','bold');
+    doc.text('Price Index Chart',W-M,y,{align:'right'});y+=2;
+    doc.addImage(document.getElementById('mainChart').toDataURL('image/png'),'PNG',M,y,W-M*2,56);y+=60;
+    doc.setDrawColor(28,45,71);doc.line(M,y,W-M,y);y+=4;
   }
-
-  if (document.getElementById('pdf-compare').checked) {
-    doc.setFontSize(9); doc.setTextColor(240,244,255); doc.setFont('helvetica','bold');
-    doc.text('District Comparison', W-M, y, {align:'right'}); y+=3;
-    const img2=document.getElementById('compareChart').toDataURL('image/png');
-    doc.addImage(img2,'PNG',M,y,W-M*2,48); y+=54;
-    doc.setDrawColor(30,45,69); doc.line(M,y,W-M,y); y+=4;
+  // Compare
+  if(document.getElementById('pc-cmp').checked){
+    doc.setFontSize(8);doc.setTextColor(232,238,255);doc.setFont('helvetica','bold');
+    doc.text('District Comparison',W-M,y,{align:'right'});y+=2;
+    doc.addImage(document.getElementById('cmpChart').toDataURL('image/png'),'PNG',M,y,W-M*2,42);y+=46;
+    doc.setDrawColor(28,45,71);doc.line(M,y,W-M,y);y+=4;
   }
-
   // Table
-  if (document.getElementById('pdf-table').checked) {
-    doc.addPage(); y=18;
-    doc.setFontSize(11); doc.setTextColor(59,130,246); doc.setFont('helvetica','bold');
-    doc.text(`Data Table — ${name}`, W-M, y, {align:'right'}); y+=5;
-    doc.setDrawColor(30,50,90); doc.setLineWidth(.4); doc.line(M,y,W-M,y); y+=4;
-
+  if(document.getElementById('pc-table').checked){
+    doc.addPage();y=18;
+    doc.setFontSize(10);doc.setTextColor(59,130,246);doc.setFont('helvetica','bold');
+    doc.text('Data Table — '+name,W-M,y,{align:'right'});y+=5;
+    doc.setDrawColor(28,45,71);doc.line(M,y,W-M,y);y+=4;
     const rv=document.getElementById('pdf-range').value;
-    let tEntries=getDistrictEntries(dKey).slice().reverse();
-    if(rv!=='all') tEntries=tEntries.slice(0,parseInt(rv));
-
-    const cols=[{l:'Period',w:35},{l:'Index',w:30},{l:'Change %',w:35},{l:'Annual %',w:35}];
-    const tW=cols.reduce((a,c)=>a+c.w,0);
-    const sx=W-M-tW;
-    doc.setFillColor(17,24,39); doc.rect(sx,y,tW,7,'F');
-    doc.setFontSize(7); doc.setTextColor(136,153,187); doc.setFont('helvetica','bold');
-    let cx=sx; cols.forEach(c=>{doc.text(c.l,cx+c.w/2,y+5,{align:'center'});cx+=c.w;}); y+=7;
+    let tE=de(dk).slice().reverse();if(rv!=='all')tE=tE.slice(0,parseInt(rv));
+    const cols=[{l:'Period',w:36},{l:'Index',w:28},{l:'Change %',w:32},{l:'Annual %',w:32},{l:'Prov.',w:18}];
+    const tW=cols.reduce((a,c)=>a+c.w,0);const sx=W-M-tW;
+    doc.setFillColor(13,21,38);doc.rect(sx,y,tW,7,'F');
+    doc.setFontSize(6.5);doc.setTextColor(107,132,168);doc.setFont('helvetica','bold');
+    let cx=sx;cols.forEach(c=>{doc.text(c.l,cx+c.w/2,y+5,{align:'center'});cx+=c.w;});y+=7;
     doc.setFont('helvetica','normal');
-    tEntries.forEach((e,i)=>{
-      if(y>270){doc.addPage();y=18;}
-      doc.setFillColor(...(i%2===0?[17,24,39]:[20,28,46])); doc.rect(sx,y,tW,6,'F');
-      const cells=[
-        {t:formatPeriod(e.period)+(e.provisional?' *':''),c:[240,244,255]},
-        {t:e.value.toFixed(2),c:[240,244,255]},
-        {t:e.change!=null?(e.change>=0?'+':'')+e.change.toFixed(3)+'%':'—',c:e.change!=null&&e.change>=0?[34,197,94]:[239,68,68]},
-        {t:e.yearlyChange!=null?(e.yearlyChange>=0?'+':'')+e.yearlyChange.toFixed(2)+'%':'—',c:e.yearlyChange!=null&&e.yearlyChange>=0?[34,197,94]:[239,68,68]},
-      ];
-      let cx2=sx; doc.setFontSize(7.5);
-      cells.forEach((cell,ci)=>{doc.setTextColor(...cell.c);doc.text(cell.t,cx2+cols[ci].w/2,y+4.5,{align:'center'});cx2+=cols[ci].w;});
-      y+=6;
+    tE.forEach((e2,i)=>{
+      if(y>272){doc.addPage();y=14;}
+      doc.setFillColor(...(i%2===0?[13,21,38]:[16,26,44]));doc.rect(sx,y,tW,5.5,'F');
+      [{t:pFmt(e2.period)+(e2.provisional?' *':''),c:[232,238,255]},{t:e2.value.toFixed(2),c:[232,238,255]},{t:fPct(e2.change,3),c:(e2.change??0)>=0?[34,197,94]:[239,68,68]},{t:fPct(e2.yearlyChange),c:(e2.yearlyChange??0)>=0?[34,197,94]:[239,68,68]},{t:e2.provisional?'*':'—',c:[107,132,168]}]
+        .forEach((cell,ci)=>{doc.setTextColor(...cell.c);doc.setFontSize(7);doc.text(cell.t,sx+cols.slice(0,ci).reduce((a,c)=>a+c.w,0)+cols[ci].w/2,y+4,{align:'center'});});
+      y+=5.5;
     });
-    y+=8;
-    doc.setFontSize(7); doc.setTextColor(136,153,187);
-    doc.text('* Provisional. Source: CBS Israel. For official data: cbs.gov.il',M,y);
+    y+=8;doc.setFontSize(6.5);doc.setTextColor(107,132,168);doc.text('* Provisional. Source: CBS Israel. cbs.gov.il',M,y);
   }
-
-  const fn=`housing-${selectedKey}-${new Date().toISOString().slice(0,10)}.pdf`;
-  doc.save(fn);
+  doc.save(`housing-${SEL.key}-${new Date().toISOString().slice(0,10)}.pdf`);
 }
 
-// ── UTILS ─────────────────────────────────────────────────────────────────────
-function formatPeriod(p) {
-  if(!p)return'';
-  const[mm,yyyy]=p.split('-');
-  const m=['','ינו','פבר','מרץ','אפר','מאי','יוני','יול','אוג','ספט','אוק','נוב','דצמ'];
-  return(m[parseInt(mm)]||mm)+" '"+yyyy.slice(2);
-}
-
-function refreshData(){document.getElementById('loadingOverlay').classList.remove('hidden');setTimeout(()=>init(),100)}
-
-// ── INIT ──────────────────────────────────────────────────────────────────────
-async function init() {
-  await loadData();
-  renderList();
-  buildCompareCheckboxes();
-  renderAll();
-  document.getElementById('loadingOverlay').classList.add('hidden');
-  if (DATA?.generated) {
-    const d=new Date(DATA.generated);
-    document.getElementById('lastUpdatedLabel').textContent='עודכן '+d.toLocaleDateString('he-IL',{year:'numeric',month:'long',day:'numeric'});
-  }
-}
 init();
 </script>
 </body>
