@@ -2,11 +2,13 @@ name: Update Housing Index Data
 
 on:
   schedule:
-    # Run on the 15th of every month at 19:00 Israel time (UTC+3 → 16:00 UTC)
+    # 15th of month at 19:00 Israel time (16:00 UTC)
     - cron: '0 16 15 * *'
-    # Also run on the 16th as backup (in case of holidays/delays)
+    # 16th backup
     - cron: '0 6 16 * *'
-  workflow_dispatch: # Allow manual trigger
+    # 1st of each quarter for locality price update (Feb, May, Aug, Nov)
+    - cron: '0 10 1 2,5,8,11 *'
+  workflow_dispatch:
   push:
     branches: [ main ]
 
@@ -27,6 +29,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install dependencies
+        run: npm install xlsx --prefix /tmp/xlsxpkg
+
       - name: Fetch CBS Data
         run: node src/fetch-data.js
         env:
@@ -37,7 +42,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add data/
-          git diff --staged --quiet || git commit -m "📊 Update housing index data - $(date +'%Y-%m-%d')"
+          git diff --staged --quiet || git commit -m "📊 Update housing data - $(date +'%Y-%m-%d')"
           git push
 
       - name: Deploy to GitHub Pages
