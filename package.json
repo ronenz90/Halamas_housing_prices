@@ -1,0 +1,12 @@
+{
+  "name": "israel-housing-price-index",
+  "version": "1.0.0",
+  "description": "Israel CBS Housing Price Index Dashboard — GitHub Pages",
+  "scripts": {
+    "fetch": "node src/fetch-data.js",
+    "dev": "npx serve . -p 3000"
+  },
+  "engines": { "node": ">=18" },
+  "keywords": ["israel","housing","cbs","real-estate","dashboard"],
+  "license": "MIT"
+}

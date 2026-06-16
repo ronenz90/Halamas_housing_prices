@@ -1,0 +1,77 @@
+{
+  "generated": "2026-06-16T04:50:23.262Z",
+  "source": "הלשכה המרכזית לסטטיסטיקה (CBS) — api.cbs.gov.il",
+  "methodology": "Bi-monthly index. Last 3 values are provisional (marked with *).",
+  "indices": {
+    "national": {
+      "key": "national",
+      "meta": {
+        "id": 40010,
+        "name": "ארצי",
+        "nameEn": "National"
+      },
+      "entries": [],
+      "lastUpdated": "2026-06-16T04:50:18.087Z"
+    },
+    "jerusalem": {
+      "key": "jerusalem",
+      "meta": {
+        "id": 60000,
+        "name": "ירושלים",
+        "nameEn": "Jerusalem"
+      },
+      "entries": [],
+      "lastUpdated": "2026-06-16T04:50:18.859Z"
+    },
+    "north": {
+      "key": "north",
+      "meta": {
+        "id": 60100,
+        "name": "צפון",
+        "nameEn": "North"
+      },
+      "entries": [],
+      "lastUpdated": "2026-06-16T04:50:19.624Z"
+    },
+    "haifa": {
+      "key": "haifa",
+      "meta": {
+        "id": 60200,
+        "name": "חיפה",
+        "nameEn": "Haifa"
+      },
+      "entries": [],
+      "lastUpdated": "2026-06-16T04:50:20.425Z"
+    },
+    "center": {
+      "key": "center",
+      "meta": {
+        "id": 60300,
+        "name": "מרכז",
+        "nameEn": "Center"
+      },
+      "entries": [],
+      "lastUpdated": "2026-06-16T04:50:21.201Z"
+    },
+    "tel_aviv": {
+      "key": "tel_aviv",
+      "meta": {
+        "id": 60400,
+        "name": "תל אביב",
+        "nameEn": "Tel Aviv"
+      },
+      "entries": [],
+      "lastUpdated": "2026-06-16T04:50:21.971Z"
+    },
+    "south": {
+      "key": "south",
+      "meta": {
+        "id": 60500,
+        "name": "דרום",
+        "nameEn": "South"
+      },
+      "entries": [],
+      "lastUpdated": "2026-06-16T04:50:22.761Z"
+    }
+  }
+}
