@@ -1,7 +1,7 @@
 {
-  "generated": "2026-05-15T16:30:00.000Z",
+  "generated": "2026-06-16T12:33:28.151Z",
   "_note": "Seeded with real CBS data. Will be overwritten by GitHub Actions on the 15th of each month.",
-  "source": "הלשכה המרכזית לסטטיסטיקה (CBS) — api.cbs.gov.il",
+  "source": "הלשכה המרכזית לסטטיסטיקה (CBS)",
   "methodology": "Bi-monthly index. Last 3 values are provisional (marked *).",
   "indices": {
     "national": {
@@ -3399,5 +3399,6 @@
       "total": 1560000,
       "quarter": "Q3 2025"
     }
-  }
+  },
+  "workerUrl": "direct"
 }
