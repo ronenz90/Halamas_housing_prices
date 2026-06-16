@@ -1,7 +1,10 @@
 {
-  "generated": "2026-06-16T05:34:57.139Z",
-  "source": "הלשכה המרכזית לסטטיסטיקה (CBS) — api.cbs.gov.il",
-  "methodology": "Bi-monthly index. Last 3 values are provisional (marked with *).",
+  "generated": "2026-06-16T05:35:44.423Z",
+  "source": "הלשכה המרכזית לסטטיסטיקה (CBS)",
+  "indexSource": "api.cbs.gov.il — bi-monthly district index",
+  "priceSource": "https://www.cbs.gov.il/he/mediarelease/Madad/DocLib/2025/086/10_25_086t3.xls",
+  "latestQuarter": "cached",
+  "methodology": "Index: bi-monthly hedonic. Prices: quarterly average by rooms. Last 3 index values provisional.",
   "indices": {
     "national": {
       "key": "national",
@@ -11,7 +14,7 @@
         "nameEn": "National"
       },
       "entries": [],
-      "lastUpdated": "2026-06-16T05:34:52.121Z"
+      "error": "empty response"
     },
     "jerusalem": {
       "key": "jerusalem",
@@ -21,7 +24,7 @@
         "nameEn": "Jerusalem"
       },
       "entries": [],
-      "lastUpdated": "2026-06-16T05:34:52.885Z"
+      "error": "empty response"
     },
     "north": {
       "key": "north",
@@ -31,7 +34,7 @@
         "nameEn": "North"
       },
       "entries": [],
-      "lastUpdated": "2026-06-16T05:34:53.625Z"
+      "error": "empty response"
     },
     "haifa": {
       "key": "haifa",
@@ -41,7 +44,7 @@
         "nameEn": "Haifa"
       },
       "entries": [],
-      "lastUpdated": "2026-06-16T05:34:54.384Z"
+      "error": "empty response"
     },
     "center": {
       "key": "center",
@@ -51,7 +54,7 @@
         "nameEn": "Center"
       },
       "entries": [],
-      "lastUpdated": "2026-06-16T05:34:55.144Z"
+      "error": "empty response"
     },
     "tel_aviv": {
       "key": "tel_aviv",
@@ -61,7 +64,7 @@
         "nameEn": "Tel Aviv"
       },
       "entries": [],
-      "lastUpdated": "2026-06-16T05:34:55.890Z"
+      "error": "empty response"
     },
     "south": {
       "key": "south",
@@ -71,7 +74,8 @@
         "nameEn": "South"
       },
       "entries": [],
-      "lastUpdated": "2026-06-16T05:34:56.638Z"
+      "error": "empty response"
     }
-  }
+  },
+  "localities": {}
 }
